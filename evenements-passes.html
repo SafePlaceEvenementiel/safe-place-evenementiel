@@ -102,20 +102,9 @@ button{font-family:inherit;cursor:pointer;border:none;}
 .ep-item:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
 .ep-item img,.ep-item video{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
 .ep-item:hover img{transform:scale(1.04);}
-.ep-item video{cursor:pointer;pointer-events:none;}
-
-/* Badge vidéo */
-.ep-item.is-video::before{
-  content:'▶';
-  position:absolute;top:10px;right:10px;z-index:2;
-  background:rgba(26,8,0,.6);color:white;
-  font-size:10px;padding:4px 8px;border-radius:8px;
-  pointer-events:none;
-}
-
 /* Overlay hover sur les photos */
 .ep-item-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,8,0,.45) 0%,transparent 60%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:12px;pointer-events:none;}
-.ep-item:not(.is-video):hover .ep-item-overlay{opacity:1;}
+.ep-item:hover .ep-item-overlay{opacity:1;}
 .ep-item-overlay span{color:white;font-size:11px;font-weight:700;}
 
 /* ── LIGHTBOX ── */
@@ -278,9 +267,6 @@ button{font-family:inherit;cursor:pointer;border:none;}
         <img src="imgs/ev-savon-2.jpg" alt="Atelier Fabrication Savon Naturel" loading="lazy">
         <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
       </div>
-      <div class="ep-item is-video" data-video="imgs/ev-savon.mp4">
-        <video src="imgs/ev-savon.mp4" muted loop playsinline style="cursor:default"></video>
-      </div>
     </div>
   </div>
 
@@ -295,15 +281,6 @@ button{font-family:inherit;cursor:pointer;border:none;}
       <div class="ep-item" data-src="imgs/ev-perles-1.jpg" data-caption="Apéro Créatif — Cadre Photo en Perles à Repasser · Mars 2026">
         <img src="imgs/ev-perles-1.jpg" alt="Cadre photo en perles à repasser" loading="lazy">
         <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
-      </div>
-      <div class="ep-item is-video" data-video="imgs/ev-perles-1.mp4">
-        <video src="imgs/ev-perles-1.mp4" muted loop playsinline style="cursor:default"></video>
-      </div>
-      <div class="ep-item is-video" data-video="imgs/ev-perles-2.mp4">
-        <video src="imgs/ev-perles-2.mp4" muted loop playsinline style="cursor:default"></video>
-      </div>
-      <div class="ep-item is-video" data-video="imgs/ev-perles-3.mp4">
-        <video src="imgs/ev-perles-3.mp4" muted loop playsinline style="cursor:default"></video>
       </div>
     </div>
   </div>
@@ -331,12 +308,6 @@ button{font-family:inherit;cursor:pointer;border:none;}
       <div class="ep-item" data-src="imgs/ev-masque-4.jpg" data-caption="Atelier Famille — Fabrication de Masque Carnaval · Février 2026">
         <img src="imgs/ev-masque-4.jpg" alt="Atelier Famille Masque Carnaval" loading="lazy">
         <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
-      </div>
-      <div class="ep-item is-video" data-video="imgs/ev-masque-1.mp4">
-        <video src="imgs/ev-masque-1.mp4" muted loop playsinline style="cursor:default"></video>
-      </div>
-      <div class="ep-item is-video" data-video="imgs/ev-masque-2.mp4">
-        <video src="imgs/ev-masque-2.mp4" muted loop playsinline style="cursor:default"></video>
       </div>
     </div>
   </div>
@@ -373,15 +344,6 @@ button{font-family:inherit;cursor:pointer;border:none;}
         <img src="imgs/ev-famille-magnets-6.jpg" alt="Atelier Famille Magnets" loading="lazy">
         <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
       </div>
-      <div class="ep-item is-video" data-video="imgs/ev-famille-magnets.mp4">
-        <video src="imgs/ev-famille-magnets.mp4" muted loop playsinline style="cursor:default"></video>
-      </div>
-      <div class="ep-item is-video" data-video="imgs/ev-famille-magnets-2.mp4">
-        <video src="imgs/ev-famille-magnets-2.mp4" muted loop playsinline style="cursor:default"></video>
-      </div>
-      <div class="ep-item is-video" data-video="imgs/ev-famille-magnets-3.mp4">
-        <video src="imgs/ev-famille-magnets-3.mp4" muted loop playsinline style="cursor:default"></video>
-      </div>
     </div>
   </div>
 
@@ -405,9 +367,6 @@ button{font-family:inherit;cursor:pointer;border:none;}
         <img src="imgs/ev-apero-magnets-3.jpg" alt="Apéro Magnets" loading="lazy">
         <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
       </div>
-      <div class="ep-item is-video" data-video="imgs/ev-apero-magnets.mp4">
-        <video src="imgs/ev-apero-magnets.mp4" muted loop playsinline style="cursor:default"></video>
-      </div>
     </div>
   </div>
 
@@ -422,9 +381,6 @@ button{font-family:inherit;cursor:pointer;border:none;}
       <div class="ep-item" data-src="imgs/ev-vision-board-2026.jpg" data-caption="Apéro Créatif — Vision Board · Janvier 2026">
         <img src="imgs/ev-vision-board-2026.jpg" alt="Vision Board" loading="lazy">
         <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
-      </div>
-      <div class="ep-item is-video" data-video="imgs/ev-vision-board-2026.mp4">
-        <video src="imgs/ev-vision-board-2026.mp4" muted loop playsinline style="cursor:default"></video>
       </div>
     </div>
   </div>
@@ -463,9 +419,6 @@ button{font-family:inherit;cursor:pointer;border:none;}
       <div class="ep-item" data-src="imgs/ev-marche-noel-2.jpg" data-caption="Marché de Noël · Décembre 2025">
         <img src="imgs/ev-marche-noel-2.jpg" alt="Marché de Noël" loading="lazy">
         <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
-      </div>
-      <div class="ep-item is-video" data-video="imgs/ev-marche-noel.mp4">
-        <video src="imgs/ev-marche-noel.mp4" muted loop playsinline style="cursor:default"></video>
       </div>
     </div>
   </div>
@@ -516,9 +469,6 @@ button{font-family:inherit;cursor:pointer;border:none;}
       <span class="ep-event-date">Septembre 2025</span>
     </div>
     <div class="ep-grid g1">
-      <div class="ep-item is-video" data-video="imgs/ev-paillasson.mp4">
-        <video src="imgs/ev-paillasson.mp4" muted loop playsinline style="cursor:default"></video>
-      </div>
     </div>
   </div>
 
@@ -556,9 +506,6 @@ button{font-family:inherit;cursor:pointer;border:none;}
       <div class="ep-item" data-src="imgs/ev-body-painting-3.jpg" data-caption="Apéro Créatif — Body Painting · Août 2025">
         <img src="imgs/ev-body-painting-3.jpg" alt="Body Painting" loading="lazy">
         <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
-      </div>
-      <div class="ep-item is-video" data-video="imgs/ev-body-painting.mp4">
-        <video src="imgs/ev-body-painting.mp4" muted loop playsinline style="cursor:default"></video>
       </div>
     </div>
   </div>
@@ -666,9 +613,6 @@ button{font-family:inherit;cursor:pointer;border:none;}
         <img src="imgs/ev-journaling-3.jpg" alt="Journaling" loading="lazy">
         <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
       </div>
-      <div class="ep-item is-video" data-video="imgs/ev-journaling.mp4">
-        <video src="imgs/ev-journaling.mp4" muted loop playsinline style="cursor:default"></video>
-      </div>
     </div>
   </div>
 
@@ -687,9 +631,6 @@ button{font-family:inherit;cursor:pointer;border:none;}
       <div class="ep-item" data-src="imgs/ev-vision-board-2025-2.jpg" data-caption="Atelier Vision Board · Février 2025">
         <img src="imgs/ev-vision-board-2025-2.jpg" alt="Vision Board" loading="lazy">
         <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
-      </div>
-      <div class="ep-item is-video" data-video="imgs/ev-vision-board-2025.mp4">
-        <video src="imgs/ev-vision-board-2025.mp4" muted loop playsinline style="cursor:default"></video>
       </div>
     </div>
   </div>
@@ -756,7 +697,6 @@ button{font-family:inherit;cursor:pointer;border:none;}
   <button class="lb-btn" id="lbPrev">←</button>
   <div class="lightbox-inner">
     <img id="lbImg" src="" alt="" style="display:none;">
-    <video id="lbVideo" src="" controls playsinline style="display:none;max-width:90vw;max-height:82vh;border-radius:14px;box-shadow:0 32px 80px rgba(0,0,0,.5);"></video>
     <p class="lightbox-caption" id="lbCaption"></p>
   </div>
   <button class="lb-btn" id="lbNext">→</button>
@@ -781,10 +721,9 @@ document.querySelectorAll('.filter-btn').forEach(function(btn){
   });
 });
 
-/* ── Lightbox (photos + vidéos) ── */
+/* ── Lightbox (photos) ── */
 var lb=document.getElementById('lightbox');
 var lbImg=document.getElementById('lbImg');
-var lbVideo=document.getElementById('lbVideo');
 var lbCap=document.getElementById('lbCaption');
 var lbPrev=document.getElementById('lbPrev');
 var lbNext=document.getElementById('lbNext');
@@ -794,25 +733,7 @@ var cur=0;
 // Indexer tous les ep-item dans l'ordre du DOM
 document.querySelectorAll('.ep-item').forEach(function(item){
   var idx=items.length;
-  if(item.classList.contains('is-video')){
-    var src=item.dataset.video;
-    if(!src) return;
-    // Dériver la caption depuis le header de l'événement parent
-    var cap='';
-    var evEl=item.closest('.ep-event');
-    if(evEl){
-      var typeEl=evEl.querySelector('.ep-event-type');
-      var titleEl=evEl.querySelector('.ep-event-title');
-      var dateEl=evEl.querySelector('.ep-event-date');
-      var parts=[];
-      if(typeEl) parts.push(typeEl.textContent.trim().replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu,'').trim());
-      if(titleEl) parts.push(titleEl.textContent.trim());
-      cap=parts.join(' — ')+(dateEl?' · '+dateEl.textContent.trim():'');
-    }
-    items.push({type:'video',src:src,cap:cap});
-  } else {
-    items.push({type:'photo',src:item.dataset.src,cap:item.dataset.caption||''});
-  }
+  items.push({src:item.dataset.src,cap:item.dataset.caption||''});
   item.style.cursor='pointer';
   item.addEventListener('click',function(e){
     cur=idx; openLb(idx);
@@ -821,22 +742,7 @@ document.querySelectorAll('.ep-item').forEach(function(item){
 
 function openLb(i){
   var it=items[i]; if(!it) return;
-  // Pause toutes les vidéos inline
-  document.querySelectorAll('.ep-item video').forEach(function(v){ v.pause(); });
-
-  if(it.type==='video'){
-    lbImg.style.display='none';
-    lbVideo.style.display='block';
-    lbVideo.src=it.src;
-    lbVideo.currentTime=0;
-    lbVideo.oncanplay=function(){
-      lbVideo.play().catch(function(){});
-      lbVideo.oncanplay=null;
-    };
-  } else {
-    lbVideo.pause(); lbVideo.src=''; lbVideo.style.display='none';
-    lbImg.style.display='block'; lbImg.src=it.src; lbImg.alt=it.cap;
-  }
+  lbImg.style.display='block'; lbImg.src=it.src; lbImg.alt=it.cap;
   // Flèches : actives pour tous les items (photos + vidéos)
   lbPrev.style.opacity=i>0?'1':'0.3'; lbPrev.style.pointerEvents=i>0?'all':'none';
   lbNext.style.opacity=i<items.length-1?'1':'0.3'; lbNext.style.pointerEvents=i<items.length-1?'all':'none';
@@ -846,10 +752,9 @@ function openLb(i){
 
 function closeLb(){
   lb.classList.remove('open'); document.body.style.overflow='';
-  lbVideo.pause(); lbVideo.oncanplay=null; lbVideo.src=''; lbImg.src='';
+  lbImg.src='';
   lbPrev.style.opacity='1'; lbPrev.style.pointerEvents='all';
   lbNext.style.opacity='1'; lbNext.style.pointerEvents='all';
-  document.querySelectorAll('.ep-item video').forEach(function(v){ v.play().catch(function(){}); });
 }
 
 document.getElementById('lbClose').addEventListener('click',closeLb);
