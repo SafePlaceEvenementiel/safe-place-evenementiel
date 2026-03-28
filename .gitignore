@@ -2,6 +2,9 @@
 Evènements/
 Évènements/
 
+# Grosses vidéos (>50Mo, héberger sur YouTube/Vimeo à la place)
+imgs/ev-perles-3.mp4
+
 # Fichiers système Mac
 .DS_Store
 **/.DS_Store
