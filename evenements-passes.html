@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nos souvenirs — Safe Place Événementiel</title>
+<meta name="description" content="Revivez tous les moments partagés lors de nos apéros créatifs, ateliers famille et week-ends bien-être sur la Côte d'Opale.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;0,800;0,900;1,700;1,800;1,900&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --o:#ff9430; --od:#d97220; --ol:#ffb366; --op:#fff4ea;
+  --p:#fd2c82; --pd:#d91a6a; --pl:#ff6aab; --pp:#fff0f7;
+  --w:#ffffff; --bg:#fffaf6; --t:#1a0800; --ts:#7a3d1a;
+  --border:rgba(253,44,130,.14);
+  --shadow-sm:0 2px 12px rgba(0,0,0,.06);
+  --shadow-md:0 8px 28px rgba(0,0,0,.10);
+  --shadow-lg:0 20px 56px rgba(0,0,0,.14);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--t);overflow-x:hidden;font-size:15px;line-height:1.7;}
+a{text-decoration:none;color:inherit;}
+img,video{max-width:100%;display:block;}
+button{font-family:inherit;cursor:pointer;border:none;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.reveal{opacity:0;transform:translateY(24px);transition:all .6s cubic-bezier(.4,0,.2,1);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;width:100%;z-index:500;height:72px;background:rgba(255,148,48,.97);backdrop-filter:blur(16px);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;padding:0 32px;box-shadow:0 4px 24px rgba(255,148,48,.35);}
+.nav-logo{grid-column:2;display:flex;align-items:center;justify-content:center;}
+.nav-badge{height:52px;width:auto;}
+.nav-badge img{height:100%;width:auto;object-fit:contain;display:block;}
+.nav-links-left,.nav-links-right{display:flex;align-items:center;gap:28px;list-style:none;white-space:nowrap;}
+.nav-links-left{grid-column:1;justify-self:start;}
+.nav-links-right{grid-column:3;justify-self:end;}
+.nav-links-left a,.nav-links-right a{font-size:13px;font-weight:700;color:var(--p);letter-spacing:.06em;text-transform:uppercase;transition:color .2s;}
+.nav-links-left a:hover,.nav-links-right a:hover{color:white;}
+.nav-cta{background:var(--p);color:white!important;padding:10px 24px;border-radius:30px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 4px 16px rgba(253,44,130,.4);transition:all .25s;}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(253,44,130,.5);}
+.nav-burger{display:none;background:none;border:none;grid-column:3;justify-self:end;width:36px;height:36px;flex-direction:column;align-items:center;justify-content:center;gap:6px;}
+.nav-burger span{display:block;width:24px;height:2.5px;background:var(--p);border-radius:2px;transition:all .3s;}
+
+/* ── HERO ── */
+.ep-hero{background:var(--o);padding:136px 24px 72px;text-align:center;position:relative;overflow:hidden;}
+.ep-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 15% 85%,rgba(253,44,130,.18) 0%,transparent 50%),radial-gradient(circle at 85% 15%,rgba(255,255,255,.1) 0%,transparent 45%);pointer-events:none;}
+.ep-star{position:absolute;color:var(--p);opacity:.22;font-size:28px;animation:floaty 4s ease-in-out infinite;pointer-events:none;}
+.ep-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--p);color:white;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:8px 20px;border-radius:30px;margin-bottom:22px;box-shadow:0 4px 16px rgba(253,44,130,.4);animation:fadeUp .7s ease-out;}
+.ep-hero h1{font-family:'Nunito',sans-serif;font-weight:900;font-style:italic;font-size:clamp(34px,5vw,64px);line-height:1.06;color:white;text-shadow:3px 3px 0 rgba(0,0,0,.07);margin-bottom:14px;animation:fadeUp .8s ease-out .1s both;}
+.ep-hero h1 .pink{color:var(--p);}
+.ep-hero p{font-size:16px;color:rgba(255,255,255,.88);max-width:500px;margin:0 auto 40px;animation:fadeUp .8s ease-out .2s both;}
+.ep-counter{display:inline-flex;gap:32px;background:rgba(255,255,255,.15);backdrop-filter:blur(10px);border-radius:18px;padding:18px 36px;animation:fadeUp .8s ease-out .3s both;}
+.ep-count-num{font-family:'Nunito',sans-serif;font-weight:900;font-style:italic;font-size:32px;color:white;display:block;}
+.ep-count-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.7);}
+
+/* ── FILTRES ── */
+.filter-section{background:white;box-shadow:0 4px 24px rgba(0,0,0,.06);position:sticky;top:72px;z-index:100;padding:0 24px;}
+.filter-bar{max-width:1200px;margin:0 auto;display:flex;gap:8px;align-items:center;padding:14px 0;overflow-x:auto;scrollbar-width:none;}
+.filter-bar::-webkit-scrollbar{display:none;}
+.filter-btn{flex-shrink:0;padding:8px 18px;border-radius:30px;font-size:13px;font-weight:700;border:2px solid var(--border);background:transparent;color:var(--ts);transition:all .22s;white-space:nowrap;}
+.filter-btn:hover{border-color:var(--p);color:var(--p);}
+.filter-btn.active{color:white;box-shadow:0 4px 14px rgba(0,0,0,.2);}
+.filter-btn[data-filter="all"].active   {background:var(--p);border-color:var(--p);}
+.filter-btn[data-filter="apero"].active  {background:var(--p);border-color:var(--p);}
+.filter-btn[data-filter="famille"].active{background:var(--o);border-color:var(--o);}
+.filter-btn[data-filter="weekend"].active{background:var(--t);border-color:var(--t);}
+.filter-btn[data-filter="autre"].active  {background:var(--ts);border-color:var(--ts);}
+
+/* ── CONTENU ── */
+.ep-content{max-width:1200px;margin:0 auto;padding:56px 24px 72px;}
+.ep-event{margin-bottom:56px;transition:opacity .3s;}
+.ep-event.hidden{display:none;}
+
+.ep-event-header{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px;padding-bottom:16px;border-bottom:2px solid var(--border);}
+.ep-event-type{display:inline-block;padding:5px 13px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
+.ep-event-type.apero  {background:var(--pp);color:var(--p);}
+.ep-event-type.famille{background:var(--op);color:var(--od);}
+.ep-event-type.weekend{background:var(--t);color:white;}
+.ep-event-type.autre  {background:#f0f0f0;color:var(--ts);}
+.ep-event-title{font-family:'Nunito',sans-serif;font-weight:900;font-style:italic;font-size:clamp(18px,2.2vw,26px);color:var(--t);flex:1;}
+.ep-event-date{font-size:11px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.08em;background:var(--op);padding:5px 13px;border-radius:20px;}
+
+/* ── GRILLE MÉDIA ── */
+.ep-grid{display:grid;gap:10px;}
+.ep-grid.g1{grid-template-columns:repeat(1,1fr);max-width:480px;}
+.ep-grid.g2{grid-template-columns:repeat(2,1fr);}
+.ep-grid.g3{grid-template-columns:repeat(3,1fr);}
+.ep-grid.g4{grid-template-columns:repeat(4,1fr);}
+
+/* Chaque cellule média */
+.ep-item{
+  height:200px;
+  border-radius:14px;overflow:hidden;
+  position:relative;cursor:pointer;
+  box-shadow:var(--shadow-sm);
+  transition:transform .3s,box-shadow .3s;
+}
+.ep-item:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
+.ep-item img,.ep-item video{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
+.ep-item:hover img{transform:scale(1.04);}
+.ep-item video{cursor:pointer;pointer-events:none;}
+
+/* Badge vidéo */
+.ep-item.is-video::before{
+  content:'▶';
+  position:absolute;top:10px;right:10px;z-index:2;
+  background:rgba(26,8,0,.6);color:white;
+  font-size:10px;padding:4px 8px;border-radius:8px;
+  pointer-events:none;
+}
+
+/* Overlay hover sur les photos */
+.ep-item-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,8,0,.45) 0%,transparent 60%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:12px;pointer-events:none;}
+.ep-item:not(.is-video):hover .ep-item-overlay{opacity:1;}
+.ep-item-overlay span{color:white;font-size:11px;font-weight:700;}
+
+/* ── LIGHTBOX ── */
+.lightbox{position:fixed;inset:0;z-index:1000;background:rgba(26,8,0,.93);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;}
+.lightbox.open{opacity:1;pointer-events:all;}
+.lightbox-inner{position:relative;max-width:90vw;max-height:88vh;}
+.lightbox img{max-width:90vw;max-height:82vh;border-radius:14px;box-shadow:0 32px 80px rgba(0,0,0,.5);object-fit:contain;}
+.lightbox-caption{text-align:center;margin-top:14px;color:rgba(255,255,255,.75);font-size:12px;font-weight:600;}
+.lb-btn{position:fixed;background:rgba(255,255,255,.12);color:white;border:2px solid rgba(255,255,255,.2);width:44px;height:44px;border-radius:50%;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;}
+.lb-btn:hover{background:var(--p);border-color:var(--p);}
+#lbClose{top:22px;right:24px;}
+#lbPrev{top:50%;left:16px;transform:translateY(-50%);}
+#lbNext{top:50%;right:16px;transform:translateY(-50%);}
+
+/* ── CTA ── */
+.ep-cta{background:var(--o);margin:0 24px 72px;border-radius:36px;padding:64px 40px;text-align:center;position:relative;overflow:hidden;}
+.ep-cta::before,.ep-cta::after{content:'✦';position:absolute;font-size:110px;opacity:.06;color:var(--p);pointer-events:none;}
+.ep-cta::before{top:-20px;left:40px;animation:floaty 6s infinite;}
+.ep-cta::after{bottom:-20px;right:40px;animation:floaty 5s 1s infinite;}
+.ep-cta h2{font-family:'Nunito',sans-serif;font-weight:900;font-style:italic;font-size:clamp(26px,3.5vw,42px);color:white;margin-bottom:12px;}
+.ep-cta p{font-size:15px;color:rgba(255,255,255,.85);margin-bottom:32px;}
+.ep-cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{background:var(--p);color:white;padding:14px 30px;border-radius:40px;font-size:14px;font-weight:700;box-shadow:0 6px 24px rgba(253,44,130,.45);display:inline-flex;align-items:center;gap:8px;transition:all .3s;}
+.btn-primary:hover{background:var(--pd);transform:translateY(-3px);}
+.btn-outline-w{background:transparent;color:white;padding:13px 26px;border-radius:40px;font-size:14px;font-weight:700;border:2.5px solid rgba(255,255,255,.5);display:inline-flex;align-items:center;gap:8px;transition:all .3s;}
+.btn-outline-w:hover{background:rgba(255,255,255,.12);border-color:white;}
+
+/* ── FOOTER ── */
+/* ── FOOTER ── */
+.footer{background:var(--p);padding:64px 0 32px;color:white;}
+.footer .container{max-width:1100px;margin:0 auto;padding:0 24px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+.footer-brand{font-family:'Nunito',sans-serif;font-weight:900;font-style:italic;font-size:1.4rem;margin-bottom:12px;}
+.footer-desc{font-size:13px;color:rgba(255,255,255,.75);line-height:1.7;}
+.footer-col h4{font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;color:rgba(255,255,255,.6);}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:14px;color:white;font-weight:600;transition:opacity .2s;}
+.footer-col ul li a:hover{opacity:.7;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.2);padding-top:24px;display:flex;gap:24px;flex-wrap:wrap;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.55);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .nav-links-left,.nav-links-right{display:none;}
+  .nav-burger{display:flex;}
+  .nav{grid-template-columns:auto 1fr auto;}
+}
+@media(max-width:768px){
+  .ep-hero{padding:110px 20px 56px;}
+  .ep-grid.g3{grid-template-columns:repeat(2,1fr);}
+  .ep-grid.g4{grid-template-columns:repeat(2,1fr);}
+  .ep-item{height:160px;}
+  .footer { padding: 16px 0 12px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 0; margin-bottom: 8px; }
+  .footer-brand-wrap { display: none; }
+  .footer-col { border-bottom: 1px solid rgba(255,255,255,.12); }
+  .footer-col h4 {
+    display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer; padding: 10px 0; margin-bottom: 0; user-select: none;
+    font-size: 10px;
+  }
+  .footer-col h4::after { content: '+'; font-size: 18px; font-weight: 300; transition: transform .3s; }
+  .footer-col.open h4::after { content: '−'; }
+  .footer-col ul { max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .35s; padding: 0; gap: 0; font-size: 12px; }
+  .footer-col.open ul { max-height: 200px; padding-bottom: 10px; gap: 6px; }
+  .footer-bottom { flex-direction: column; text-align: center; gap: 4px; font-size: 10px; padding-top: 12px; }
+}
+@media(max-width:480px){
+  .ep-grid.g2,.ep-grid.g3,.ep-grid.g4{grid-template-columns:1fr 1fr;}
+  .ep-item{height:140px;}
+  .ep-cta{margin:0 12px 56px;padding:44px 20px;}
+  .ep-counter{gap:20px;padding:14px 24px;flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <ul class="nav-links-left">
+    <li><a href="index.html#formats">Événements</a></li>
+    <li><a href="index.html#planning">Planning</a></li>
+    <li><a href="a-propos.html">À propos</a></li>
+  </ul>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-badge"><img src="Brand Board/Logo Long Safe Place Evenementiel/LOGO_Long_SPE_Rose.png" alt="Safe Place Événementiel"></div>
+  </a>
+  <ul class="nav-links-right">
+    <li><a href="collaborateurs.html">Collaborateurs</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="index.html#planning" class="nav-cta">✦ Réserver</a></li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section class="ep-hero">
+  <span class="ep-star" style="top:20%;left:7%;animation-delay:0s">✦</span>
+  <span class="ep-star" style="top:32%;right:9%;animation-delay:1.5s;font-size:18px">✦</span>
+  <span class="ep-star" style="bottom:28%;left:14%;animation-delay:2.5s;font-size:16px">✦</span>
+  <div class="ep-eyebrow">✦ Nos souvenirs</div>
+  <h1>Une plongée dans tous<br>nos <span class="pink">moments</span> partagés</h1>
+  <p>Chaque atelier, chaque apéro et chaque week-end laisse des traces — de sourires, de créations et de belles rencontres.</p>
+  <div class="ep-counter">
+    <div class="ep-count-item"><span class="ep-count-num">+20</span><span class="ep-count-label">Événements</span></div>
+    <div class="ep-count-item"><span class="ep-count-num">+50</span><span class="ep-count-label">Participant·es</span></div>
+    <div class="ep-count-item"><span class="ep-count-num">2025</span><span class="ep-count-label">Depuis</span></div>
+  </div>
+</section>
+
+<!-- FILTRES -->
+<div class="filter-section">
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">Tous les événements</button>
+    <button class="filter-btn" data-filter="apero">🎨 Apéros Créatifs</button>
+    <button class="filter-btn" data-filter="famille">👨‍👩‍👧 Ateliers Famille</button>
+    <button class="filter-btn" data-filter="weekend">✦ Week-ends</button>
+    <button class="filter-btn" data-filter="autre">✨ Autres événements</button>
+  </div>
+</div>
+
+<!-- ÉVÉNEMENTS -->
+<main class="ep-content">
+
+  <!-- ① Apéro — Personnalisation Brosse & Miroir — Fév 2026 -->
+  <div class="ep-event reveal" data-type="apero">
+    <div class="ep-event-header">
+      <span class="ep-event-type apero">🎨 Apéro Créatif</span>
+      <h2 class="ep-event-title">Personnalisation Brosse &amp; Miroir</h2>
+      <span class="ep-event-date">Février 2026</span>
+    </div>
+    <div class="ep-grid g3">
+      <div class="ep-item" data-src="imgs/ev-brosse-miroir-1.jpg" data-caption="Apéro Créatif — Personnalisation Brosse &amp; Miroir · Février 2026">
+        <img src="imgs/ev-brosse-miroir-1.jpg" alt="Personnalisation Brosse et Miroir" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-brosse-miroir-2.jpg" data-caption="Apéro Créatif — Personnalisation Brosse &amp; Miroir · Février 2026">
+        <img src="imgs/ev-brosse-miroir-2.jpg" alt="Table avec matériel Brosse et Miroir" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-brosse-miroir-3.jpg" data-caption="Apéro Créatif — Personnalisation Brosse &amp; Miroir · Février 2026">
+        <img src="imgs/ev-brosse-miroir-3.jpg" alt="Table avec matériel Brosse et Miroir" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ② Atelier Famille — Fabrication Savon Naturel — Fév 2026 -->
+  <div class="ep-event reveal" data-type="famille">
+    <div class="ep-event-header">
+      <span class="ep-event-type famille">👨‍👩‍👧 Atelier Famille</span>
+      <h2 class="ep-event-title">Fabrication de Savon Naturel</h2>
+      <span class="ep-event-date">Février 2026</span>
+    </div>
+    <div class="ep-grid g3">
+      <div class="ep-item" data-src="imgs/ev-savon-1.jpg" data-caption="Atelier Famille — Fabrication de Savon Naturel · Février 2026">
+        <img src="imgs/ev-savon-1.jpg" alt="Atelier Fabrication Savon Naturel" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-savon-2.jpg" data-caption="Atelier Famille — Fabrication de Savon Naturel · Février 2026">
+        <img src="imgs/ev-savon-2.jpg" alt="Atelier Fabrication Savon Naturel" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item is-video" data-video="imgs/ev-savon.mp4">
+        <video src="imgs/ev-savon.mp4" muted loop playsinline style="cursor:default"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ Apéro — Cadre Photo en Perles à Repasser — Mars 2026 -->
+  <div class="ep-event reveal" data-type="apero">
+    <div class="ep-event-header">
+      <span class="ep-event-type apero">🎨 Apéro Créatif</span>
+      <h2 class="ep-event-title">Cadre Photo en Perles à Repasser</h2>
+      <span class="ep-event-date">Mars 2026</span>
+    </div>
+    <div class="ep-grid g4">
+      <div class="ep-item" data-src="imgs/ev-perles-1.jpg" data-caption="Apéro Créatif — Cadre Photo en Perles à Repasser · Mars 2026">
+        <img src="imgs/ev-perles-1.jpg" alt="Cadre photo en perles à repasser" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item is-video" data-video="imgs/ev-perles-1.mp4">
+        <video src="imgs/ev-perles-1.mp4" muted loop playsinline style="cursor:default"></video>
+      </div>
+      <div class="ep-item is-video" data-video="imgs/ev-perles-2.mp4">
+        <video src="imgs/ev-perles-2.mp4" muted loop playsinline style="cursor:default"></video>
+      </div>
+      <div class="ep-item is-video" data-video="imgs/ev-perles-3.mp4">
+        <video src="imgs/ev-perles-3.mp4" muted loop playsinline style="cursor:default"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ Atelier Famille — Fabrication Masque Carnaval — Fév 2026 -->
+  <div class="ep-event reveal" data-type="famille">
+    <div class="ep-event-header">
+      <span class="ep-event-type famille">👨‍👩‍👧 Atelier Famille</span>
+      <h2 class="ep-event-title">Fabrication de Masque Carnaval</h2>
+      <span class="ep-event-date">Février 2026</span>
+    </div>
+    <div class="ep-grid g4">
+      <div class="ep-item" data-src="imgs/ev-masque-1.jpg" data-caption="Atelier Famille — Fabrication de Masque Carnaval · Février 2026">
+        <img src="imgs/ev-masque-1.jpg" alt="Atelier Famille Masque Carnaval" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-masque-2.jpg" data-caption="Atelier Famille — Fabrication de Masque Carnaval · Février 2026">
+        <img src="imgs/ev-masque-2.jpg" alt="Atelier Famille Masque Carnaval" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-masque-3.jpg" data-caption="Atelier Famille — Fabrication de Masque Carnaval · Février 2026">
+        <img src="imgs/ev-masque-3.jpg" alt="Atelier Famille Masque Carnaval" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-masque-4.jpg" data-caption="Atelier Famille — Fabrication de Masque Carnaval · Février 2026">
+        <img src="imgs/ev-masque-4.jpg" alt="Atelier Famille Masque Carnaval" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item is-video" data-video="imgs/ev-masque-1.mp4">
+        <video src="imgs/ev-masque-1.mp4" muted loop playsinline style="cursor:default"></video>
+      </div>
+      <div class="ep-item is-video" data-video="imgs/ev-masque-2.mp4">
+        <video src="imgs/ev-masque-2.mp4" muted loop playsinline style="cursor:default"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ Atelier Famille — Fabrication Magnets — Jan 2026 -->
+  <div class="ep-event reveal" data-type="famille">
+    <div class="ep-event-header">
+      <span class="ep-event-type famille">👨‍👩‍👧 Atelier Famille</span>
+      <h2 class="ep-event-title">Fabrication de Magnets</h2>
+      <span class="ep-event-date">Janvier 2026</span>
+    </div>
+    <div class="ep-grid g4">
+      <div class="ep-item" data-src="imgs/ev-famille-magnets-1.jpg" data-caption="Atelier Famille — Fabrication de Magnets · Janvier 2026">
+        <img src="imgs/ev-famille-magnets-1.jpg" alt="Atelier Famille Magnets" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-famille-magnets-2.jpg" data-caption="Atelier Famille — Fabrication de Magnets · Janvier 2026">
+        <img src="imgs/ev-famille-magnets-2.jpg" alt="Atelier Famille Magnets" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-famille-magnets-3.jpg" data-caption="Atelier Famille — Fabrication de Magnets · Janvier 2026">
+        <img src="imgs/ev-famille-magnets-3.jpg" alt="Atelier Famille Magnets" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-famille-magnets-4.jpg" data-caption="Atelier Famille — Fabrication de Magnets · Janvier 2026">
+        <img src="imgs/ev-famille-magnets-4.jpg" alt="Atelier Famille Magnets" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-famille-magnets-5.jpg" data-caption="Atelier Famille — Fabrication de Magnets · Janvier 2026">
+        <img src="imgs/ev-famille-magnets-5.jpg" alt="Atelier Famille Magnets" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-famille-magnets-6.jpg" data-caption="Atelier Famille — Fabrication de Magnets · Janvier 2026">
+        <img src="imgs/ev-famille-magnets-6.jpg" alt="Atelier Famille Magnets" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item is-video" data-video="imgs/ev-famille-magnets.mp4">
+        <video src="imgs/ev-famille-magnets.mp4" muted loop playsinline style="cursor:default"></video>
+      </div>
+      <div class="ep-item is-video" data-video="imgs/ev-famille-magnets-2.mp4">
+        <video src="imgs/ev-famille-magnets-2.mp4" muted loop playsinline style="cursor:default"></video>
+      </div>
+      <div class="ep-item is-video" data-video="imgs/ev-famille-magnets-3.mp4">
+        <video src="imgs/ev-famille-magnets-3.mp4" muted loop playsinline style="cursor:default"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- ② Apéro — Fabrication Magnets — Jan 2026 -->
+  <div class="ep-event reveal" data-type="apero">
+    <div class="ep-event-header">
+      <span class="ep-event-type apero">🎨 Apéro Créatif</span>
+      <h2 class="ep-event-title">Fabrication de Magnets</h2>
+      <span class="ep-event-date">Janvier 2026</span>
+    </div>
+    <div class="ep-grid g4">
+      <div class="ep-item" data-src="imgs/ev-apero-magnets-1.jpg" data-caption="Apéro Créatif — Fabrication de Magnets · Janvier 2026">
+        <img src="imgs/ev-apero-magnets-1.jpg" alt="Apéro Magnets" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-apero-magnets-2.jpg" data-caption="Apéro Créatif — Fabrication de Magnets · Janvier 2026">
+        <img src="imgs/ev-apero-magnets-2.jpg" alt="Apéro Magnets" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-apero-magnets-3.jpg" data-caption="Apéro Créatif — Fabrication de Magnets · Janvier 2026">
+        <img src="imgs/ev-apero-magnets-3.jpg" alt="Apéro Magnets" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item is-video" data-video="imgs/ev-apero-magnets.mp4">
+        <video src="imgs/ev-apero-magnets.mp4" muted loop playsinline style="cursor:default"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ Apéro — Vision Board — Jan 2026 -->
+  <div class="ep-event reveal" data-type="apero">
+    <div class="ep-event-header">
+      <span class="ep-event-type apero">🎨 Apéro Créatif</span>
+      <h2 class="ep-event-title">Vision Board</h2>
+      <span class="ep-event-date">Janvier 2026</span>
+    </div>
+    <div class="ep-grid g2">
+      <div class="ep-item" data-src="imgs/ev-vision-board-2026.jpg" data-caption="Apéro Créatif — Vision Board · Janvier 2026">
+        <img src="imgs/ev-vision-board-2026.jpg" alt="Vision Board" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item is-video" data-video="imgs/ev-vision-board-2026.mp4">
+        <video src="imgs/ev-vision-board-2026.mp4" muted loop playsinline style="cursor:default"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ Méditation Sonore — Déc 2025 -->
+  <div class="ep-event reveal" data-type="autre">
+    <div class="ep-event-header">
+      <span class="ep-event-type autre">✨ Événement</span>
+      <h2 class="ep-event-title">Méditation Sonore</h2>
+      <span class="ep-event-date">Décembre 2025</span>
+    </div>
+    <div class="ep-grid g2">
+      <div class="ep-item" data-src="imgs/ev-meditation-1.jpg" data-caption="Méditation Sonore · Décembre 2025">
+        <img src="imgs/ev-meditation-1.jpg" alt="Méditation Sonore" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-meditation-2.jpg" data-caption="Méditation Sonore · Décembre 2025">
+        <img src="imgs/ev-meditation-2.jpg" alt="Méditation Sonore" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑤ Marché Noël — Déc 2025 -->
+  <div class="ep-event reveal" data-type="autre">
+    <div class="ep-event-header">
+      <span class="ep-event-type autre">✨ Marché</span>
+      <h2 class="ep-event-title">Marché de Noël Artisans & Créateurs</h2>
+      <span class="ep-event-date">Décembre 2025</span>
+    </div>
+    <div class="ep-grid g3">
+      <div class="ep-item" data-src="imgs/ev-marche-noel-1.jpg" data-caption="Marché de Noël · Décembre 2025">
+        <img src="imgs/ev-marche-noel-1.jpg" alt="Marché de Noël" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-marche-noel-2.jpg" data-caption="Marché de Noël · Décembre 2025">
+        <img src="imgs/ev-marche-noel-2.jpg" alt="Marché de Noël" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item is-video" data-video="imgs/ev-marche-noel.mp4">
+        <video src="imgs/ev-marche-noel.mp4" muted loop playsinline style="cursor:default"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑥ Vide-Dressing — Déc 2025 -->
+  <div class="ep-event reveal" data-type="autre">
+    <div class="ep-event-header">
+      <span class="ep-event-type autre">✨ Événement</span>
+      <h2 class="ep-event-title">Vide-Dressing</h2>
+      <span class="ep-event-date">Décembre 2025</span>
+    </div>
+    <div class="ep-grid g1">
+      <div class="ep-item" data-src="imgs/ev-vide-dressing.jpg" data-caption="Vide-Dressing · Décembre 2025">
+        <img src="imgs/ev-vide-dressing.jpg" alt="Vide-Dressing" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑦ Atelier Solidaire — Fleurs Oncologie — Nov 2025 -->
+  <div class="ep-event reveal" data-type="autre">
+    <div class="ep-event-header">
+      <span class="ep-event-type autre">💛 Atelier Solidaire</span>
+      <h2 class="ep-event-title">Fabrication de Fleurs — Service Oncologie</h2>
+      <span class="ep-event-date">Novembre 2025</span>
+    </div>
+    <div class="ep-grid g3">
+      <div class="ep-item" data-src="imgs/ev-fleurs-1.jpg" data-caption="Atelier Solidaire — Service Oncologie · Novembre 2025">
+        <img src="imgs/ev-fleurs-1.jpg" alt="Atelier Fleurs Oncologie" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-fleurs-2.jpg" data-caption="Atelier Solidaire — Service Oncologie · Novembre 2025">
+        <img src="imgs/ev-fleurs-2.jpg" alt="Atelier Fleurs Oncologie" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-fleurs-3.jpg" data-caption="Atelier Solidaire — Service Oncologie · Novembre 2025">
+        <img src="imgs/ev-fleurs-3.jpg" alt="Atelier Fleurs Oncologie" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑧ Apéro — Personnalisation Paillasson — Sep 2025 -->
+  <div class="ep-event reveal" data-type="apero">
+    <div class="ep-event-header">
+      <span class="ep-event-type apero">🎨 Apéro Créatif</span>
+      <h2 class="ep-event-title">Personnalisation Paillasson</h2>
+      <span class="ep-event-date">Septembre 2025</span>
+    </div>
+    <div class="ep-grid g1">
+      <div class="ep-item is-video" data-video="imgs/ev-paillasson.mp4">
+        <video src="imgs/ev-paillasson.mp4" muted loop playsinline style="cursor:default"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑨ Apéro — Octobre Rose — Sep 2025 -->
+  <div class="ep-event reveal" data-type="apero">
+    <div class="ep-event-header">
+      <span class="ep-event-type apero">🎨 Apéro Créatif</span>
+      <h2 class="ep-event-title">Octobre Rose</h2>
+      <span class="ep-event-date">Septembre 2025</span>
+    </div>
+    <div class="ep-grid g1">
+      <div class="ep-item" data-src="imgs/ev-octobre-rose.jpg" data-caption="Apéro Créatif — Octobre Rose · Septembre 2025">
+        <img src="imgs/ev-octobre-rose.jpg" alt="Octobre Rose" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑩ Apéro — Body Painting — Août 2025 -->
+  <div class="ep-event reveal" data-type="apero">
+    <div class="ep-event-header">
+      <span class="ep-event-type apero">🎨 Apéro Créatif</span>
+      <h2 class="ep-event-title">Body Painting</h2>
+      <span class="ep-event-date">Août 2025</span>
+    </div>
+    <div class="ep-grid g4">
+      <div class="ep-item" data-src="imgs/ev-body-painting-1.jpg" data-caption="Apéro Créatif — Body Painting · Août 2025">
+        <img src="imgs/ev-body-painting-1.jpg" alt="Body Painting" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-body-painting-2.jpg" data-caption="Apéro Créatif — Body Painting · Août 2025">
+        <img src="imgs/ev-body-painting-2.jpg" alt="Body Painting" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-body-painting-3.jpg" data-caption="Apéro Créatif — Body Painting · Août 2025">
+        <img src="imgs/ev-body-painting-3.jpg" alt="Body Painting" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item is-video" data-video="imgs/ev-body-painting.mp4">
+        <video src="imgs/ev-body-painting.mp4" muted loop playsinline style="cursor:default"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑪ Soirée — Personnalisation Éventail — Juil 2025 -->
+  <div class="ep-event reveal" data-type="autre">
+    <div class="ep-event-header">
+      <span class="ep-event-type autre">✨ Soirée</span>
+      <h2 class="ep-event-title">Personnalisation d'Éventail</h2>
+      <span class="ep-event-date">Juillet 2025</span>
+    </div>
+    <div class="ep-grid g1">
+      <div class="ep-item" data-src="imgs/ev-soiree-eventail.jpg" data-caption="Soirée Personnalisation d'Éventail · Juillet 2025">
+        <img src="imgs/ev-soiree-eventail.jpg" alt="Soirée Éventail" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑫ Apéro — Personnalisation Éventail — Juil 2025 -->
+  <div class="ep-event reveal" data-type="apero">
+    <div class="ep-event-header">
+      <span class="ep-event-type apero">🎨 Apéro Créatif</span>
+      <h2 class="ep-event-title">Personnalisation d'Éventail</h2>
+      <span class="ep-event-date">Juillet 2025</span>
+    </div>
+    <div class="ep-grid g1">
+      <div class="ep-item" data-src="imgs/apero-eventail.jpg" data-caption="Apéro Créatif — Personnalisation d'Éventail · Juillet 2025">
+        <img src="imgs/apero-eventail.jpg" alt="Apéro Éventail" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑬ Apéro — Tote Bag — Juil 2025 -->
+  <div class="ep-event reveal" data-type="apero">
+    <div class="ep-event-header">
+      <span class="ep-event-type apero">🎨 Apéro Créatif</span>
+      <h2 class="ep-event-title">Personnalisation Tote Bag</h2>
+      <span class="ep-event-date">Juillet 2025</span>
+    </div>
+    <div class="ep-grid g3">
+      <div class="ep-item" data-src="imgs/ev-tote-bag-1.jpg" data-caption="Apéro Créatif — Tote Bag · Juillet 2025">
+        <img src="imgs/ev-tote-bag-1.jpg" alt="Tote Bag" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-tote-bag-2.jpg" data-caption="Apéro Créatif — Tote Bag · Juillet 2025">
+        <img src="imgs/ev-tote-bag-2.jpg" alt="Tote Bag" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-tote-bag-3.jpg" data-caption="Apéro Créatif — Tote Bag · Juillet 2025">
+        <img src="imgs/ev-tote-bag-3.jpg" alt="Tote Bag" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑭ Week-end Bien-être — Juin 2025 -->
+  <div class="ep-event reveal" data-type="weekend">
+    <div class="ep-event-header">
+      <span class="ep-event-type weekend">✦ Week-end</span>
+      <h2 class="ep-event-title">Bien-être & Introspection</h2>
+      <span class="ep-event-date">Juin 2025</span>
+    </div>
+    <div class="ep-grid g1">
+      <div class="ep-item" data-src="imgs/weekend-bien-etre.jpg" data-caption="Week-end Bien-être & Introspection · Juin 2025">
+        <img src="imgs/weekend-bien-etre.jpg" alt="Week-end Bien-être" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑮ Apéro — Scrapbooking — Mai 2025 -->
+  <div class="ep-event reveal" data-type="apero">
+    <div class="ep-event-header">
+      <span class="ep-event-type apero">🎨 Apéro Créatif</span>
+      <h2 class="ep-event-title">Scrapbooking</h2>
+      <span class="ep-event-date">Mai 2025</span>
+    </div>
+    <div class="ep-grid g1">
+      <div class="ep-item" data-src="imgs/apero-scrapbooking.jpg" data-caption="Apéro Créatif — Scrapbooking · Mai 2025">
+        <img src="imgs/apero-scrapbooking.jpg" alt="Scrapbooking" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑯ Apéro — Journaling — Avr 2025 -->
+  <div class="ep-event reveal" data-type="apero">
+    <div class="ep-event-header">
+      <span class="ep-event-type apero">🎨 Apéro Créatif</span>
+      <h2 class="ep-event-title">Journaling</h2>
+      <span class="ep-event-date">Avril 2025</span>
+    </div>
+    <div class="ep-grid g4">
+      <div class="ep-item" data-src="imgs/ev-journaling-1.jpg" data-caption="Apéro Créatif — Journaling · Avril 2025">
+        <img src="imgs/ev-journaling-1.jpg" alt="Journaling" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-journaling-2.jpg" data-caption="Apéro Créatif — Journaling · Avril 2025">
+        <img src="imgs/ev-journaling-2.jpg" alt="Journaling" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-journaling-3.jpg" data-caption="Apéro Créatif — Journaling · Avril 2025">
+        <img src="imgs/ev-journaling-3.jpg" alt="Journaling" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item is-video" data-video="imgs/ev-journaling.mp4">
+        <video src="imgs/ev-journaling.mp4" muted loop playsinline style="cursor:default"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑰ Atelier Vision Board — Fév 2025 -->
+  <div class="ep-event reveal" data-type="apero">
+    <div class="ep-event-header">
+      <span class="ep-event-type apero">🎨 Apéro Créatif</span>
+      <h2 class="ep-event-title">Vision Board</h2>
+      <span class="ep-event-date">Février 2025</span>
+    </div>
+    <div class="ep-grid g3">
+      <div class="ep-item" data-src="imgs/ev-vision-board-2025-1.jpg" data-caption="Atelier Vision Board · Février 2025">
+        <img src="imgs/ev-vision-board-2025-1.jpg" alt="Vision Board" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item" data-src="imgs/ev-vision-board-2025-2.jpg" data-caption="Atelier Vision Board · Février 2025">
+        <img src="imgs/ev-vision-board-2025-2.jpg" alt="Vision Board" loading="lazy">
+        <div class="ep-item-overlay"><span>🔍 Agrandir</span></div>
+      </div>
+      <div class="ep-item is-video" data-video="imgs/ev-vision-board-2025.mp4">
+        <video src="imgs/ev-vision-board-2025.mp4" muted loop playsinline style="cursor:default"></video>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- CTA -->
+<section class="ep-cta reveal">
+  <h2>Tu veux vivre ça aussi ? ✦</h2>
+  <p>Les prochains événements t'attendent — réserve ta place avant qu'il soit trop tard !</p>
+  <div class="ep-cta-btns">
+    <a href="index.html#planning" class="btn-primary">✦ Voir le planning</a>
+    <a href="index.html#formats" class="btn-outline-w">Découvrir nos formats →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand-wrap">
+        <div class="footer-brand">Safe Place ✦ Événementiel</div>
+        <p class="footer-desc">Des espaces bienveillants pour créer, partager et s'épanouir. Ateliers créatifs, moments en famille & week-ends bien-être sur la Côte d'Opale.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Événements</h4>
+        <ul>
+          <li><a href="index.html#formats">Apéros Créatifs</a></li>
+          <li><a href="index.html#formats">Ateliers Famille</a></li>
+          <li><a href="lumiere-interieure.html">Week-End Bien-être</a></li>
+          <li><a href="index.html#planning">Planning</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Safe Place</h4>
+        <ul>
+          <li><a href="a-propos.html">À propos</a></li>
+          <li><a href="collaborateurs.html">Collaborateurs</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://instagram.com/safeplaceevenementiel" target="_blank" rel="noopener">@safeplaceevenementiel</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <ul>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+          <li><a href="cgv.html">Conditions générales</a></li>
+          <li><a href="remboursement.html">Politique de remboursement</a></li>
+          <li><a href="confidentialite.html">Confidentialité</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Safe Place Événementiel · Tous droits réservés</span>
+      <span>🔒 Paiement sécurisé Stripe</span>
+      <span>Fait avec ✦ à Boulogne-sur-Mer</span>
+    </div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-btn" id="lbClose">✕</button>
+  <button class="lb-btn" id="lbPrev">←</button>
+  <div class="lightbox-inner">
+    <img id="lbImg" src="" alt="" style="display:none;">
+    <video id="lbVideo" src="" controls playsinline style="display:none;max-width:90vw;max-height:82vh;border-radius:14px;box-shadow:0 32px 80px rgba(0,0,0,.5);"></video>
+    <p class="lightbox-caption" id="lbCaption"></p>
+  </div>
+  <button class="lb-btn" id="lbNext">→</button>
+</div>
+
+<script>
+/* ── Reveal ── */
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+
+/* ── Filtres ── */
+document.querySelectorAll('.filter-btn').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
+    btn.classList.add('active');
+    var f=btn.dataset.filter;
+    document.querySelectorAll('.ep-event').forEach(function(ev){
+      ev.classList.toggle('hidden', f!=='all' && ev.dataset.type!==f);
+    });
+  });
+});
+
+/* ── Lightbox (photos + vidéos) ── */
+var lb=document.getElementById('lightbox');
+var lbImg=document.getElementById('lbImg');
+var lbVideo=document.getElementById('lbVideo');
+var lbCap=document.getElementById('lbCaption');
+var lbPrev=document.getElementById('lbPrev');
+var lbNext=document.getElementById('lbNext');
+var items=[];
+var cur=0;
+
+// Indexer tous les ep-item dans l'ordre du DOM
+document.querySelectorAll('.ep-item').forEach(function(item){
+  var idx=items.length;
+  if(item.classList.contains('is-video')){
+    var src=item.dataset.video;
+    if(!src) return;
+    // Dériver la caption depuis le header de l'événement parent
+    var cap='';
+    var evEl=item.closest('.ep-event');
+    if(evEl){
+      var typeEl=evEl.querySelector('.ep-event-type');
+      var titleEl=evEl.querySelector('.ep-event-title');
+      var dateEl=evEl.querySelector('.ep-event-date');
+      var parts=[];
+      if(typeEl) parts.push(typeEl.textContent.trim().replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu,'').trim());
+      if(titleEl) parts.push(titleEl.textContent.trim());
+      cap=parts.join(' — ')+(dateEl?' · '+dateEl.textContent.trim():'');
+    }
+    items.push({type:'video',src:src,cap:cap});
+  } else {
+    items.push({type:'photo',src:item.dataset.src,cap:item.dataset.caption||''});
+  }
+  item.style.cursor='pointer';
+  item.addEventListener('click',function(e){
+    cur=idx; openLb(idx);
+  });
+});
+
+function openLb(i){
+  var it=items[i]; if(!it) return;
+  // Pause toutes les vidéos inline
+  document.querySelectorAll('.ep-item video').forEach(function(v){ v.pause(); });
+
+  if(it.type==='video'){
+    lbImg.style.display='none';
+    lbVideo.style.display='block';
+    lbVideo.src=it.src;
+    lbVideo.currentTime=0;
+    lbVideo.oncanplay=function(){
+      lbVideo.play().catch(function(){});
+      lbVideo.oncanplay=null;
+    };
+  } else {
+    lbVideo.pause(); lbVideo.src=''; lbVideo.style.display='none';
+    lbImg.style.display='block'; lbImg.src=it.src; lbImg.alt=it.cap;
+  }
+  // Flèches : actives pour tous les items (photos + vidéos)
+  lbPrev.style.opacity=i>0?'1':'0.3'; lbPrev.style.pointerEvents=i>0?'all':'none';
+  lbNext.style.opacity=i<items.length-1?'1':'0.3'; lbNext.style.pointerEvents=i<items.length-1?'all':'none';
+  lbCap.textContent=it.cap;
+  lb.classList.add('open'); document.body.style.overflow='hidden';
+}
+
+function closeLb(){
+  lb.classList.remove('open'); document.body.style.overflow='';
+  lbVideo.pause(); lbVideo.oncanplay=null; lbVideo.src=''; lbImg.src='';
+  lbPrev.style.opacity='1'; lbPrev.style.pointerEvents='all';
+  lbNext.style.opacity='1'; lbNext.style.pointerEvents='all';
+  document.querySelectorAll('.ep-item video').forEach(function(v){ v.play().catch(function(){}); });
+}
+
+document.getElementById('lbClose').addEventListener('click',closeLb);
+lb.addEventListener('click',function(e){if(e.target===lb)closeLb();});
+lbPrev.addEventListener('click',function(){
+  if(cur>0){cur--;openLb(cur);}
+});
+lbNext.addEventListener('click',function(){
+  if(cur<items.length-1){cur++;openLb(cur);}
+});
+document.addEventListener('keydown',function(e){
+  if(!lb.classList.contains('open'))return;
+  if(e.key==='Escape') closeLb();
+  if(e.key==='ArrowLeft') lbPrev.click();
+  if(e.key==='ArrowRight') lbNext.click();
+});
+
+/* ── Footer accordion (mobile) ── */
+document.querySelectorAll('.footer-col h4').forEach(function(h4) {
+  h4.addEventListener('click', function() {
+    h4.closest('.footer-col').classList.toggle('open');
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Politique de confidentialité — Safe Place Événementiel</title>
+  <meta name="description" content="Politique de confidentialité et protection des données personnelles de Safe Place Événementiel.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;0,800;0,900;1,700;1,800;1,900&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --o:#ff9430; --od:#d97220; --ol:#ffb366; --op:#fff4ea;
+      --p:#fd2c82; --pd:#d91a6a; --pl:#ff6aab; --pp:#fff0f7;
+      --w:#ffffff; --bg:#fffaf6; --t:#1a0800; --ts:#7a3d1a;
+      --border:rgba(253,44,130,.14);
+      --radius-sm:14px; --radius-md:24px;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--t);overflow-x:hidden;font-size:15px;line-height:1.7;}
+    a{text-decoration:none;color:inherit;}
+    img{max-width:100%;display:block;}
+    button{font-family:inherit;cursor:pointer;border:none;}
+
+    /* NAV */
+    .nav{position:fixed;top:0;left:0;width:100%;z-index:500;height:72px;background:rgba(255,148,48,.97);backdrop-filter:blur(16px);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;padding:0 32px;box-shadow:0 4px 24px rgba(255,148,48,.35);}
+    .nav-logo{grid-column:2;display:flex;align-items:center;justify-content:center;}
+    .nav-badge{height:52px;width:auto;}
+    .nav-badge img{height:100%;width:auto;object-fit:contain;display:block;}
+    .nav-links-left,.nav-links-right{display:flex;align-items:center;gap:28px;list-style:none;white-space:nowrap;}
+    .nav-links-left{grid-column:1;justify-self:start;}
+    .nav-links-right{grid-column:3;justify-self:end;}
+    .nav-links-left a,.nav-links-right a{font-size:13px;font-weight:700;color:var(--p);letter-spacing:.06em;text-transform:uppercase;transition:color .2s;}
+    .nav-links-left a:hover,.nav-links-right a:hover{color:white;}
+    .nav-cta{background:var(--p);color:white!important;padding:10px 24px;border-radius:30px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 4px 16px rgba(253,44,130,.4);transition:all .25s;}
+    .nav-cta:hover{transform:translateY(-2px);}
+    .nav-burger{display:none;background:none;border:none;grid-column:3;justify-self:end;width:36px;height:36px;flex-direction:column;align-items:center;justify-content:center;gap:6px;}
+    .nav-burger span{display:block;width:24px;height:2.5px;background:var(--p);border-radius:2px;transition:all .3s;}
+
+    /* HERO */
+    .page-hero{background:var(--o);padding:120px 24px 64px;text-align:center;position:relative;overflow:hidden;}
+    .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(255,255,255,.12) 0%,transparent 50%),radial-gradient(circle at 15% 75%,rgba(253,44,130,.18) 0%,transparent 45%);pointer-events:none;}
+    .page-hero .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--p);color:white;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:8px 20px;border-radius:30px;margin-bottom:20px;}
+    .page-hero h1{font-family:'Nunito',sans-serif;font-weight:900;font-style:italic;font-size:clamp(2rem,5vw,3.2rem);color:white;line-height:1.2;}
+    .page-hero p{color:rgba(255,255,255,.85);margin-top:12px;font-size:1rem;}
+
+    /* SOMMAIRE */
+    .sommaire{background:var(--op);border:1.5px solid rgba(255,148,48,.25);border-radius:var(--radius-sm);padding:28px 32px;margin-bottom:48px;}
+    .sommaire h3{font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;color:var(--od);margin-bottom:16px;}
+    .sommaire ol{padding-left:20px;display:flex;flex-direction:column;gap:6px;}
+    .sommaire ol li a{color:var(--p);font-weight:600;font-size:14px;text-decoration:underline;}
+
+    /* CONTENU */
+    .legal-content{max-width:800px;margin:0 auto;padding:80px 24px;}
+    .legal-section{margin-bottom:48px;scroll-margin-top:90px;}
+    .legal-section h2{font-family:'Nunito',sans-serif;font-weight:900;font-size:1.25rem;color:var(--p);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--border);}
+    .legal-section h3{font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;color:var(--od);margin:20px 0 8px;}
+    .legal-section p{color:var(--t);margin-bottom:10px;font-size:15px;}
+    .legal-section a{color:var(--p);font-weight:600;text-decoration:underline;}
+    .legal-section ul{padding-left:20px;margin-bottom:12px;}
+    .legal-section ul li{margin-bottom:8px;font-size:15px;}
+    .info-block{background:var(--op);border:1.5px solid rgba(255,148,48,.25);border-radius:var(--radius-sm);padding:20px 24px;margin:16px 0;}
+    .info-block p{margin:0;line-height:2.2;}
+    .info-block strong{color:var(--od);}
+    .highlight{background:var(--pp);border-left:4px solid var(--p);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:16px 20px;margin:16px 0;font-size:14px;}
+
+    /* DROITS */
+    .droits-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0;}
+    .droit-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:18px 20px;}
+    .droit-card .droit-icon{font-size:1.4rem;margin-bottom:8px;}
+    .droit-card h4{font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;color:var(--p);margin-bottom:6px;}
+    .droit-card p{font-size:13px;color:var(--ts);margin:0;}
+
+    .update-date{font-size:13px;color:var(--ts);margin-top:48px;padding-top:24px;border-top:1px solid var(--border);}
+
+    /* FOOTER */
+    .footer{background:var(--p);padding:64px 0 32px;color:white;}
+    .footer .container{max-width:1100px;margin:0 auto;padding:0 24px;}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+    .footer-brand{font-family:'Nunito',sans-serif;font-weight:900;font-style:italic;font-size:1.4rem;margin-bottom:12px;}
+    .footer-desc{font-size:13px;color:rgba(255,255,255,.75);line-height:1.7;}
+    .footer-col h4{font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;color:rgba(255,255,255,.6);}
+    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+    .footer-col ul li a{font-size:14px;color:white;font-weight:600;transition:opacity .2s;}
+    .footer-col ul li a:hover{opacity:.7;}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.2);padding-top:24px;display:flex;gap:24px;flex-wrap:wrap;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.55);}
+
+    @media(max-width:900px){
+      .nav-links-left,.nav-links-right{display:none;}
+      .nav-burger{display:flex;}
+      .footer-grid{grid-template-columns:1fr 1fr;gap:32px;}
+      .droits-grid{grid-template-columns:1fr;}
+    }
+    @media(max-width:600px){
+      .footer { padding: 16px 0 12px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 0; margin-bottom: 8px; }
+      .footer-brand-wrap { display: none; }
+      .footer-col { border-bottom: 1px solid rgba(255,255,255,.12); }
+      .footer-col h4 {
+        display: flex; justify-content: space-between; align-items: center;
+        cursor: pointer; padding: 10px 0; margin-bottom: 0; user-select: none;
+        font-size: 10px;
+      }
+      .footer-col h4::after { content: '+'; font-size: 18px; font-weight: 300; transition: transform .3s; }
+      .footer-col.open h4::after { content: '−'; }
+      .footer-col ul { max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .35s; padding: 0; gap: 0; font-size: 12px; }
+      .footer-col.open ul { max-height: 200px; padding-bottom: 10px; gap: 6px; }
+      .footer-bottom { flex-direction: column; text-align: center; gap: 4px; font-size: 10px; padding-top: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <ul class="nav-links-left">
+    <li><a href="index.html#formats">Événements</a></li>
+    <li><a href="index.html#planning">Planning</a></li>
+    <li><a href="a-propos.html">À propos</a></li>
+  </ul>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-badge"><img src="Brand Board/Logo Long Safe Place Evenementiel/LOGO_Long_SPE_Rose.png" alt="Safe Place Événementiel"></div>
+  </a>
+  <ul class="nav-links-right">
+    <li><a href="collaborateurs.html">Collaborateurs</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="index.html#planning" class="nav-cta">✦ Réserver</a></li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-hero">
+  <div class="eyebrow">🔒 Vos données</div>
+  <h1>Politique de confidentialité</h1>
+  <p>Dernière mise à jour : mars 2026</p>
+</div>
+
+<div class="legal-content">
+
+  <div class="sommaire">
+    <h3>Sommaire</h3>
+    <ol>
+      <li><a href="#article1">Responsable du traitement</a></li>
+      <li><a href="#article2">Données collectées</a></li>
+      <li><a href="#article3">Finalités du traitement</a></li>
+      <li><a href="#article4">Base légale</a></li>
+      <li><a href="#article5">Durée de conservation</a></li>
+      <li><a href="#article6">Partage des données</a></li>
+      <li><a href="#article7">Vos droits</a></li>
+      <li><a href="#article8">Cookies</a></li>
+      <li><a href="#article9">Sécurité</a></li>
+      <li><a href="#article10">Contact & réclamations</a></li>
+    </ol>
+  </div>
+
+  <div class="legal-section" id="article1">
+    <h2>Article 1 — Responsable du traitement</h2>
+    <div class="info-block">
+      <p>
+        <strong>Responsable :</strong> Safe Place Événementiel<br>
+        <strong>Statut :</strong> Auto-entreprise<br>
+        <strong>E-mail :</strong> <a href="mailto:hello@safeplaceevenementiel.fr">hello@safeplaceevenementiel.fr</a>
+      </p>
+    </div>
+    <p>Safe Place Événementiel s'engage à protéger vos données personnelles conformément au Règlement Général sur la Protection des Données (RGPD — UE 2016/679) et à la loi Informatique et Libertés du 6 janvier 1978 modifiée.</p>
+  </div>
+
+  <div class="legal-section" id="article2">
+    <h2>Article 2 — Données collectées</h2>
+    <h3>Lors d'une réservation</h3>
+    <ul>
+      <li>Nom et prénom</li>
+      <li>Adresse e-mail</li>
+      <li>Numéro de téléphone (si renseigné)</li>
+      <li>Informations de paiement (traitées directement par Stripe, non stockées par Safe Place Événementiel)</li>
+    </ul>
+
+    <h3>Lors d'un formulaire de contact</h3>
+    <ul>
+      <li>Nom et prénom</li>
+      <li>Adresse e-mail</li>
+      <li>Numéro de téléphone (si renseigné)</li>
+      <li>Compte Instagram (si renseigné)</li>
+      <li>Contenu du message</li>
+    </ul>
+
+    <h3>Lors de la navigation</h3>
+    <ul>
+      <li>Données techniques de connexion (adresse IP, type de navigateur) à des fins de sécurité et de statistiques anonymes</li>
+    </ul>
+
+    <div class="highlight">
+      🤍 Nous ne collectons que les données strictement nécessaires. Aucune donnée sensible (santé, opinions politiques, religion…) n'est demandée.
+    </div>
+  </div>
+
+  <div class="legal-section" id="article3">
+    <h2>Article 3 — Finalités du traitement</h2>
+    <p>Vos données sont utilisées uniquement pour :</p>
+    <ul>
+      <li><strong>Gestion des réservations</strong> — confirmation, suivi, rappels d'événements</li>
+      <li><strong>Paiement</strong> — traitement sécurisé via Stripe</li>
+      <li><strong>Communication</strong> — réponse aux messages et demandes de contact</li>
+      <li><strong>Newsletter</strong> — information sur les prochains événements (uniquement avec votre consentement, désinscription possible à tout moment)</li>
+      <li><strong>Obligations légales</strong> — conservation des données comptables et contractuelles</li>
+    </ul>
+    <p>Vos données ne sont <strong>jamais</strong> utilisées à des fins publicitaires ou revendues à des tiers.</p>
+  </div>
+
+  <div class="legal-section" id="article4">
+    <h2>Article 4 — Base légale du traitement</h2>
+    <ul>
+      <li><strong>Exécution d'un contrat</strong> — pour la gestion des réservations et paiements</li>
+      <li><strong>Consentement</strong> — pour la newsletter et les communications marketing</li>
+      <li><strong>Intérêt légitime</strong> — pour la sécurité du site et la prévention des fraudes</li>
+      <li><strong>Obligation légale</strong> — pour la conservation des données comptables</li>
+    </ul>
+  </div>
+
+  <div class="legal-section" id="article5">
+    <h2>Article 5 — Durée de conservation</h2>
+    <ul>
+      <li><strong>Données de réservation</strong> — 3 ans à compter de la dernière réservation</li>
+      <li><strong>Données comptables</strong> — 10 ans (obligation légale)</li>
+      <li><strong>Messages de contact</strong> — 2 ans à compter de la réception</li>
+      <li><strong>Données de newsletter</strong> — jusqu'à désinscription</li>
+      <li><strong>Données de navigation</strong> — 13 mois maximum</li>
+    </ul>
+  </div>
+
+  <div class="legal-section" id="article6">
+    <h2>Article 6 — Partage des données</h2>
+    <p>Vos données peuvent être transmises aux sous-traitants suivants, dans le strict cadre de leur mission :</p>
+    <ul>
+      <li><strong>Stripe</strong> — traitement sécurisé des paiements (certifié PCI-DSS)</li>
+      <li><strong>Prestataire d'hébergement</strong> — Ionos (serveurs situés en Europe)</li>
+      <li><strong>Outil d'emailing</strong> — pour l'envoi des confirmations et newsletters</li>
+    </ul>
+    <p>Ces sous-traitants sont soumis à des obligations de confidentialité et ne peuvent utiliser vos données qu'aux fins pour lesquelles elles leur ont été transmises. Aucune donnée n'est transférée en dehors de l'Union Européenne.</p>
+  </div>
+
+  <div class="legal-section" id="article7">
+    <h2>Article 7 — Vos droits</h2>
+    <p>Conformément au RGPD, vous disposez des droits suivants :</p>
+
+    <div class="droits-grid">
+      <div class="droit-card">
+        <div class="droit-icon">👁️</div>
+        <h4>Droit d'accès</h4>
+        <p>Obtenir la copie des données personnelles vous concernant.</p>
+      </div>
+      <div class="droit-card">
+        <div class="droit-icon">✏️</div>
+        <h4>Droit de rectification</h4>
+        <p>Corriger des données inexactes ou incomplètes.</p>
+      </div>
+      <div class="droit-card">
+        <div class="droit-icon">🗑️</div>
+        <h4>Droit à l'effacement</h4>
+        <p>Demander la suppression de vos données (« droit à l'oubli »).</p>
+      </div>
+      <div class="droit-card">
+        <div class="droit-icon">⏸️</div>
+        <h4>Droit à la limitation</h4>
+        <p>Restreindre temporairement le traitement de vos données.</p>
+      </div>
+      <div class="droit-card">
+        <div class="droit-icon">📦</div>
+        <h4>Droit à la portabilité</h4>
+        <p>Recevoir vos données dans un format structuré et réutilisable.</p>
+      </div>
+      <div class="droit-card">
+        <div class="droit-icon">🚫</div>
+        <h4>Droit d'opposition</h4>
+        <p>Vous opposer au traitement de vos données, notamment pour la newsletter.</p>
+      </div>
+    </div>
+
+    <p>Pour exercer ces droits, contactez-nous : <a href="mailto:hello@safeplaceevenementiel.fr">hello@safeplaceevenementiel.fr</a>. Nous répondons dans un délai maximum de 30 jours.</p>
+  </div>
+
+  <div class="legal-section" id="article8">
+    <h2>Article 8 — Cookies</h2>
+    <h3>Cookies techniques (obligatoires)</h3>
+    <p>Ces cookies sont nécessaires au bon fonctionnement du site (session, préférences). Ils ne peuvent pas être désactivés.</p>
+
+    <h3>Cookies analytiques (optionnels)</h3>
+    <p>Ces cookies permettent de mesurer l'audience du site de façon anonyme et agrégée. Ils ne sont déposés qu'avec votre consentement.</p>
+
+    <h3>Cookies tiers</h3>
+    <p>Le site peut intégrer des contenus tiers (Instagram, Stripe) susceptibles de déposer leurs propres cookies. Nous vous invitons à consulter leurs politiques de confidentialité respectives.</p>
+
+    <p>Vous pouvez à tout moment configurer votre navigateur pour refuser ou supprimer les cookies.</p>
+  </div>
+
+  <div class="legal-section" id="article9">
+    <h2>Article 9 — Sécurité</h2>
+    <p>Safe Place Événementiel met en œuvre les mesures techniques et organisationnelles appropriées pour protéger vos données contre toute perte, accès non autorisé, divulgation ou altération :</p>
+    <ul>
+      <li>Connexion sécurisée HTTPS sur l'ensemble du site</li>
+      <li>Paiements traités exclusivement par Stripe (certifié PCI-DSS niveau 1)</li>
+      <li>Accès aux données restreint aux seules personnes habilitées</li>
+    </ul>
+  </div>
+
+  <div class="legal-section" id="article10">
+    <h2>Article 10 — Contact & réclamations</h2>
+    <p>Pour toute question relative à la protection de vos données : <a href="mailto:hello@safeplaceevenementiel.fr">hello@safeplaceevenementiel.fr</a></p>
+    <p>Si vous estimez que vos droits ne sont pas respectés, vous pouvez introduire une réclamation auprès de la <strong>CNIL</strong> (Commission Nationale de l'Informatique et des Libertés) :</p>
+    <div class="info-block">
+      <p>
+        <strong>CNIL</strong><br>
+        3 Place de Fontenoy — TSA 80715 — 75334 Paris Cedex 07<br>
+        <a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a>
+      </p>
+    </div>
+  </div>
+
+  <p class="update-date">Politique de confidentialité mise à jour en mars 2026.</p>
+
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand-wrap">
+        <div class="footer-brand">Safe Place ✦ Événementiel</div>
+        <p class="footer-desc">Des espaces bienveillants pour créer, partager et s'épanouir. Ateliers créatifs, moments en famille & week-ends bien-être sur la Côte d'Opale.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Événements</h4>
+        <ul>
+          <li><a href="index.html#formats">Apéros Créatifs</a></li>
+          <li><a href="index.html#formats">Ateliers Famille</a></li>
+          <li><a href="lumiere-interieure.html">Week-End Bien-être</a></li>
+          <li><a href="index.html#planning">Planning</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Safe Place</h4>
+        <ul>
+          <li><a href="a-propos.html">À propos</a></li>
+          <li><a href="collaborateurs.html">Collaborateurs</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://instagram.com/safeplaceevenementiel" target="_blank" rel="noopener">@safeplaceevenementiel</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <ul>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+          <li><a href="cgv.html">Conditions générales</a></li>
+          <li><a href="remboursement.html">Politique de remboursement</a></li>
+          <li><a href="confidentialite.html" style="color:white">Confidentialité</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Safe Place Événementiel · Tous droits réservés</span>
+      <span>🔒 Paiement sécurisé Stripe</span>
+      <span>Fait avec ✦ à Boulogne-sur-Mer</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+var burger = document.getElementById('burger');
+if(burger) burger.addEventListener('click',function(){ burger.classList.toggle('open'); });
+
+/* ── Footer accordion (mobile) ── */
+document.querySelectorAll('.footer-col h4').forEach(function(h4) {
+  h4.addEventListener('click', function() {
+    h4.closest('.footer-col').classList.toggle('open');
+  });
+});
+</script>
+</body>
+</html>

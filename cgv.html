@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Conditions générales de vente — Safe Place Événementiel</title>
+  <meta name="description" content="Conditions générales de vente de Safe Place Événementiel — ateliers créatifs, week-ends bien-être sur la Côte d'Opale.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;0,800;0,900;1,700;1,800;1,900&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --o:#ff9430; --od:#d97220; --ol:#ffb366; --op:#fff4ea;
+      --p:#fd2c82; --pd:#d91a6a; --pl:#ff6aab; --pp:#fff0f7;
+      --w:#ffffff; --bg:#fffaf6; --t:#1a0800; --ts:#7a3d1a;
+      --border:rgba(253,44,130,.14);
+      --radius-sm:14px; --radius-md:24px;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--t);overflow-x:hidden;font-size:15px;line-height:1.7;}
+    a{text-decoration:none;color:inherit;}
+    img{max-width:100%;display:block;}
+    button{font-family:inherit;cursor:pointer;border:none;}
+
+    /* NAV */
+    .nav{position:fixed;top:0;left:0;width:100%;z-index:500;height:72px;background:rgba(255,148,48,.97);backdrop-filter:blur(16px);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;padding:0 32px;box-shadow:0 4px 24px rgba(255,148,48,.35);}
+    .nav-logo{grid-column:2;display:flex;align-items:center;justify-content:center;}
+    .nav-badge{height:52px;width:auto;}
+    .nav-badge img{height:100%;width:auto;object-fit:contain;display:block;}
+    .nav-links-left,.nav-links-right{display:flex;align-items:center;gap:28px;list-style:none;white-space:nowrap;}
+    .nav-links-left{grid-column:1;justify-self:start;}
+    .nav-links-right{grid-column:3;justify-self:end;}
+    .nav-links-left a,.nav-links-right a{font-size:13px;font-weight:700;color:var(--p);letter-spacing:.06em;text-transform:uppercase;transition:color .2s;}
+    .nav-links-left a:hover,.nav-links-right a:hover{color:white;}
+    .nav-cta{background:var(--p);color:white!important;padding:10px 24px;border-radius:30px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 4px 16px rgba(253,44,130,.4);transition:all .25s;}
+    .nav-cta:hover{transform:translateY(-2px);}
+    .nav-burger{display:none;background:none;border:none;grid-column:3;justify-self:end;width:36px;height:36px;flex-direction:column;align-items:center;justify-content:center;gap:6px;}
+    .nav-burger span{display:block;width:24px;height:2.5px;background:var(--p);border-radius:2px;transition:all .3s;}
+
+    /* HERO */
+    .page-hero{background:var(--o);padding:120px 24px 64px;text-align:center;position:relative;overflow:hidden;}
+    .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(255,255,255,.12) 0%,transparent 50%),radial-gradient(circle at 15% 75%,rgba(253,44,130,.18) 0%,transparent 45%);pointer-events:none;}
+    .page-hero .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--p);color:white;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:8px 20px;border-radius:30px;margin-bottom:20px;}
+    .page-hero h1{font-family:'Nunito',sans-serif;font-weight:900;font-style:italic;font-size:clamp(2rem,5vw,3.2rem);color:white;line-height:1.2;}
+    .page-hero p{color:rgba(255,255,255,.85);margin-top:12px;font-size:1rem;}
+
+    /* SOMMAIRE */
+    .sommaire{background:var(--op);border:1.5px solid rgba(255,148,48,.25);border-radius:var(--radius-sm);padding:28px 32px;margin-bottom:48px;}
+    .sommaire h3{font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;color:var(--od);margin-bottom:16px;}
+    .sommaire ol{padding-left:20px;display:flex;flex-direction:column;gap:6px;}
+    .sommaire ol li a{color:var(--p);font-weight:600;font-size:14px;text-decoration:underline;}
+
+    /* CONTENU */
+    .legal-content{max-width:800px;margin:0 auto;padding:80px 24px;}
+    .legal-section{margin-bottom:48px;scroll-margin-top:90px;}
+    .legal-section h2{font-family:'Nunito',sans-serif;font-weight:900;font-size:1.25rem;color:var(--p);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--border);}
+    .legal-section h3{font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;color:var(--od);margin:20px 0 8px;}
+    .legal-section p{color:var(--t);margin-bottom:10px;font-size:15px;}
+    .legal-section a{color:var(--p);font-weight:600;text-decoration:underline;}
+    .legal-section ul,.legal-section ol{padding-left:20px;margin-bottom:12px;}
+    .legal-section ul li,.legal-section ol li{margin-bottom:6px;font-size:15px;}
+    .info-block{background:var(--op);border:1.5px solid rgba(255,148,48,.25);border-radius:var(--radius-sm);padding:20px 24px;margin:16px 0;}
+    .info-block p{margin:0;line-height:2;}
+    .info-block strong{color:var(--od);}
+    .highlight{background:var(--pp);border-left:4px solid var(--p);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:16px 20px;margin:16px 0;font-size:14px;}
+    .update-date{font-size:13px;color:var(--ts);margin-top:48px;padding-top:24px;border-top:1px solid var(--border);}
+
+    /* TARIFS */
+    .tarifs-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0;}
+    .tarif-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:20px;text-align:center;}
+    .tarif-card .tarif-nom{font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;color:var(--t);margin-bottom:8px;}
+    .tarif-card .tarif-prix{font-family:'Nunito',sans-serif;font-weight:900;font-size:1.6rem;color:var(--p);}
+    .tarif-card .tarif-detail{font-size:12px;color:var(--ts);margin-top:4px;}
+
+    /* FOOTER */
+    .footer{background:var(--p);padding:64px 0 32px;color:white;}
+    .footer .container{max-width:1100px;margin:0 auto;padding:0 24px;}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+    .footer-brand{font-family:'Nunito',sans-serif;font-weight:900;font-style:italic;font-size:1.4rem;margin-bottom:12px;}
+    .footer-desc{font-size:13px;color:rgba(255,255,255,.75);line-height:1.7;}
+    .footer-col h4{font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;color:rgba(255,255,255,.6);}
+    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+    .footer-col ul li a{font-size:14px;color:white;font-weight:600;transition:opacity .2s;}
+    .footer-col ul li a:hover{opacity:.7;}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.2);padding-top:24px;display:flex;gap:24px;flex-wrap:wrap;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.55);}
+
+    @media(max-width:900px){
+      .nav-links-left,.nav-links-right{display:none;}
+      .nav-burger{display:flex;}
+      .footer-grid{grid-template-columns:1fr 1fr;gap:32px;}
+      .tarifs-grid{grid-template-columns:1fr;}
+    }
+    @media(max-width:600px){
+      .footer { padding: 16px 0 12px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 0; margin-bottom: 8px; }
+      .footer-brand-wrap { display: none; }
+      .footer-col { border-bottom: 1px solid rgba(255,255,255,.12); }
+      .footer-col h4 {
+        display: flex; justify-content: space-between; align-items: center;
+        cursor: pointer; padding: 10px 0; margin-bottom: 0; user-select: none;
+        font-size: 10px;
+      }
+      .footer-col h4::after { content: '+'; font-size: 18px; font-weight: 300; transition: transform .3s; }
+      .footer-col.open h4::after { content: '−'; }
+      .footer-col ul { max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .35s; padding: 0; gap: 0; font-size: 12px; }
+      .footer-col.open ul { max-height: 200px; padding-bottom: 10px; gap: 6px; }
+      .footer-bottom { flex-direction: column; text-align: center; gap: 4px; font-size: 10px; padding-top: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <ul class="nav-links-left">
+    <li><a href="index.html#formats">Événements</a></li>
+    <li><a href="index.html#planning">Planning</a></li>
+    <li><a href="a-propos.html">À propos</a></li>
+  </ul>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-badge"><img src="Brand Board/Logo Long Safe Place Evenementiel/LOGO_Long_SPE_Rose.png" alt="Safe Place Événementiel"></div>
+  </a>
+  <ul class="nav-links-right">
+    <li><a href="collaborateurs.html">Collaborateurs</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="index.html#planning" class="nav-cta">✦ Réserver</a></li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-hero">
+  <div class="eyebrow">📄 Informations légales</div>
+  <h1>Conditions générales de vente</h1>
+  <p>Dernière mise à jour : mars 2026</p>
+</div>
+
+<div class="legal-content">
+
+  <div class="sommaire">
+    <h3>Sommaire</h3>
+    <ol>
+      <li><a href="#article1">Identification du vendeur</a></li>
+      <li><a href="#article2">Champ d'application</a></li>
+      <li><a href="#article3">Offres et tarifs</a></li>
+      <li><a href="#article4">Modalités de réservation</a></li>
+      <li><a href="#article5">Paiement</a></li>
+      <li><a href="#article6">Conditions d'annulation et remboursement</a></li>
+      <li><a href="#article7">Obligations du participant</a></li>
+      <li><a href="#article8">Responsabilité</a></li>
+      <li><a href="#article9">Droit à l'image</a></li>
+      <li><a href="#article10">Données personnelles</a></li>
+      <li><a href="#article11">Droit applicable et litiges</a></li>
+    </ol>
+  </div>
+
+  <div class="legal-section" id="article1">
+    <h2>Article 1 — Identification du vendeur</h2>
+    <div class="info-block">
+      <p>
+        <strong>Raison sociale :</strong> Safe Place Événementiel<br>
+        <strong>Statut :</strong> Auto-entreprise<br>
+        <strong>Responsable :</strong> Angela<br>
+        <strong>Adresse :</strong> Boulogne-sur-Mer, 62200 (Pas-de-Calais)<br>
+        <strong>E-mail :</strong> <a href="mailto:hello@safeplaceevenementiel.fr">hello@safeplaceevenementiel.fr</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="legal-section" id="article2">
+    <h2>Article 2 — Champ d'application</h2>
+    <p>Les présentes Conditions Générales de Vente (CGV) s'appliquent à toutes les réservations effectuées auprès de Safe Place Événementiel, que ce soit via le site internet <a href="https://safeplaceevenementiel.fr">safeplaceevenementiel.fr</a> ou par tout autre moyen de communication.</p>
+    <p>Toute réservation implique l'acceptation sans réserve des présentes CGV. Le client déclare en avoir pris connaissance avant de finaliser sa réservation.</p>
+  </div>
+
+  <div class="legal-section" id="article3">
+    <h2>Article 3 — Offres et tarifs</h2>
+    <p>Safe Place Événementiel propose plusieurs formats d'événements :</p>
+
+    <ul>
+      <li><strong>Apéros Créatifs</strong> — ateliers créatifs adultes</li>
+      <li><strong>Ateliers Famille</strong> — ateliers créatifs parents et enfants</li>
+      <li><strong>Week-ends & Retraites</strong> — séjours bien-être avec hébergement, restauration et ateliers</li>
+      <li><strong>Événements sur mesure</strong> — organisation d'événements personnalisés à la demande</li>
+    </ul>
+
+    <p>Les tarifs sont indiqués en euros TTC. Safe Place Événementiel est auto-entrepreneur non assujetti à la TVA (article 293 B du CGI).</p>
+    <p>Safe Place Événementiel se réserve le droit de modifier ses tarifs à tout moment. Le tarif applicable est celui en vigueur au moment de la réservation.</p>
+  </div>
+
+  <div class="legal-section" id="article4">
+    <h2>Article 4 — Modalités de réservation</h2>
+    <h3>Apéros Créatifs et Ateliers Famille</h3>
+    <p>La réservation est confirmée après réception du paiement intégral via le site internet. Les places sont limitées et attribuées par ordre d'inscription.</p>
+
+    <h3>Week-ends et Retraites</h3>
+    <p>La réservation est validée par le versement d'un acompte ou du paiement complet selon les modalités précisées sur la page de l'événement concerné.</p>
+    <p>Selon les éditions, un échange préalable peut être proposé pour s'assurer que le programme correspond aux attentes et besoins du participant·e. Les modalités sont précisées sur chaque page événement.</p>
+
+    <h3>Confirmation</h3>
+    <p>Un e-mail de confirmation est envoyé à l'adresse fournie lors de l'inscription dès que la réservation est validée. Cet e-mail fait office de justificatif.</p>
+  </div>
+
+  <div class="legal-section" id="article5">
+    <h2>Article 5 — Paiement</h2>
+    <h3>Moyens de paiement</h3>
+    <p>Le paiement s'effectue en ligne de manière sécurisée via <strong>Stripe</strong> (carte bancaire). Les données bancaires ne sont jamais stockées par Safe Place Événementiel.</p>
+
+    <h3>Paiement en plusieurs fois</h3>
+    <p>Pour les week-ends et retraites, un paiement échelonné jusqu'à <strong>5 fois sans frais</strong> est proposé, selon les modalités précisées sur la page de l'événement concerné.</p>
+
+    <div class="highlight">
+      🔒 Tous les paiements sont sécurisés par Stripe, certifié PCI-DSS. Vos données bancaires ne transitent pas sur nos serveurs.
+    </div>
+  </div>
+
+  <div class="legal-section" id="article6">
+    <h2>Article 6 — Conditions d'annulation et remboursement</h2>
+    <p>Pour consulter la politique complète d'annulation et de remboursement, rendez-vous sur la page dédiée : <a href="remboursement.html">Politique de remboursement</a>.</p>
+
+    <h3>Résumé</h3>
+    <ul>
+      <li><strong>Ateliers et Apéros :</strong> remboursement si annulation plus de 48h avant l'événement.</li>
+      <li><strong>Week-ends :</strong> remboursement intégral dans les 14 jours suivant l'inscription (délai légal de rétractation). Aucun remboursement après ce délai — l'inscription vaut engagement de règlement du montant total.</li>
+      <li><strong>Annulation par Safe Place Événementiel :</strong> remboursement intégral ou report sur une prochaine date.</li>
+    </ul>
+  </div>
+
+  <div class="legal-section" id="article7">
+    <h2>Article 7 — Obligations du participant·e</h2>
+    <p>Le participant·e s'engage à :</p>
+    <ul>
+      <li>Fournir des informations exactes lors de l'inscription</li>
+      <li>Se présenter à l'heure et au lieu indiqués</li>
+      <li>Adopter un comportement respectueux envers les autres participant·e·s, les intervenant·e·s et les lieux</li>
+      <li>Signaler tout problème de santé ou contre-indication pertinent avant les ateliers bien-être</li>
+    </ul>
+    <p>Safe Place Événementiel se réserve le droit d'exclure, sans remboursement, toute personne dont le comportement perturberait le bon déroulement de l'événement ou porterait atteinte à la sécurité des autres participant·e·s.</p>
+  </div>
+
+  <div class="legal-section" id="article8">
+    <h2>Article 8 — Responsabilité</h2>
+    <p>Safe Place Événementiel s'engage à mettre en œuvre tous les moyens nécessaires pour assurer le bon déroulement des événements dans les meilleures conditions de sécurité et de bienveillance.</p>
+    <p>Safe Place Événementiel ne pourra être tenu responsable :</p>
+    <ul>
+      <li>Des dommages résultant d'un comportement imprudent ou d'une négligence du participant·e</li>
+      <li>Des cas de force majeure (intempéries, maladie soudaine d'un·e intervenant·e, etc.) entraînant l'annulation ou la modification d'un événement</li>
+      <li>De la perte ou du vol d'objets personnels sur les lieux des événements</li>
+    </ul>
+  </div>
+
+  <div class="legal-section" id="article9">
+    <h2>Article 9 — Droit à l'image</h2>
+    <p>Des photos et/ou vidéos peuvent être réalisées lors des événements à des fins de communication (site internet, réseaux sociaux, supports promotionnels).</p>
+    <p>Le consentement du participant·e est recueilli lors de l'inscription. Toute personne peut refuser la prise de vue ou demander l'effacement d'une image publiée en contactant : <a href="mailto:hello@safeplaceevenementiel.fr">hello@safeplaceevenementiel.fr</a>.</p>
+  </div>
+
+  <div class="legal-section" id="article10">
+    <h2>Article 10 — Données personnelles</h2>
+    <p>Les données personnelles collectées lors de l'inscription sont utilisées uniquement dans le cadre de la gestion des réservations et de la communication autour des événements. Elles ne sont jamais revendues à des tiers.</p>
+    <p>Pour plus d'informations, consultez notre <a href="confidentialite.html">politique de confidentialité</a>.</p>
+  </div>
+
+  <div class="legal-section" id="article11">
+    <h2>Article 11 — Droit applicable et litiges</h2>
+    <p>Les présentes CGV sont soumises au droit français.</p>
+    <p>En cas de litige, une solution amiable sera recherchée en priorité. À défaut, les tribunaux français compétents seront saisis.</p>
+    <p>Conformément aux dispositions du Code de la consommation, vous pouvez recourir à la médiation de la consommation. Pour tout litige non résolu, vous pouvez également vous adresser à la plateforme européenne de règlement en ligne des litiges : <a href="https://consumer-redress.ec.europa.eu/index_fr" target="_blank" rel="noopener">consumer-redress.ec.europa.eu</a>.</p>
+  </div>
+
+  <p class="update-date">Conditions générales de vente mises à jour en mars 2026.</p>
+
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand-wrap">
+        <div class="footer-brand">Safe Place ✦ Événementiel</div>
+        <p class="footer-desc">Des espaces bienveillants pour créer, partager et s'épanouir. Ateliers créatifs, moments en famille & week-ends bien-être sur la Côte d'Opale.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Événements</h4>
+        <ul>
+          <li><a href="index.html#formats">Apéros Créatifs</a></li>
+          <li><a href="index.html#formats">Ateliers Famille</a></li>
+          <li><a href="lumiere-interieure.html">Week-End Bien-être</a></li>
+          <li><a href="index.html#planning">Planning</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Safe Place</h4>
+        <ul>
+          <li><a href="a-propos.html">À propos</a></li>
+          <li><a href="collaborateurs.html">Collaborateurs</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://instagram.com/safeplaceevenementiel" target="_blank" rel="noopener">@safeplaceevenementiel</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <ul>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+          <li><a href="cgv.html" style="color:white">Conditions générales</a></li>
+          <li><a href="remboursement.html">Politique de remboursement</a></li>
+          <li><a href="confidentialite.html">Confidentialité</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Safe Place Événementiel · Tous droits réservés</span>
+      <span>🔒 Paiement sécurisé Stripe</span>
+      <span>Fait avec ✦ à Boulogne-sur-Mer</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+var burger = document.getElementById('burger');
+if(burger) burger.addEventListener('click',function(){ burger.classList.toggle('open'); });
+
+/* ── Footer accordion (mobile) ── */
+document.querySelectorAll('.footer-col h4').forEach(function(h4) {
+  h4.addEventListener('click', function() {
+    h4.closest('.footer-col').classList.toggle('open');
+  });
+});
+</script>
+</body>
+</html>

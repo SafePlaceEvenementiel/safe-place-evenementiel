@@ -224,16 +224,16 @@ select.fi{cursor:pointer}
 .bconf{background:var(--o);color:white;width:100%;padding:15px;border-radius:18px;font-size:16px;font-weight:700;
   border:none;cursor:pointer;transition:all .25s}
 .bconf:hover{background:var(--p)}
-footer{background:var(--p);color:rgba(255,255,255,.72);padding:56px 80px 36px}
-.ftg{display:grid;grid-template-columns:2fr 1fr 1fr;gap:56px;margin-bottom:44px}
-.ftb{font-family:'Nunito',sans-serif;font-weight:900;font-style:italic;font-size:26px;color:white;margin-bottom:14px}
-.ftd{font-size:14px;line-height:1.7;max-width:280px}
-footer h4{color:white;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
-footer ul{list-style:none;display:flex;flex-direction:column;gap:9px}
-footer li{font-size:14px;cursor:pointer;transition:color .2s}
-footer li:hover{color:var(--ol)}
-footer a{color:inherit}
-.ftbtm{padding-top:26px;border-top:1px solid rgba(255,255,255,.18);display:flex;justify-content:space-between;font-size:12px}
+.footer{background:var(--p);padding:64px 0 32px;color:white;}
+.footer .container{max-width:1100px;margin:0 auto;padding:0 24px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+.footer-brand{font-family:'Nunito',sans-serif;font-weight:900;font-style:italic;font-size:1.4rem;margin-bottom:12px;}
+.footer-desc{font-size:13px;color:rgba(255,255,255,.75);line-height:1.7;}
+.footer-col h4{font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;color:rgba(255,255,255,.6);}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:14px;color:white;font-weight:600;transition:opacity .2s;}
+.footer-col ul li a:hover{opacity:.7;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.2);padding-top:24px;display:flex;gap:24px;flex-wrap:wrap;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.55);}
 .rv{opacity:0;transform:translateY(28px);transition:all .68s cubic-bezier(.4,0,.2,1)}
 .rv.in{opacity:1;transform:translateY(0)}
 .rv2{opacity:0;transform:translateY(28px);transition:all .68s cubic-bezier(.4,0,.2,1) .12s}
@@ -245,8 +245,24 @@ footer a{color:inherit}
   .sec{padding:56px 20px}.manifesto{padding:56px 24px}
   .prog-grid,.ig,.cg,.infos-grid,.rw{grid-template-columns:1fr}
   #programme,#cuisine,#inscription{margin:0 12px;border-radius:28px}
-  .ftg{grid-template-columns:1fr;gap:28px} footer{padding:40px 20px 28px}
+  .footer-grid{grid-template-columns:1fr 1fr;}
   .fr{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .footer { padding: 16px 0 12px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 0; margin-bottom: 8px; }
+  .footer-brand-wrap { display: none; }
+  .footer-col { border-bottom: 1px solid rgba(255,255,255,.12); }
+  .footer-col h4 {
+    display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer; padding: 10px 0; margin-bottom: 0; user-select: none;
+    font-size: 10px;
+  }
+  .footer-col h4::after { content: '+'; font-size: 18px; font-weight: 300; transition: transform .3s; }
+  .footer-col.open h4::after { content: '−'; }
+  .footer-col ul { max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .35s; padding: 0; gap: 0; font-size: 12px; }
+  .footer-col.open ul { max-height: 200px; padding-bottom: 10px; gap: 6px; }
+  .footer-bottom { flex-direction: column; text-align: center; gap: 4px; font-size: 10px; padding-top: 12px; }
 }
 </style>
 
@@ -963,33 +979,46 @@ footer a{color:inherit}
   </div>
 </section>
 
-<footer>
-  <div class="ftg">
-    <div>
-      <div class="ftb">Lumière Intérieure ✦</div>
-      <div class="ftd">Un week-end pour ralentir, se reconnecter à soi et apprendre à se regarder autrement. Organisé par Angela — Safe Place Évènementiel.</div>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand-wrap">
+        <div class="footer-brand">Safe Place ✦ Événementiel</div>
+        <p class="footer-desc">Des espaces bienveillants pour créer, partager et s'épanouir. Ateliers créatifs, moments en famille & week-ends bien-être sur la Côte d'Opale.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Événements</h4>
+        <ul>
+          <li><a href="index.html#formats">Apéros Créatifs</a></li>
+          <li><a href="index.html#formats">Ateliers Famille</a></li>
+          <li><a href="lumiere-interieure.html">Week-End Bien-être</a></li>
+          <li><a href="index.html#planning">Planning</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Safe Place</h4>
+        <ul>
+          <li><a href="a-propos.html">À propos</a></li>
+          <li><a href="collaborateurs.html">Collaborateurs</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://instagram.com/safeplaceevenementiel" target="_blank" rel="noopener">@safeplaceevenementiel</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <ul>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+          <li><a href="cgv.html">Conditions générales</a></li>
+          <li><a href="remboursement.html">Politique de remboursement</a></li>
+          <li><a href="confidentialite.html">Confidentialité</a></li>
+        </ul>
+      </div>
     </div>
-    <div>
-      <h4>Informations</h4>
-      <ul>
-        <li>1 — 2 — 3 mai 2026</li>
-        <li>Gîte de la Grange Enchantée</li>
-        <li>112 Rue du Fay, 62650 Bezinghem</li>
-        <li>Date butoir : 17 avril 14h00</li>
-      </ul>
+    <div class="footer-bottom">
+      <span>© 2026 Safe Place Événementiel · Tous droits réservés</span>
+      <span>🔒 Paiement sécurisé Stripe</span>
+      <span>Fait avec ✦ à Boulogne-sur-Mer</span>
     </div>
-    <div>
-      <h4>Contact</h4>
-      <ul>
-        <li>06.47.69.19.92</li>
-        <li><a href="mailto:safe.place.evenementiel@gmail.com">safe.place.evenementiel@gmail.com</a></li>
-        <li><a href="https://instagram.com/safeplaceevenementiel" target="_blank">@safeplaceevenementiel</a></li>
-        <li><a href="safeplace-evenementiel-final.html">← Retour au site principal</a></li>
-      </ul>
-    </div>
-  </div>
-  <div style="text-align:center;font-size:13px;padding-top:24px;border-top:1px solid rgba(255,255,255,.15)">
-    © 2026 Safe Place Évènementiel · Angela Laurent ✦ @safeplaceevenementiel
   </div>
 </footer>
 <script>
@@ -1328,6 +1357,12 @@ const obs = new IntersectionObserver(es => es.forEach(e => {
   if (e.isIntersecting) e.target.classList.add('in');
 }), {threshold: .08});
 document.querySelectorAll('.rv,.rv2,.rv3').forEach(el => obs.observe(el));
+/* ── Footer accordion (mobile) ── */
+document.querySelectorAll('.footer-col h4').forEach(function(h4) {
+  h4.addEventListener('click', function() {
+    h4.closest('.footer-col').classList.toggle('open');
+  });
+});
 </script>
 </body>
 </html>
