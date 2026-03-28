@@ -1,0 +1,12 @@
+# Dossier originaux (photos/vidéos sources, non utilisés par le site web)
+Evènements/
+Évènements/
+
+# Fichiers système Mac
+.DS_Store
+**/.DS_Store
+Thumbs.db
+
+# Fichiers temporaires
+*.tmp
+*.log
