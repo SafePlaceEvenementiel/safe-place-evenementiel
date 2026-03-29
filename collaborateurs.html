@@ -197,12 +197,14 @@ button{font-family:inherit;cursor:pointer;border:none;}
 .collab-role { font-size: 13px; font-weight: 600; color: var(--p); }
 .collab-desc { font-size: 14px; color: var(--ts); line-height: 1.65; flex: 1; }
 .collab-insta {
-  display: inline-flex; align-items: center; gap: 6px;
+  display: flex; align-items: center; gap: 6px;
   font-size: 13px; font-weight: 700; color: var(--p);
   margin-top: 8px; transition: color .2s;
+  max-width: 100%; overflow: hidden;
 }
 .collab-insta:hover { color: var(--pd); }
-.collab-insta svg { width: 16px; height: 16px; }
+.collab-insta svg { width: 16px; height: 16px; flex-shrink: 0; }
+.collab-insta span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 
 /* ── LIEUX PARTENAIRES ── */
 .lieux-grid {
@@ -237,9 +239,10 @@ button{font-family:inherit;cursor:pointer;border:none;}
 .lieu-body { padding: 24px 24px 20px; display: flex; gap: 14px; align-items: flex-start; }
 .lieu-info h3 { font-family:'Nunito',sans-serif; font-weight:800; font-size:1.05rem; margin-bottom:4px; }
 .lieu-info p { font-size:13px; color:var(--ts); line-height:1.6; }
-.lieu-insta { display:inline-flex; align-items:center; gap:6px; margin-top:8px; font-size:13px; font-weight:700; color:var(--p); text-decoration:none; transition:color .2s; }
+.lieu-insta { display:flex; align-items:center; gap:6px; margin-top:8px; font-size:13px; font-weight:700; color:var(--p); text-decoration:none; transition:color .2s; max-width:100%; overflow:hidden; }
 .lieu-insta:hover { color:var(--pd); }
-.lieu-insta svg { width:15px; height:15px; }
+.lieu-insta svg { width:15px; height:15px; flex-shrink:0; }
+.lieu-insta span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0; }
 
 /* ── FORM SECTION ── */
 .form-section {
@@ -484,7 +487,7 @@ button{font-family:inherit;cursor:pointer;border:none;}
           <p class="collab-desc">Antoine accompagne les participant·e·s vers un état de détente profond grâce aux bols chantants et à la méditation sonore. Un art ancestral au service du lâcher-prise et de la reconnexion intérieure.</p>
           <a href="https://www.instagram.com/antoinedobysonopraticien/" target="_blank" rel="noopener" class="collab-insta">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-            @antoinedobysonopraticien
+            <span>@antoinedobysonopraticien</span>
           </a>
         </div>
       </div>
@@ -501,7 +504,7 @@ button{font-family:inherit;cursor:pointer;border:none;}
           <p class="collab-desc">Spécialisée en médecine traditionnelle chinoise et massage tuina, Émilie apporte une approche holistique du soin au corps. Son travail invite à une reconnexion profonde avec soi, entre douceur, équilibre et bienveillance.</p>
           <a href="https://www.instagram.com/teate_formations/" target="_blank" rel="noopener" class="collab-insta">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-            @teate_formations
+            <span>@teate_formations</span>
           </a>
         </div>
       </div>
@@ -518,7 +521,7 @@ button{font-family:inherit;cursor:pointer;border:none;}
           <p class="collab-desc">Entre sport doux et mouvement conscient, Manon propose des séances accessibles à toutes et tous. Un espace pour habiter son corps autrement — avec douceur, sans jugement, avec joie.</p>
           <a href="https://instagram.com/man._.noa" target="_blank" rel="noopener" class="collab-insta">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-            @man._.noa
+            <span>@man._.noa</span>
           </a>
         </div>
       </div>
@@ -535,7 +538,7 @@ button{font-family:inherit;cursor:pointer;border:none;}
           <p class="collab-desc">Laurette capture les émotions et la lumière de chaque instant avec une sensibilité rare. Son approche intuitive du shooting photo transforme une séance en véritable voyage intérieur — doux, libérateur, poétique.</p>
           <a href="https://instagram.com/laurette_pruvost" target="_blank" rel="noopener" class="collab-insta">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-            @laurette_pruvost
+            <span>@laurette_pruvost</span>
           </a>
         </div>
       </div>
@@ -566,7 +569,7 @@ button{font-family:inherit;cursor:pointer;border:none;}
             <p>Promenade San Martin, Boulogne-sur-Mer (62200)<br>Lieu principal des Apéros Créatifs et Ateliers Famille — face à la mer, dans un cadre chaleureux et convivial.</p>
             <a href="https://www.instagram.com/lakabanedeplage/" target="_blank" rel="noopener" class="lieu-insta">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-              @lakabanedeplage
+              <span>@lakabanedeplage</span>
             </a>
           </div>
         </div>
@@ -596,7 +599,7 @@ button{font-family:inherit;cursor:pointer;border:none;}
             <p>Calais (62100)<br>Un espace à l'ambiance unique qui a notamment accueilli l'un des Marchés des Artisans & Créateurs Safe Place.</p>
             <a href="https://www.instagram.com/poprockbar/" target="_blank" rel="noopener" class="lieu-insta">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-              @poprockbar
+              <span>@poprockbar</span>
             </a>
           </div>
         </div>
