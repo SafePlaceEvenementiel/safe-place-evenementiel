@@ -114,7 +114,7 @@
   document.head.appendChild(style);
 
   /* ── Logique de soumission Brevo ── */
-  var BREVO_KEY = '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';
+  var BREVO_KEY = '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';
   var form = container.querySelector('.collab-shared-form');
   var successEl = container.querySelector('.csf-success');
   var btn = form.querySelector('.csf-btn');
