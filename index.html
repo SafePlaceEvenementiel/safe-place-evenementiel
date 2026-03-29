@@ -355,18 +355,20 @@ button { font-family: inherit; cursor: pointer; border: none; }
   text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px;
 }
 .hero-card.white .hero-card-tag { background: var(--op); color: var(--od); }
+.hero-card-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px;
+}
 .hero-card h3 {
   font-family: 'Nunito', sans-serif; font-weight: 900; font-style: italic;
-  font-size: 22px; color: white; margin-bottom: 5px;
+  font-size: 22px; color: white; margin: 0; flex: 1;
 }
 .hero-card.white h3 { color: var(--o); }
-.hero-card p { font-size: 13px; color: rgba(255,255,255,.78); line-height: 1.55; padding-right: 76px; padding-bottom: 36px; }
+.hero-card p { font-size: 13px; color: rgba(255,255,255,.78); line-height: 1.55; margin: 0; }
 .hero-card.white p { color: var(--ts); }
 .hero-card-price {
-  position: absolute; bottom: 20px; right: 20px;
   background: var(--o); color: var(--p);
   font-family: 'Nunito', sans-serif; font-weight: 900; font-style: italic; font-size: 17px;
-  padding: 6px 16px; border-radius: 18px;
+  padding: 5px 14px; border-radius: 18px; white-space: nowrap; flex-shrink: 0;
 }
 .hero-card.white .hero-card-price { background: var(--p); color: white; }
 
@@ -1080,15 +1082,19 @@ button { font-family: inherit; cursor: pointer; border: none; }
   <div class="hero-right">
     <a href="#formats" class="hero-card">
       <div class="hero-card-tag">Adultes · Les mercredis</div>
-      <h3>Apéros Créatifs</h3>
+      <div class="hero-card-row">
+        <h3>Apéros Créatifs</h3>
+        <div class="hero-card-price">24€</div>
+      </div>
       <p>Crée, papote et lâche prise autour d'un verre dans une ambiance douce et conviviale.</p>
-      <div class="hero-card-price">24€</div>
     </a>
     <a href="#formats" class="hero-card white">
       <div class="hero-card-tag">Enfants + Parents</div>
-      <h3>Ateliers Famille</h3>
+      <div class="hero-card-row">
+        <h3>Ateliers Famille</h3>
+        <div class="hero-card-price">19€</div>
+      </div>
       <p>Un moment créatif et joyeux à partager ensemble, dans un cadre bienveillant.</p>
-      <div class="hero-card-price">19€</div>
     </a>
     <a href="#formats" class="hero-card">
       <div class="hero-card-tag">Week-ends & Retraites</div>
