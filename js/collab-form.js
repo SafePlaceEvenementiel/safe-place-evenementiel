@@ -70,7 +70,7 @@
     <div class="csf-success" style="display:none;">
       <div class="csf-success-icon">✦</div>
       <h4>Candidature envoyée ✦</h4>
-      <p>Angela est ravie de vous découvrir ! Elle revient vers vous sous 48h. Un email de confirmation vous a été envoyé.</p>
+      <p>Angela est ravie de te découvrir ! Elle revient vers toi sous 48h. Un email de confirmation t'a été envoyé.</p>
     </div>
   `;
 

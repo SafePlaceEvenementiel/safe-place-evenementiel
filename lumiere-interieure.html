@@ -864,7 +864,7 @@
       <p class="section-desc">Réserve ta place en quelques minutes. Paiement sécurisé, jusqu'à 5× sans frais.</p>
       <div class="countdown-wrap reveal">
         <p class="countdown-label">⏳ Inscriptions closes dans</p>
-        <div class="countdown-blocks">
+        <div class="countdown-blocks" data-deadline="2026-04-17T14:00:00">
           <div class="countdown-block"><span id="cdJ">--</span><small>jours</small></div>
           <div class="countdown-block"><span id="cdH">--</span><small>heures</small></div>
           <div class="countdown-block"><span id="cdM">--</span><small>minutes</small></div>
@@ -1528,7 +1528,8 @@
 
   /* ══ COMPTE À REBOURS ══ */
   (function() {
-    const deadline = new Date('2026-04-17T14:00:00');
+    const deadlineAttr = document.querySelector('.countdown-blocks[data-deadline]');
+    const deadline = new Date(deadlineAttr ? deadlineAttr.dataset.deadline : '2099-01-01T00:00:00');
     function tick() {
       const now = new Date();
       const diff = deadline - now;
