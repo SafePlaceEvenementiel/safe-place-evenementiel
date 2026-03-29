@@ -322,6 +322,23 @@ button{font-family:inherit;cursor:pointer;border:none;}
   margin-top: -8px;
 }
 
+/* ── OVERRIDES formulaire shared (compacté + lisible sur dégradé) ── */
+.form-section .form-header { margin-bottom: 14px; }
+.form-section .form-header p { font-size: .9rem; }
+.form-section { padding: 36px 24px; }
+/* Labels blancs sur fond dégradé */
+.form-section .csf-group label { color: rgba(255,255,255,.9) !important; }
+.form-section .csf-note { color: rgba(255,255,255,.75) !important; }
+/* Compacter le formulaire */
+.form-section .collab-shared-form { gap: 10px !important; }
+.form-section .csf-row { gap: 12px !important; }
+.form-section .csf-group input,
+.form-section .csf-group select,
+.form-section .csf-group textarea { padding: 9px 13px !important; font-size: 13px !important; }
+.form-section .csf-group textarea { min-height: 80px !important; }
+.form-section .csf-footer { margin-top: 2px !important; }
+.form-section .csf-btn { padding: 11px 28px !important; font-size: 13px !important; }
+
 /* ── FOOTER ── */
 .footer{background:var(--p);padding:64px 0 32px;color:white;}
 .footer .container{max-width:1100px;margin:0 auto;padding:0 24px;}
@@ -620,7 +637,7 @@ button{font-family:inherit;cursor:pointer;border:none;}
   <div class="form-container">
     <div class="form-header reveal">
       <div class="form-eyebrow">✦ On cherche des talents</div>
-      <h2>Envie de collaborer<br>avec Safe Place ? ✦</h2>
+      <h2>Envie de collaborer avec<br><span style="color:#ffd6e8">Safe Place</span> ? ✦</h2>
       <p>Praticien·ne bien-être, artiste, photographe, coach, intervenant·e… Si vous partagez nos valeurs de bienveillance et d'authenticité, on aimerait vous connaître.</p>
     </div>
 
