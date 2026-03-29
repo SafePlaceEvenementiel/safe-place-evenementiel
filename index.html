@@ -1835,7 +1835,9 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 
     setTimeout(function() {
       if (_modalStripeLink !== '#') {
-        var stripeUrl = _modalStripeLink + '?prefilled_email=' + encodeURIComponent(email);
+        var stripeUrl = _modalStripeLink
+          + '?prefilled_email=' + encodeURIComponent(email)
+          + '&quantity=' + _modalParts;
         window.open(stripeUrl, '_blank');
       }
       btn.textContent = '✦ Réserver & payer ma place';
