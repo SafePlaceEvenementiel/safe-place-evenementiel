@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "Static Site (serve)",
+      "name": "safe-place",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["/tmp/serve.py"],
+      "runtimeArgs": ["/tmp/serve_spe.py"],
       "port": 3000
     }
   ]
