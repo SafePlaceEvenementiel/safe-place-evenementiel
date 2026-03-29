@@ -114,7 +114,6 @@
   document.head.appendChild(style);
 
   /* ── Logique de soumission Brevo ── */
-  var BREVO_KEY = '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';
   var form = container.querySelector('.collab-shared-form');
   var successEl = container.querySelector('.csf-success');
   var btn = form.querySelector('.csf-btn');
@@ -154,9 +153,9 @@
       '</table><h3 style="color:#ff9430">Message</h3><p style="font-size:14px;line-height:1.6">' + message.replace(/\n/g, '<br>') + '</p>';
 
     // Email à Angela + Thiffany
-    fetch('https://api.brevo.com/v3/smtp/email', {
+    fetch('https://safe-place-evenementiel.projets-b86.workers.dev', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'api-key': BREVO_KEY },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         sender: { name: 'Safe Place Événementiel', email: 'projets@safeplaceevenementiel.fr' },
         to: [{ email: 'hello@safeplaceevenementiel.fr', name: 'Angela' }, { email: 'projets@safeplaceevenementiel.fr', name: 'Thiffany' }],
@@ -168,9 +167,9 @@
       if (!res.ok) throw new Error();
 
       // Accusé de réception
-      fetch('https://api.brevo.com/v3/smtp/email', {
+      fetch('https://safe-place-evenementiel.projets-b86.workers.dev', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'api-key': BREVO_KEY },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           sender: { name: 'Angela — Safe Place Événementiel', email: 'projets@safeplaceevenementiel.fr' },
           to: [{ email: email, name: prenom + ' ' + nom }],

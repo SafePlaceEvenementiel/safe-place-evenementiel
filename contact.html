@@ -635,12 +635,11 @@ document.querySelectorAll('.footer-col h4').forEach(function(h4) {
 /* ══════════════════════════════════════
    BREVO — Formulaires de contact
 ══════════════════════════════════════ */
-var BREVO_KEY = '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';
 
 function sendBrevoEmail(subject, htmlContent, replyToEmail, replyToName) {
-  return fetch('https://api.brevo.com/v3/smtp/email', {
+  return fetch('https://safe-place-evenementiel.projets-b86.workers.dev', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'api-key': BREVO_KEY },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       sender: { name: 'Safe Place Événementiel', email: 'projets@safeplaceevenementiel.fr' },
       to: [{ email: 'hello@safeplaceevenementiel.fr', name: 'Angela' }, { email: 'projets@safeplaceevenementiel.fr', name: 'Thiffany' }],
@@ -692,9 +691,9 @@ function sendBrevoEmail(subject, htmlContent, replyToEmail, replyToName) {
         var s = document.getElementById('success-sur-mesure');
         if(s) s.classList.add('visible');
     // Accusé de réception
-    fetch('https://api.brevo.com/v3/smtp/email', {
+    fetch('https://safe-place-evenementiel.projets-b86.workers.dev', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'api-key': BREVO_KEY },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         sender: { name: 'Angela — Safe Place Événementiel', email: 'projets@safeplaceevenementiel.fr' },
         to: [{ email: email, name: prenom + ' ' + nom }],
@@ -772,9 +771,9 @@ function sendBrevoEmail(subject, htmlContent, replyToEmail, replyToName) {
         var s = document.getElementById('success-general');
         if(s) s.classList.add('visible');
     // Accusé de réception
-    fetch('https://api.brevo.com/v3/smtp/email', {
+    fetch('https://safe-place-evenementiel.projets-b86.workers.dev', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'api-key': BREVO_KEY },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         sender: { name: 'Angela — Safe Place Événementiel', email: 'projets@safeplaceevenementiel.fr' },
         to: [{ email: email, name: prenom + ' ' + nom }],
