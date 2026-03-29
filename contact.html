@@ -438,6 +438,10 @@
                 <input type="email" id="g-email" name="email" placeholder="votre@email.com" required>
               </div>
               <div class="form-group full">
+                <label for="g-tel">Téléphone</label>
+                <input type="tel" id="g-tel" name="tel" placeholder="06 xx xx xx xx">
+              </div>
+              <div class="form-group full">
                 <label for="g-sujet">Sujet *</label>
                 <select id="g-sujet" name="sujet" required>
                   <option value="" disabled selected>Choisissez un sujet…</option>
@@ -753,6 +757,7 @@ function sendBrevoEmail(subject, htmlContent, replyToEmail, replyToName) {
     var prenom = form.querySelector('[name=prenom]').value;
     var nom = form.querySelector('[name=nom]').value || '';
     var email = form.querySelector('[name=email]').value;
+    var tel = form.querySelector('[name=tel]') ? form.querySelector('[name=tel]').value || 'Non renseigné' : 'Non renseigné';
     var sujet = form.querySelector('[name=sujet]') ? form.querySelector('[name=sujet]').value : 'Non renseigné';
     var message = form.querySelector('[name=message]').value;
 
@@ -760,7 +765,8 @@ function sendBrevoEmail(subject, htmlContent, replyToEmail, replyToName) {
       '<table style="font-family:sans-serif;font-size:14px;border-collapse:collapse;width:100%">' +
       '<tr><td style="padding:8px;color:#7a3d1a;font-weight:700">Prénom</td><td style="padding:8px">' + prenom + ' ' + nom + '</td></tr>' +
       '<tr style="background:#fff4ea"><td style="padding:8px;color:#7a3d1a;font-weight:700">E-mail</td><td style="padding:8px"><a href="mailto:' + email + '">' + email + '</a></td></tr>' +
-      '<tr><td style="padding:8px;color:#7a3d1a;font-weight:700">Sujet</td><td style="padding:8px">' + sujet + '</td></tr>' +
+      '<tr><td style="padding:8px;color:#7a3d1a;font-weight:700">Téléphone</td><td style="padding:8px">' + tel + '</td></tr>' +
+      '<tr style="background:#fff4ea"><td style="padding:8px;color:#7a3d1a;font-weight:700">Sujet</td><td style="padding:8px">' + sujet + '</td></tr>' +
       '</table>' +
       '<h3 style="color:#ff9430">Message</h3><p style="font-size:14px;line-height:1.6">' + message.replace(/\n/g,'<br>') + '</p>';
 
