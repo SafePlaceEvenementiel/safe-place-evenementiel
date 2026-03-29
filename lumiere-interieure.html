@@ -394,10 +394,16 @@
     /* ── COUNTDOWN ── */
     .countdown-wrap { text-align: center; margin: 32px 0 0; }
     .countdown-label { font-size: .8rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ts); margin-bottom: 14px; }
-    .countdown-blocks { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .countdown-blocks { display: flex; justify-content: center; gap: 12px; flex-wrap: nowrap; }
     .countdown-block { background: white; border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 14px 20px; min-width: 72px; text-align: center; box-shadow: var(--shadow-sm); }
     .countdown-block span { display: block; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 2rem; color: var(--o); line-height: 1; }
     .countdown-block small { font-size: .7rem; color: var(--ts); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-top: 4px; display: block; }
+    @media(max-width:480px){
+      .countdown-blocks{gap:6px;}
+      .countdown-block{padding:10px 10px;min-width:0;flex:1;}
+      .countdown-block span{font-size:1.5rem;}
+      .countdown-block small{font-size:.6rem;letter-spacing:.03em;}
+    }
 
     /* ── FAQ ── */
     .faq { background: var(--op); }
