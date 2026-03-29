@@ -120,10 +120,10 @@
   padding: 32px 24px;
   flex-direction: column; gap: 0;
   z-index: 499;
-  transform: translateY(-100%); opacity: 0;
+  opacity: 0; pointer-events: none; transform: translateY(-12px);
   transition: all .4s cubic-bezier(.4,0,.2,1);
 }
-.mobile-menu.open { transform: translateY(0); opacity: 1; }
+.mobile-menu.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
 @media(max-width:900px){.mobile-menu{display:flex;}}
 .mobile-menu a {
   display: block; padding: 18px 0;
