@@ -1172,11 +1172,13 @@
       link.addEventListener('click', function() {
         burger.classList.remove('open');
         mobileMenu.classList.remove('open');
-        var scrollY = document.body.dataset.scrollY || '0';
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        window.scrollTo(0, parseInt(scrollY));
+        if (document.body.style.position === 'fixed') {
+          var scrollY = document.body.dataset.scrollY || '0';
+          document.body.style.position = '';
+          document.body.style.top = '';
+          document.body.style.width = '';
+          window.scrollTo(0, parseInt(scrollY));
+        }
       });
     });
   }
