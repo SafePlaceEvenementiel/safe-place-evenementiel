@@ -978,6 +978,14 @@ button { font-family: inherit; cursor: pointer; border: none; }
     }
     .btn-stripe:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(253,44,130,.4); }
     .modal-secure { text-align: center; font-size: 11px; color: var(--ts); margin-top: 10px; }
+    .modal-resa-form { background: var(--op); border-radius: 14px; padding: 16px 20px; margin-bottom: 16px; }
+    .modal-resa-label { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 12px; color: var(--od); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 12px; }
+    .modal-resa-fields { display: flex; flex-direction: column; gap: 8px; }
+    .modal-resa-fields input { border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 14px; font-size: 14px; color: var(--t); background: white; font-family: 'Nunito Sans', sans-serif; outline: none; width: 100%; box-sizing: border-box; transition: border-color .2s; }
+    .modal-resa-fields input:focus { border-color: var(--p); }
+    .modal-resa-fields input.error { border-color: var(--p); }
+    .modal-resa-error { color: var(--p); font-size: 12px; font-weight: 600; margin: 8px 0 0; display: none; }
+    .modal-resa-error.show { display: block; }
     @media (max-width: 540px) {
       .modal-box { border-radius: var(--radius-md); }
       .modal-header, .modal-body { padding: 22px 20px; }
@@ -1673,7 +1681,15 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
       </div>
       <p class="modal-note" id="modalNote"></p>
       <div class="modal-price" id="modalPrice"></div>
-      <a href="#" class="btn-stripe" id="modalStripeBtn" target="_blank" rel="noopener">✦ Réserver & payer ma place</a>
+      <div class="modal-resa-form" id="modalResaForm">
+        <p class="modal-resa-label">✦ Pour finaliser ta réservation</p>
+        <div class="modal-resa-fields">
+          <input type="text" id="modalPrenom" placeholder="Ton prénom *" autocomplete="given-name">
+          <input type="email" id="modalEmail" placeholder="Ton adresse email *" autocomplete="email">
+        </div>
+        <p class="modal-resa-error" id="modalResaError"></p>
+      </div>
+      <button class="btn-stripe" id="modalStripeBtn" onclick="submitModalResa()">✦ Réserver & payer ma place</button>
       <p class="modal-secure">🔒 Paiement sécurisé via Stripe · Remboursement sous 48h si annulation</p>
     </div>
   </div>
@@ -1708,6 +1724,9 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     }
   };
 
+  var _modalStripeLink = '#';
+  var _modalEventLabel = '';
+
   function openModal(type, date, theme) {
     var d = MODAL_DATA[type];
     document.getElementById('modalType').textContent = d.type;
@@ -1717,10 +1736,81 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     document.getElementById('modalInclus').innerHTML = d.inclus.map(function(i){ return '<li>' + i + '</li>'; }).join('');
     document.getElementById('modalNote').textContent = d.note;
     document.getElementById('modalPrice').innerHTML = d.price;
-    var link = (d.stripeLinks && d.stripeLinks[date]) ? d.stripeLinks[date] : '#';
-    document.getElementById('modalStripeBtn').href = link;
+    _modalStripeLink = (d.stripeLinks && d.stripeLinks[date]) ? d.stripeLinks[date] : '#';
+    _modalEventLabel = theme + ' — ' + date;
+    // Reset form
+    document.getElementById('modalPrenom').value = '';
+    document.getElementById('modalEmail').value = '';
+    document.getElementById('modalPrenom').classList.remove('error');
+    document.getElementById('modalEmail').classList.remove('error');
+    document.getElementById('modalResaError').classList.remove('show');
+    var btn = document.getElementById('modalStripeBtn');
+    btn.textContent = '✦ Réserver & payer ma place';
+    btn.disabled = false;
     document.getElementById('modalOverlay').classList.add('open');
     document.body.style.overflow = 'hidden';
+  }
+
+  function submitModalResa() {
+    var prenom = document.getElementById('modalPrenom').value.trim();
+    var email = document.getElementById('modalEmail').value.trim();
+    var errEl = document.getElementById('modalResaError');
+    var prenomEl = document.getElementById('modalPrenom');
+    var emailEl = document.getElementById('modalEmail');
+
+    prenomEl.classList.remove('error');
+    emailEl.classList.remove('error');
+    errEl.classList.remove('show');
+
+    if (!prenom) { prenomEl.classList.add('error'); errEl.textContent = 'Merci d\'indiquer ton prénom.'; errEl.classList.add('show'); return; }
+    if (!email || !email.includes('@')) { emailEl.classList.add('error'); errEl.textContent = 'Merci d\'indiquer une adresse email valide.'; errEl.classList.add('show'); return; }
+
+    var btn = document.getElementById('modalStripeBtn');
+    btn.textContent = '⏳ Préparation…';
+    btn.disabled = true;
+
+    var htmlConfirm = '<table width="100%" cellpadding="0" cellspacing="0" style="background:#fffaf6;padding:32px 16px;font-family:Arial,sans-serif;"><tr><td align="center"><table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;"><tr><td style="background:linear-gradient(135deg,#ff9430,#fd2c82);border-radius:24px 24px 0 0;padding:40px 32px;text-align:center;"><div style="font-size:36px;margin-bottom:10px;">🎨</div><h1 style="margin:0 0 6px;color:white;font-size:22px;font-weight:900;font-style:italic;">Ta réservation est en cours !</h1><p style="margin:0;color:rgba(255,255,255,.85);font-size:13px;font-weight:600;">' + _modalEventLabel + '</p></td></tr><tr><td style="background:white;padding:32px;border-left:1px solid #ffe8d6;border-right:1px solid #ffe8d6;"><p style="margin:0 0 20px;color:#1a0800;font-size:15px;line-height:1.7;">Bonjour <strong>' + prenom + '</strong> 🧡</p><p style="margin:0 0 20px;color:#1a0800;font-size:14px;line-height:1.7;">Tu es redirigé·e vers notre page de paiement sécurisé. Une fois le paiement validé, ta place est confirmée ✦</p><div style="background:#fff4ea;border-radius:14px;padding:20px;margin-bottom:20px;"><p style="margin:0 0 10px;color:#ff9430;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;">Des questions ?</p><p style="margin:0;color:#1a0800;font-size:13px;line-height:1.7;">Réponds directement à cet email ou écris-nous sur Instagram <strong>@safeplaceevenementiel</strong>.</p></div><p style="margin:0 0 20px;color:#1a0800;font-size:14px;line-height:1.7;">À très vite 🧡</p><table cellpadding="0" cellspacing="0"><tr><td style="border-left:3px solid #ff9430;padding-left:12px;"><p style="margin:0;font-size:14px;font-weight:900;font-style:italic;color:#ff9430;">Angela</p><p style="margin:2px 0 0;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fd2c82;">Fondatrice · Safe Place Événementiel ✦</p></td></tr></table></td></tr><tr><td style="background:linear-gradient(135deg,#ff9430,#fd2c82);border-radius:0 0 24px 24px;padding:24px 32px;text-align:center;"><p style="margin:0 0 4px;color:white;font-size:12px;font-weight:800;font-style:italic;">✦ Un évènement ? Une Safe Place ✦</p><p style="margin:0;color:rgba(255,255,255,.65);font-size:10px;">Confirmation automatique — Safe Place Événementiel · Boulogne-sur-Mer (62)</p></td></tr></table></td></tr></table>';
+
+    // Email de confirmation
+    fetch('https://safe-place-evenementiel.projets-b86.workers.dev', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        sender: { name: 'Angela — Safe Place Événementiel', email: 'projets@safeplaceevenementiel.fr' },
+        to: [{ email: email, name: prenom }],
+        subject: '🎨 Ta réservation — ' + _modalEventLabel,
+        htmlContent: htmlConfirm
+      })
+    }).catch(function(e) { console.warn('Email resa:', e); });
+
+    // Notif interne
+    fetch('https://safe-place-evenementiel.projets-b86.workers.dev', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        sender: { name: 'Safe Place Événementiel', email: 'projets@safeplaceevenementiel.fr' },
+        to: [{ email: 'hello@safeplaceevenementiel.fr', name: 'Angela' }, { email: 'projets@safeplaceevenementiel.fr', name: 'Thiffany' }],
+        replyTo: { email: email, name: prenom },
+        subject: '🎨 Nouvelle réservation — ' + _modalEventLabel + ' (' + prenom + ')',
+        htmlContent: '<h2 style="color:#ff9430;font-family:sans-serif">Nouvelle réservation</h2><table style="font-family:sans-serif;font-size:14px;border-collapse:collapse;width:100%;max-width:500px"><tr><td style="padding:8px;color:#7a3d1a;font-weight:700;width:40%">Prénom</td><td style="padding:8px">' + prenom + '</td></tr><tr style="background:#fff4ea"><td style="padding:8px;color:#7a3d1a;font-weight:700">E-mail</td><td style="padding:8px"><a href="mailto:' + email + '">' + email + '</a></td></tr><tr><td style="padding:8px;color:#7a3d1a;font-weight:700">Événement</td><td style="padding:8px">' + _modalEventLabel + '</td></tr></table>'
+      })
+    }).catch(function(e) { console.warn('Notif resa:', e); });
+
+    // Ajout liste Brevo #4
+    fetch('https://safe-place-evenementiel.projets-b86.workers.dev/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, attributes: { PRENOM: prenom }, listIds: [4], updateEnabled: true })
+    }).catch(function(e) { console.warn('Brevo contact:', e); });
+
+    // Redirection Stripe
+    setTimeout(function() {
+      if (_modalStripeLink !== '#') {
+        window.open(_modalStripeLink, '_blank');
+      }
+      btn.textContent = '✦ Réserver & payer ma place';
+      btn.disabled = false;
+    }, 800);
   }
 
   function closeModal() {
