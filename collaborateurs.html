@@ -333,8 +333,10 @@ button{font-family:inherit;cursor:pointer;border:none;}
 
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
+  .nav{grid-template-columns:auto 1fr auto;}
+  .nav-logo{grid-column:2;justify-self:center;}
   .nav-links-left,.nav-links-right{display:none;}
-  .nav-burger{display:flex;}
+  .nav-burger{display:flex;grid-column:3;justify-self:end;}
   .collabs-grid{grid-template-columns:1fr 1fr;}
   .form-row{grid-template-columns:1fr;}
   .footer-grid{grid-template-columns:1fr 1fr;}

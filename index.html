@@ -832,8 +832,9 @@ button { font-family: inherit; cursor: pointer; border: none; }
    RESPONSIVE
 ══════════════════════════════════════ */
 @media (max-width: 1024px) {
-  .nav { padding: 0 20px; }
+  .nav { padding: 0 20px; grid-template-columns: auto 1fr auto; }
   .nav-links-left, .nav-links-right { display: none; }
+  .nav-logo { grid-column: 2; justify-self: center; }
   .nav-burger { display: flex; grid-column: 3; justify-self: end; }
   .mobile-menu { display: flex; }
 
