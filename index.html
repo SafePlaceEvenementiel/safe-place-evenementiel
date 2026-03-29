@@ -986,6 +986,12 @@ button { font-family: inherit; cursor: pointer; border: none; }
     .modal-resa-fields input.error { border-color: var(--p); }
     .modal-resa-error { color: var(--p); font-size: 12px; font-weight: 600; margin: 8px 0 0; display: none; }
     .modal-resa-error.show { display: block; }
+    .modal-counter-row { display: flex; align-items: center; justify-content: space-between; background: white; border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 14px; }
+    .modal-counter-label { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 13px; color: var(--t); }
+    .modal-counter-ctrl { display: flex; align-items: center; gap: 12px; }
+    .modal-counter-btn { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--o); background: white; color: var(--od); font-size: 1.1rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 1; transition: all .2s; }
+    .modal-counter-btn:hover { background: var(--o); color: white; }
+    .modal-counter-val { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1.1rem; color: var(--t); min-width: 20px; text-align: center; }
     @media (max-width: 540px) {
       .modal-box { border-radius: var(--radius-md); }
       .modal-header, .modal-body { padding: 22px 20px; }
@@ -1686,6 +1692,23 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
         <div class="modal-resa-fields">
           <input type="text" id="modalPrenom" placeholder="Ton prénom *" autocomplete="given-name">
           <input type="email" id="modalEmail" placeholder="Ton adresse email *" autocomplete="email">
+          <input type="tel" id="modalTel" placeholder="Ton téléphone *" autocomplete="tel">
+          <div class="modal-counter-row" id="modalPartsRow">
+            <span class="modal-counter-label" id="modalPartsLabel">Nombre de participants</span>
+            <div class="modal-counter-ctrl">
+              <button type="button" class="modal-counter-btn" onclick="changeModalParts(-1)">−</button>
+              <span class="modal-counter-val" id="modalPartsCount">1</span>
+              <button type="button" class="modal-counter-btn" onclick="changeModalParts(1)">+</button>
+            </div>
+          </div>
+          <div class="modal-counter-row" id="modalAccompRow" style="display:none">
+            <span class="modal-counter-label">Nombre d'accompagnants</span>
+            <div class="modal-counter-ctrl">
+              <button type="button" class="modal-counter-btn" onclick="changeModalAccomp(-1)">−</button>
+              <span class="modal-counter-val" id="modalAccompCount">1</span>
+              <button type="button" class="modal-counter-btn" onclick="changeModalAccomp(1)">+</button>
+            </div>
+          </div>
         </div>
         <p class="modal-resa-error" id="modalResaError"></p>
       </div>
@@ -1726,9 +1749,24 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 
   var _modalStripeLink = '#';
   var _modalEventLabel = '';
+  var _modalType = '';
+  var _modalParts = 1;
+  var _modalAccomp = 1;
+
+  function changeModalParts(d) {
+    _modalParts = Math.max(1, _modalParts + d);
+    document.getElementById('modalPartsCount').textContent = _modalParts;
+  }
+  function changeModalAccomp(d) {
+    _modalAccomp = Math.max(0, Math.min(2, _modalAccomp + d));
+    document.getElementById('modalAccompCount').textContent = _modalAccomp;
+  }
 
   function openModal(type, date, theme) {
     var d = MODAL_DATA[type];
+    _modalType = type;
+    _modalParts = 1;
+    _modalAccomp = 1;
     document.getElementById('modalType').textContent = d.type;
     document.getElementById('modalTitle').textContent = theme;
     document.getElementById('modalDate').textContent = '📅 ' + date;
@@ -1738,11 +1776,16 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     document.getElementById('modalPrice').innerHTML = d.price;
     _modalStripeLink = (d.stripeLinks && d.stripeLinks[date]) ? d.stripeLinks[date] : '#';
     _modalEventLabel = theme + ' — ' + date;
+    // Libellé participants selon type
+    document.getElementById('modalPartsLabel').textContent = type === 'famille' ? 'Nombre d\'enfants' : 'Nombre de participants';
+    document.getElementById('modalPartsCount').textContent = 1;
+    document.getElementById('modalAccompCount').textContent = 1;
+    document.getElementById('modalAccompRow').style.display = type === 'famille' ? 'flex' : 'none';
     // Reset form
-    document.getElementById('modalPrenom').value = '';
-    document.getElementById('modalEmail').value = '';
-    document.getElementById('modalPrenom').classList.remove('error');
-    document.getElementById('modalEmail').classList.remove('error');
+    ['modalPrenom','modalEmail','modalTel'].forEach(function(id) {
+      document.getElementById(id).value = '';
+      document.getElementById(id).classList.remove('error');
+    });
     document.getElementById('modalResaError').classList.remove('show');
     var btn = document.getElementById('modalStripeBtn');
     btn.textContent = '✦ Réserver & payer ma place';
@@ -1754,59 +1797,46 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   function submitModalResa() {
     var prenom = document.getElementById('modalPrenom').value.trim();
     var email = document.getElementById('modalEmail').value.trim();
+    var tel = document.getElementById('modalTel').value.trim();
     var errEl = document.getElementById('modalResaError');
-    var prenomEl = document.getElementById('modalPrenom');
-    var emailEl = document.getElementById('modalEmail');
 
-    prenomEl.classList.remove('error');
-    emailEl.classList.remove('error');
+    ['modalPrenom','modalEmail','modalTel'].forEach(function(id){ document.getElementById(id).classList.remove('error'); });
     errEl.classList.remove('show');
 
-    if (!prenom) { prenomEl.classList.add('error'); errEl.textContent = 'Merci d\'indiquer ton prénom.'; errEl.classList.add('show'); return; }
-    if (!email || !email.includes('@')) { emailEl.classList.add('error'); errEl.textContent = 'Merci d\'indiquer une adresse email valide.'; errEl.classList.add('show'); return; }
+    if (!prenom) { document.getElementById('modalPrenom').classList.add('error'); errEl.textContent = 'Merci d\'indiquer ton prénom.'; errEl.classList.add('show'); return; }
+    if (!email || !email.includes('@')) { document.getElementById('modalEmail').classList.add('error'); errEl.textContent = 'Merci d\'indiquer une adresse email valide.'; errEl.classList.add('show'); return; }
+    if (!tel) { document.getElementById('modalTel').classList.add('error'); errEl.textContent = 'Merci d\'indiquer ton téléphone.'; errEl.classList.add('show'); return; }
 
     var btn = document.getElementById('modalStripeBtn');
     btn.textContent = '⏳ Préparation…';
     btn.disabled = true;
 
-    var htmlConfirm = '<table width="100%" cellpadding="0" cellspacing="0" style="background:#fffaf6;padding:32px 16px;font-family:Arial,sans-serif;"><tr><td align="center"><table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;"><tr><td style="background:linear-gradient(135deg,#ff9430,#fd2c82);border-radius:24px 24px 0 0;padding:40px 32px;text-align:center;"><div style="font-size:36px;margin-bottom:10px;">🎨</div><h1 style="margin:0 0 6px;color:white;font-size:22px;font-weight:900;font-style:italic;">Ta réservation est en cours !</h1><p style="margin:0;color:rgba(255,255,255,.85);font-size:13px;font-weight:600;">' + _modalEventLabel + '</p></td></tr><tr><td style="background:white;padding:32px;border-left:1px solid #ffe8d6;border-right:1px solid #ffe8d6;"><p style="margin:0 0 20px;color:#1a0800;font-size:15px;line-height:1.7;">Bonjour <strong>' + prenom + '</strong> 🧡</p><p style="margin:0 0 20px;color:#1a0800;font-size:14px;line-height:1.7;">Tu es redirigé·e vers notre page de paiement sécurisé. Une fois le paiement validé, ta place est confirmée ✦</p><div style="background:#fff4ea;border-radius:14px;padding:20px;margin-bottom:20px;"><p style="margin:0 0 10px;color:#ff9430;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;">Des questions ?</p><p style="margin:0;color:#1a0800;font-size:13px;line-height:1.7;">Réponds directement à cet email ou écris-nous sur Instagram <strong>@safeplaceevenementiel</strong>.</p></div><p style="margin:0 0 20px;color:#1a0800;font-size:14px;line-height:1.7;">À très vite 🧡</p><table cellpadding="0" cellspacing="0"><tr><td style="border-left:3px solid #ff9430;padding-left:12px;"><p style="margin:0;font-size:14px;font-weight:900;font-style:italic;color:#ff9430;">Angela</p><p style="margin:2px 0 0;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fd2c82;">Fondatrice · Safe Place Événementiel ✦</p></td></tr></table></td></tr><tr><td style="background:linear-gradient(135deg,#ff9430,#fd2c82);border-radius:0 0 24px 24px;padding:24px 32px;text-align:center;"><p style="margin:0 0 4px;color:white;font-size:12px;font-weight:800;font-style:italic;">✦ Un évènement ? Une Safe Place ✦</p><p style="margin:0;color:rgba(255,255,255,.65);font-size:10px;">Confirmation automatique — Safe Place Événementiel · Boulogne-sur-Mer (62)</p></td></tr></table></td></tr></table>';
+    var partsLabel = _modalType === 'famille' ? 'Enfant(s)' : 'Participant(s)';
+    var accompLine = _modalType === 'famille' ? '<tr><td style="padding:8px;color:#7a3d1a;font-weight:700">Accompagnant(s)</td><td style="padding:8px">' + _modalAccomp + '</td></tr>' : '';
 
-    // Email de confirmation
+    var htmlConfirm = '<table width="100%" cellpadding="0" cellspacing="0" style="background:#fffaf6;padding:32px 16px;font-family:Arial,sans-serif;"><tr><td align="center"><table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;"><tr><td style="background:linear-gradient(135deg,#ff9430,#fd2c82);border-radius:24px 24px 0 0;padding:40px 32px;text-align:center;"><div style="font-size:36px;margin-bottom:10px;">🎨</div><h1 style="margin:0 0 6px;color:white;font-size:22px;font-weight:900;font-style:italic;">Ta réservation est en cours !</h1><p style="margin:0;color:rgba(255,255,255,.85);font-size:13px;font-weight:600;">' + _modalEventLabel + '</p></td></tr><tr><td style="background:white;padding:32px;border-left:1px solid #ffe8d6;border-right:1px solid #ffe8d6;"><p style="margin:0 0 20px;color:#1a0800;font-size:15px;line-height:1.7;">Bonjour <strong>' + prenom + '</strong> 🧡</p><p style="margin:0 0 20px;color:#1a0800;font-size:14px;line-height:1.7;">Tu es redirigé·e vers notre page de paiement sécurisé. Une fois le paiement validé, ta place est confirmée ✦</p><div style="background:#fff4ea;border-radius:14px;padding:20px;margin-bottom:20px;"><p style="margin:0 0 10px;color:#ff9430;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;">Récapitulatif</p><table style="width:100%;border-collapse:collapse;font-size:13px;"><tr><td style="padding:5px 0;color:#7a3d1a;font-weight:700;width:50%">' + partsLabel + '</td><td style="padding:5px 0;color:#1a0800">' + _modalParts + '</td></tr>' + (_modalType === 'famille' ? '<tr><td style="padding:5px 0;color:#7a3d1a;font-weight:700">Accompagnant(s)</td><td style="padding:5px 0;color:#1a0800">' + _modalAccomp + '</td></tr>' : '') + '</table></div><div style="background:#fff4ea;border-radius:14px;padding:20px;margin-bottom:20px;"><p style="margin:0;color:#1a0800;font-size:13px;line-height:1.7;">Des questions ? Réponds à cet email ou écris-nous sur Instagram <strong>@safeplaceevenementiel</strong>.</p></div><p style="margin:0 0 16px;color:#1a0800;font-size:14px;line-height:1.7;">À très vite 🧡</p><table cellpadding="0" cellspacing="0"><tr><td style="border-left:3px solid #ff9430;padding-left:12px;"><p style="margin:0;font-size:14px;font-weight:900;font-style:italic;color:#ff9430;">Angela</p><p style="margin:2px 0 0;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fd2c82;">Fondatrice · Safe Place Événementiel ✦</p></td></tr></table></td></tr><tr><td style="background:linear-gradient(135deg,#ff9430,#fd2c82);border-radius:0 0 24px 24px;padding:24px 32px;text-align:center;"><p style="margin:0 0 4px;color:white;font-size:12px;font-weight:800;font-style:italic;">✦ Un évènement ? Une Safe Place ✦</p><p style="margin:0;color:rgba(255,255,255,.65);font-size:10px;">Confirmation automatique — Safe Place Événementiel · Boulogne-sur-Mer (62)</p></td></tr></table></td></tr></table>';
+
+    var htmlNotif = '<h2 style="color:#ff9430;font-family:sans-serif">Nouvelle réservation</h2><table style="font-family:sans-serif;font-size:14px;border-collapse:collapse;width:100%;max-width:500px"><tr><td style="padding:8px;color:#7a3d1a;font-weight:700;width:40%">Prénom</td><td style="padding:8px">' + prenom + '</td></tr><tr style="background:#fff4ea"><td style="padding:8px;color:#7a3d1a;font-weight:700">E-mail</td><td style="padding:8px"><a href="mailto:' + email + '">' + email + '</a></td></tr><tr><td style="padding:8px;color:#7a3d1a;font-weight:700">Téléphone</td><td style="padding:8px">' + tel + '</td></tr><tr style="background:#fff4ea"><td style="padding:8px;color:#7a3d1a;font-weight:700">Événement</td><td style="padding:8px">' + _modalEventLabel + '</td></tr><tr><td style="padding:8px;color:#7a3d1a;font-weight:700">' + partsLabel + '</td><td style="padding:8px">' + _modalParts + '</td></tr>' + accompLine + '</table>';
+
     fetch('https://safe-place-evenementiel.projets-b86.workers.dev', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        sender: { name: 'Angela — Safe Place Événementiel', email: 'projets@safeplaceevenementiel.fr' },
-        to: [{ email: email, name: prenom }],
-        subject: '🎨 Ta réservation — ' + _modalEventLabel,
-        htmlContent: htmlConfirm
-      })
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sender: { name: 'Angela — Safe Place Événementiel', email: 'projets@safeplaceevenementiel.fr' }, to: [{ email: email, name: prenom }], subject: '🎨 Ta réservation — ' + _modalEventLabel, htmlContent: htmlConfirm })
     }).catch(function(e) { console.warn('Email resa:', e); });
 
-    // Notif interne
     fetch('https://safe-place-evenementiel.projets-b86.workers.dev', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        sender: { name: 'Safe Place Événementiel', email: 'projets@safeplaceevenementiel.fr' },
-        to: [{ email: 'hello@safeplaceevenementiel.fr', name: 'Angela' }, { email: 'projets@safeplaceevenementiel.fr', name: 'Thiffany' }],
-        replyTo: { email: email, name: prenom },
-        subject: '🎨 Nouvelle réservation — ' + _modalEventLabel + ' (' + prenom + ')',
-        htmlContent: '<h2 style="color:#ff9430;font-family:sans-serif">Nouvelle réservation</h2><table style="font-family:sans-serif;font-size:14px;border-collapse:collapse;width:100%;max-width:500px"><tr><td style="padding:8px;color:#7a3d1a;font-weight:700;width:40%">Prénom</td><td style="padding:8px">' + prenom + '</td></tr><tr style="background:#fff4ea"><td style="padding:8px;color:#7a3d1a;font-weight:700">E-mail</td><td style="padding:8px"><a href="mailto:' + email + '">' + email + '</a></td></tr><tr><td style="padding:8px;color:#7a3d1a;font-weight:700">Événement</td><td style="padding:8px">' + _modalEventLabel + '</td></tr></table>'
-      })
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sender: { name: 'Safe Place Événementiel', email: 'projets@safeplaceevenementiel.fr' }, to: [{ email: 'hello@safeplaceevenementiel.fr', name: 'Angela' }, { email: 'projets@safeplaceevenementiel.fr', name: 'Thiffany' }], replyTo: { email: email, name: prenom }, subject: '🎨 Nouvelle réservation — ' + _modalEventLabel + ' (' + prenom + ')', htmlContent: htmlNotif })
     }).catch(function(e) { console.warn('Notif resa:', e); });
 
-    // Ajout liste Brevo #4
     fetch('https://safe-place-evenementiel.projets-b86.workers.dev/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email, attributes: { PRENOM: prenom }, listIds: [4], updateEnabled: true })
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, attributes: { PRENOM: prenom, SMS: tel }, listIds: [4], updateEnabled: true })
     }).catch(function(e) { console.warn('Brevo contact:', e); });
 
-    // Redirection Stripe
     setTimeout(function() {
       if (_modalStripeLink !== '#') {
-        window.open(_modalStripeLink, '_blank');
+        var stripeUrl = _modalStripeLink + '?prefilled_email=' + encodeURIComponent(email);
+        window.open(stripeUrl, '_blank');
       }
       btn.textContent = '✦ Réserver & payer ma place';
       btn.disabled = false;
