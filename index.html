@@ -1945,10 +1945,13 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     .then(function(res) {
       if (res.status === 201 || res.status === 204) {
         // Succès — afficher le message
-        form.innerHTML = '<div style="text-align:center;color:white;font-family:Nunito,sans-serif;font-weight:800;font-size:18px;">✦ Merci ! Tu es bien inscrite 🎉<br><span style=\"font-size:14px;font-weight:400;opacity:.85;\">Un email de bienvenue t\'attend dans ta boîte mail ✦</span></div>';
+        form.style.display = 'block';
+        form.style.textAlign = 'center';
+        form.innerHTML = '<div style="color:white;font-family:Nunito,sans-serif;font-weight:800;font-size:18px;">✦ Merci ! Tu es bien inscrite 🎉<br><span style=\"font-size:14px;font-weight:400;opacity:.85;\">Un email de bienvenue t\'attend dans ta boîte mail ✦</span></div>';
         // Envoyer l'email de bienvenue
         fetch('https://safe-place-evenementiel.projets-b86.workers.dev', {
           method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             sender: { name: 'Angela — Safe Place Événementiel', email: 'projets@safeplaceevenementiel.fr' },
             to: [{ email: email }],
