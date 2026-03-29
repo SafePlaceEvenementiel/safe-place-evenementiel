@@ -13,7 +13,7 @@ Réponds toujours en **français**.
 - **Zone géographique** : Côte d'Opale, principalement Boulogne-sur-Mer (62)
 - **Baseline** : « Un évènement ? Une Safe Place »
 - **Instagram** : @safeplaceevenementiel
-- **Domaine** : safeplaceevenementiel.com (hébergé chez Ionos)
+- **Domaine** : safeplaceevenementiel.fr (hébergé chez Ionos)
 - **Email** : safe.place.evenementiel@gmail.com
 - **Téléphone** : 06.47.69.19.92
 - **Vision** : Créer des événements où l'on se sent bien — chaleureux, conviviaux, bienveillants. Rendre le développement personnel, le bien-être et la créativité accessibles au plus grand nombre, particulièrement aux femmes.
