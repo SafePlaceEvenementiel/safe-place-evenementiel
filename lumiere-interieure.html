@@ -1562,6 +1562,18 @@
         })
       }).catch(function(e) { console.warn('Notif interne:', e); });
 
+      // Ajout à la liste Brevo #3 (Week-ends)
+      fetch('https://safe-place-evenementiel.projets-b86.workers.dev/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          attributes: { PRENOM: prenom, NOM: nom, SMS: tel },
+          listIds: [3],
+          updateEnabled: true
+        })
+      }).catch(function(e) { console.warn('Brevo contact:', e); });
+
       document.getElementById('successName').textContent = prenom + ' ' + nom + ' ✦';
       document.getElementById('overlaySuccess').classList.add('show');
     }).catch(function() {
