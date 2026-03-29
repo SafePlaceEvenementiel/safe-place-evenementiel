@@ -1460,80 +1460,10 @@
       echeancierHtml += '</table>';
     }
 
-    // ── Email de confirmation à la participante ──
-    const htmlParticipante = `<table width="100%" cellpadding="0" cellspacing="0" style="background:#fffaf6;padding:32px 16px;font-family:'Helvetica Neue',Arial,sans-serif;">
-  <tr><td align="center">
-    <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
-      <tr><td style="background:linear-gradient(135deg,#ff9430,#fd2c82);border-radius:24px 24px 0 0;padding:48px 40px 36px;text-align:center;">
-        <div style="font-size:40px;margin-bottom:12px;">✨</div>
-        <h1 style="margin:0 0 8px;color:white;font-size:26px;font-weight:900;font-style:italic;line-height:1.2;">Ton inscription est confirmée !</h1>
-        <p style="margin:0;color:rgba(255,255,255,.85);font-size:14px;font-weight:600;">Week-end Lumière Intérieure · 1–3 mai 2026</p>
-      </td></tr>
-      <tr><td style="background:white;padding:40px;border-left:1px solid #ffe8d6;border-right:1px solid #ffe8d6;">
-        <p style="margin:0 0 24px;color:#1a0800;font-size:16px;line-height:1.7;">Bonjour <strong>${prenom}</strong> 🧡</p>
-        <p style="margin:0 0 24px;color:#1a0800;font-size:15px;line-height:1.7;">Ton inscription au week-end <strong>Lumière Intérieure</strong> est bien enregistrée. On a tellement hâte de t'accueillir dans cette bulle de bien-être ✦</p>
-
-        <div style="background:#fff4ea;border-radius:16px;padding:24px;margin-bottom:24px;">
-          <p style="margin:0 0 14px;color:#ff9430;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;">Récapitulatif de ta réservation</p>
-          <table style="width:100%;border-collapse:collapse;font-size:14px;">
-            <tr><td style="padding:6px 0;color:#7a3d1a;font-weight:700;width:50%">📅 Dates</td><td style="padding:6px 0;color:#1a0800">1er au 3 mai 2026</td></tr>
-            <tr><td style="padding:6px 0;color:#7a3d1a;font-weight:700">📍 Lieu</td><td style="padding:6px 0;color:#1a0800">Gîte de la Sapinière, Bezinghem (62)</td></tr>
-            <tr><td style="padding:6px 0;color:#7a3d1a;font-weight:700">👥 Participants</td><td style="padding:6px 0;color:#1a0800">${ST.parts} personne(s)</td></tr>
-            <tr><td style="padding:6px 0;color:#7a3d1a;font-weight:700">🛏️ Option draps</td><td style="padding:6px 0;color:#1a0800">${drapsLabel}</td></tr>
-            <tr><td style="padding:6px 0;color:#7a3d1a;font-weight:700">💳 Paiement</td><td style="padding:6px 0;color:#1a0800">${payLabel}</td></tr>
-            <tr><td style="padding:6px 0;color:#7a3d1a;font-weight:700">📸 Droit à l'image</td><td style="padding:6px 0;color:#1a0800">${imgLabel}</td></tr>
-            <tr style="border-top:2px solid #ffe8d6;"><td style="padding:10px 0 6px;color:#fd2c82;font-weight:900;font-size:16px">Total</td><td style="padding:10px 0 6px;color:#fd2c82;font-weight:900;font-size:16px">${total}€</td></tr>
-          </table>
-        </div>
-
-        ${ST.payMode > 1 ? `<div style="background:#fff0f7;border-radius:16px;padding:24px;margin-bottom:24px;border:1.5px solid rgba(253,44,130,.15);">
-          <p style="margin:0 0 14px;color:#fd2c82;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;">Ton échéancier ✦</p>
-          ${echeancierHtml}
-        </div>` : ''}
-
-        <div style="background:#fff4ea;border-radius:16px;padding:24px;margin-bottom:24px;">
-          <p style="margin:0 0 12px;color:#ff9430;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;">La suite ✦</p>
-          <p style="margin:0 0 10px;color:#1a0800;font-size:14px;line-height:1.7;">📞 Angela te contactera prochainement pour ton <strong>entretien téléphonique préalable</strong>.</p>
-          <p style="margin:0 0 10px;color:#1a0800;font-size:14px;line-height:1.7;">📍 <strong>Lieu :</strong> Gîte de la Sapinière — Bezinghem, 62650. Accueil prévu le <strong>1er mai à partir de 14h</strong>.</p>
-          <p style="margin:0;color:#1a0800;font-size:14px;line-height:1.7;">💌 Pour toute question, réponds directement à cet email ou écris-nous sur Instagram <strong>@safeplaceevenementiel</strong>.</p>
-        </div>
-
-        <p style="margin:0 0 28px;color:#1a0800;font-size:15px;line-height:1.7;">À très vite dans cette belle aventure 🧡<br>On a hâte de partager ce week-end avec toi ✦</p>
-        <table cellpadding="0" cellspacing="0"><tr>
-          <td style="border-left:3px solid #ff9430;padding-left:14px;">
-            <p style="margin:0;font-size:16px;font-weight:900;font-style:italic;color:#ff9430;">Angela</p>
-            <p style="margin:4px 0 0;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fd2c82;">Fondatrice · Safe Place Événementiel ✦</p>
-          </td>
-        </tr></table>
-        <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:32px;"><tr><td align="center">
-          <a href="https://www.safeplaceevenementiel.fr" style="display:inline-block;background:linear-gradient(135deg,#ff9430,#fd2c82);color:white;text-decoration:none;padding:14px 32px;border-radius:30px;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;">Voir nos événements ✦</a>
-        </td></tr></table>
-      </td></tr>
-      <tr><td style="background:linear-gradient(135deg,#ff9430,#fd2c82);border-radius:0 0 24px 24px;padding:28px 40px;text-align:center;">
-        <p style="margin:0 0 6px;color:white;font-size:13px;font-weight:800;font-style:italic;">✦ Un évènement ? Une Safe Place ✦</p>
-        <p style="margin:0 0 10px;color:rgba(255,255,255,.85);font-size:12px;">Safe Place Événementiel · Côte d'Opale, Boulogne-sur-Mer (62)</p>
-        <p style="margin:0;color:rgba(255,255,255,.65);font-size:11px;">Cet email est une confirmation automatique de ton inscription.</p>
-      </td></tr>
-    </table>
-  </td></tr>
-</table>`;
-
-    // ── Notification interne Angela + Thiffany ──
-    const htmlNotif = `<h2 style="color:#ff9430">🎉 Nouvelle inscription — Lumière Intérieure</h2>
-<table style="font-family:sans-serif;font-size:14px;border-collapse:collapse;width:100%;max-width:600px">
-  <tr><td style="padding:8px;color:#7a3d1a;font-weight:700;width:40%">Prénom / Nom</td><td style="padding:8px">${prenom} ${nom}</td></tr>
-  <tr style="background:#fff4ea"><td style="padding:8px;color:#7a3d1a;font-weight:700">E-mail</td><td style="padding:8px"><a href="mailto:${email}">${email}</a></td></tr>
-  <tr><td style="padding:8px;color:#7a3d1a;font-weight:700">Téléphone</td><td style="padding:8px">${tel}</td></tr>
-  <tr style="background:#fff4ea"><td style="padding:8px;color:#7a3d1a;font-weight:700">Ville</td><td style="padding:8px">${ville}</td></tr>
-  <tr><td style="padding:8px;color:#7a3d1a;font-weight:700">Participants</td><td style="padding:8px">${ST.parts}</td></tr>
-  <tr style="background:#fff4ea"><td style="padding:8px;color:#7a3d1a;font-weight:700">Option draps</td><td style="padding:8px">${drapsLabel}</td></tr>
-  <tr><td style="padding:8px;color:#7a3d1a;font-weight:700">Paiement</td><td style="padding:8px">${payLabel}</td></tr>
-  <tr style="background:#fff4ea"><td style="padding:8px;color:#7a3d1a;font-weight:700">Droit à l'image</td><td style="padding:8px">${imgLabel}</td></tr>
-  <tr><td style="padding:8px;color:#7a3d1a;font-weight:700">Contact urgence</td><td style="padding:8px">${urgNom} — ${urgTel}</td></tr>
-  <tr style="background:#fff4ea"><td style="padding:8px;color:#7a3d1a;font-weight:700">Besoins particuliers</td><td style="padding:8px">${besoins}</td></tr>
-  <tr style="border-top:2px solid #ffe8d6"><td style="padding:10px 8px;color:#fd2c82;font-weight:900;font-size:16px">Total</td><td style="padding:10px 8px;color:#fd2c82;font-weight:900;font-size:16px">${total}€</td></tr>
-</table>`;
-
+    // Construction du bloc échéancier pour le template Brevo
+    var echeancierBlock = ST.payMode > 1
+      ? '<div style="background:#fff0f7;border-radius:16px;padding:24px;margin-bottom:24px;border:1.5px solid rgba(253,44,130,.15);"><p style="margin:0 0 14px;color:#fd2c82;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;">Ton échéancier ✦</p>' + echeancierHtml + '</div>'
+      : '';
     const btn = document.querySelector('.btn-pay');
     btn.textContent = '⏳ Envoi en cours…';
     btn.disabled = true;
@@ -1545,8 +1475,16 @@
       body: JSON.stringify({
         sender: { name: 'Angela — Safe Place Événementiel', email: 'projets@safeplaceevenementiel.fr' },
         to: [{ email: email, name: prenom + ' ' + nom }],
-        subject: '✨ Ton inscription au week-end Lumière Intérieure est confirmée !',
-        htmlContent: htmlParticipante
+        templateId: 2,
+        params: {
+          PRENOM: prenom,
+          NB_PARTS: ST.parts,
+          DRAPS: drapsLabel,
+          PAIEMENT: payLabel,
+          IMG_DROIT: imgLabel,
+          TOTAL: total,
+          ECHEANCIER_HTML: echeancierBlock
+        }
       })
     }).then(function() {
       // Envoi notif interne (non bloquant)
@@ -1557,8 +1495,12 @@
           sender: { name: 'Safe Place Événementiel', email: 'projets@safeplaceevenementiel.fr' },
           to: [{ email: 'hello@safeplaceevenementiel.fr', name: 'Angela' }, { email: 'projets@safeplaceevenementiel.fr', name: 'Thiffany' }],
           replyTo: { email: email, name: prenom + ' ' + nom },
-          subject: '🎉 Nouvelle inscription Lumière Intérieure — ' + prenom + ' ' + nom,
-          htmlContent: htmlNotif
+          templateId: 3,
+          params: {
+            PRENOM: prenom, NOM: nom, EMAIL: email, TEL: tel, VILLE: ville,
+            NB_PARTS: ST.parts, DRAPS: drapsLabel, PAIEMENT: payLabel,
+            IMG_DROIT: imgLabel, TOTAL: total, URG_NOM: urgNom, URG_TEL: urgTel, BESOINS: besoins
+          }
         })
       }).catch(function(e) { console.warn('Notif interne:', e); });
 

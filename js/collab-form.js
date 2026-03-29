@@ -118,8 +118,6 @@
   var successEl = container.querySelector('.csf-success');
   var btn = form.querySelector('.csf-btn');
 
-  var ACK_HTML = `<table width="100%" cellpadding="0" cellspacing="0" style="background:#fffaf6;padding:32px 16px;font-family:'Helvetica Neue',Arial,sans-serif;"><tr><td align="center"><table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;"><tr><td style="background:linear-gradient(135deg,#ff9430,#fd2c82);border-radius:24px 24px 0 0;padding:48px 40px 36px;text-align:center;"><div style="font-size:32px;margin-bottom:8px;color:white;">🤝</div><h1 style="margin:0;color:white;font-size:26px;font-weight:900;font-style:italic;line-height:1.2;">Candidature bien reçue !</h1></td></tr><tr><td style="background:white;padding:40px;border-left:1px solid #ffe8d6;border-right:1px solid #ffe8d6;"><p style="margin:0 0 20px;color:#1a0800;font-size:16px;line-height:1.7;">Merci de l'intérêt que vous portez à Safe Place Événementiel ✦</p><div style="background:#fff4ea;border-radius:16px;padding:24px;margin-bottom:20px;"><p style="margin:0 0 12px;color:#ff9430;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;">La suite ✦</p><p style="margin:0 0 10px;color:#1a0800;font-size:14px;line-height:1.7;">Angela lit chaque candidature avec soin et vous répond sous <strong>48h</strong>. Si votre profil correspond à nos valeurs et à nos besoins, elle vous proposera un échange pour en apprendre davantage sur votre pratique.</p><p style="margin:0;color:#1a0800;font-size:14px;line-height:1.7;">✦ Safe Place Événementiel est construite sur des collaborations humaines et sincères — hâte de vous découvrir !</p></div><p style="margin:28px 0 20px;color:#1a0800;font-size:16px;line-height:1.7;">À très vite 🧡</p><table cellpadding="0" cellspacing="0"><tr><td style="border-left:3px solid #ff9430;padding-left:14px;"><p style="margin:0;font-size:16px;font-weight:900;font-style:italic;color:#ff9430;">Angela</p><p style="margin:4px 0 0;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fd2c82;">Fondatrice · Safe Place Événementiel ✦</p></td></tr></table><table width="100%" cellpadding="0" cellspacing="0" style="margin-top:32px;"><tr><td align="center"><a href="https://www.safeplaceevenementiel.fr/collaborateurs.html" style="display:inline-block;background:linear-gradient(135deg,#ff9430,#fd2c82);color:white;text-decoration:none;padding:14px 32px;border-radius:30px;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;">Découvrir l'équipe ✦</a></td></tr></table></td></tr><tr><td style="background:linear-gradient(135deg,#ff9430,#fd2c82);border-radius:0 0 24px 24px;padding:28px 40px;text-align:center;"><p style="margin:0 0 6px;color:white;font-size:13px;font-weight:800;font-style:italic;">✦ Un évènement ? Une Safe Place ✦</p><p style="margin:0 0 10px;color:rgba(255,255,255,.85);font-size:12px;">Safe Place Événementiel · Côte d'Opale, Boulogne-sur-Mer (62)</p><p style="margin:0;color:rgba(255,255,255,.65);font-size:11px;">Cet email est un accusé de réception automatique.</p></td></tr></table></td></tr></table>`;
-
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -173,8 +171,7 @@
         body: JSON.stringify({
           sender: { name: 'Angela — Safe Place Événementiel', email: 'projets@safeplaceevenementiel.fr' },
           to: [{ email: email, name: prenom + ' ' + nom }],
-          subject: '🤝 Candidature bien reçue — Safe Place Événementiel',
-          htmlContent: ACK_HTML
+          templateId: 9
         })
       }).catch(function (e) { console.warn('Ack:', e); });
 

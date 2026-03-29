@@ -47,9 +47,17 @@ export default {
     }
 
     const path = new URL(request.url).pathname;
-    const brevoUrl = path === '/contact'
-      ? 'https://api.brevo.com/v3/contacts'
-      : 'https://api.brevo.com/v3/smtp/email';
+    let brevoUrl;
+    if (path === '/contact') {
+      brevoUrl = 'https://api.brevo.com/v3/contacts';
+    } else if (path === '/template') {
+      brevoUrl = 'https://api.brevo.com/v3/smtp/templates';
+    } else if (path.startsWith('/template/')) {
+      const id = path.split('/')[2];
+      brevoUrl = 'https://api.brevo.com/v3/smtp/templates/' + id;
+    } else {
+      brevoUrl = 'https://api.brevo.com/v3/smtp/email';
+    }
 
     const brevoRes = await fetch(brevoUrl, {
       method: 'POST',
