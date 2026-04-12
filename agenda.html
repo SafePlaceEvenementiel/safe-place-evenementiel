@@ -603,31 +603,54 @@ function renderDateBlock(evt) {
 
 function renderBody(evt) {
   var extra = evt.extra || {};
-  var html = '<div class="evt-title">'+(evt.title)+' ✦</div>';
-  if (evt.subtitle) html += '<div style="font-size:13px;font-weight:700;color:var(--od);margin-top:-4px;">'+evt.subtitle+'</div>';
-  if (evt.description) html += '<div class="evt-desc">'+evt.description+'</div>';
+  var h = [];
+  h.push(`<div class="evt-title">${evt.title} ✦</div>`);
+  if (evt.subtitle) h.push(`<div style="font-size:13px;font-weight:700;color:var(--od);margin-top:-4px;">${evt.subtitle}</div>`);
+  if (evt.description) h.push(`<div class="evt-desc">${evt.description}</div>`);
   var meta = [];
-  if (evt.location) meta.push('<span>📍 '+evt.location+'</span>');
-  if (evt.time_start && evt.time_end) meta.push('<span>🕒 '+evt.time_start+' – '+evt.time_end+'</span>');
-  if (evt.price_display) meta.push('<span>💰 '+evt.price_display+'</span>');
-  if (extra.adultes_only) meta.push('<span>👤 Adultes uniquement</span>');
-  if (extra.boisson) meta.push('<span style="background:var(--pp);color:var(--p);font-weight:700;border-radius:20px;padding:3px 10px;font-size:12px;">🍹 1 boisson offerte</span>');
-  if (meta.length) html += '<div class="evt-meta">'+meta.join('')+'</div>';
+  if (evt.location) meta.push(`<span>📍 ${evt.location}</span>`);
+  if (evt.time_start && evt.time_end) meta.push(`<span>🕒 ${evt.time_start} – ${evt.time_end}</span>`);
+  if (evt.price_display) meta.push(`<span>💰 ${evt.price_display}</span>`);
+  if (extra.adultes_only) meta.push(`<span>👤 Adultes uniquement</span>`);
+  if (extra.boisson) meta.push(`<span style="background:var(--pp);color:var(--p);font-weight:700;border-radius:20px;padding:3px 10px;font-size:12px;">🍹 1 boisson offerte</span>`);
+  if (meta.length) h.push(`<div class="evt-meta">${meta.join('')}</div>`);
   if (evt.status === 'full') {
-    html += '<div style="margin-top:10px;font-family:Nunito,sans-serif;font-weight:800;color:#dc2626;font-size:13px;">🔴 Complet</div>';
+    h.push(`<div style="margin-top:10px;font-family:Nunito,sans-serif;font-weight:800;color:#dc2626;font-size:13px;">🔴 Complet</div>`);
   } else if ((evt.type==='apero'||evt.type==='famille') && evt.status==='open') {
-    html += '<div style="margin-top:14px"><button class="edi-cta" onclick="openModalById('+evt.id+')">Réserver ma place →</button></div>';
+    h.push(`<div style="margin-top:14px"><button class="edi-cta" onclick="openModalById(${evt.id})">Réserver ma place →</button></div>`);
   }
   if (extra.vendeurs) {
-    html += '<div class="evt-audiences"><div class="evt-audience evt-aud-orange"><div class="evt-aud-label">🛍️ Tu veux vendre ?</div><div class="evt-aud-info">Location d'un espace stand ou dépôt-vente disponible. Places limitées — réserve le tien avant qu'ils partent !</div><button class="evt-aud-cta" style="background:var(--o)" onclick="document.getElementById('vendeurModal').style.display='flex'">Je réserve mon espace →</button></div><div class="evt-audience evt-aud-rose"><div class="evt-aud-label">👗 Tu veux chiner ?</div><div class="evt-aud-info">Entrée libre et gratuite — viens faire de bonnes affaires et passer un moment convivial !</div><div class="evt-aud-free">Entrée libre ✦</div></div></div>';
+    h.push(`<div class="evt-audiences">
+      <div class="evt-audience evt-aud-orange">
+        <div class="evt-aud-label">🛍️ Tu veux vendre ?</div>
+        <div class="evt-aud-info">Location d'un espace stand ou dépôt-vente disponible. Places limitées — réserve le tien avant qu'ils partent !</div>
+        <button class="evt-aud-cta" style="background:var(--o)" onclick="document.getElementById('vendeurModal').style.display='flex'">Je réserve mon espace →</button>
+      </div>
+      <div class="evt-audience evt-aud-rose">
+        <div class="evt-aud-label">👗 Tu veux chiner ?</div>
+        <div class="evt-aud-info">Entrée libre et gratuite — viens faire de bonnes affaires et passer un moment convivial !</div>
+        <div class="evt-aud-free">Entrée libre ✦</div>
+      </div>
+    </div>`);
   } else if (extra.exposants) {
-    html += '<div class="evt-audiences"><div class="evt-audience evt-aud-rose"><div class="evt-aud-label">🎨 Tu crées, tu veux exposer ?</div><div class="evt-aud-info">Dépose ta candidature — Angela sélectionne les exposants avec soin pour garantir une belle diversité et une ambiance Safe Place.</div><a href="contact.html#candidature" class="evt-aud-cta" style="background:var(--p)">Candidater comme exposant →</a></div><div class="evt-audience evt-aud-orange"><div class="evt-aud-label">🛒 Tu veux venir découvrir ?</div><div class="evt-aud-info">Entrée libre et gratuite — viens soutenir les créateurs locaux et repartir avec des pièces uniques !</div><div class="evt-aud-free">Entrée libre ✦</div></div></div>';
+    h.push(`<div class="evt-audiences">
+      <div class="evt-audience evt-aud-rose">
+        <div class="evt-aud-label">🎨 Tu crées, tu veux exposer ?</div>
+        <div class="evt-aud-info">Dépose ta candidature — Angela sélectionne les exposants avec soin pour garantir une belle diversité et une ambiance Safe Place.</div>
+        <a href="contact.html#candidature" class="evt-aud-cta" style="background:var(--p)">Candidater comme exposant →</a>
+      </div>
+      <div class="evt-audience evt-aud-orange">
+        <div class="evt-aud-label">🛒 Tu veux venir découvrir ?</div>
+        <div class="evt-aud-info">Entrée libre et gratuite — viens soutenir les créateurs locaux et repartir avec des pièces uniques !</div>
+        <div class="evt-aud-free">Entrée libre ✦</div>
+      </div>
+    </div>`);
   } else if (extra.coming_soon) {
-    html += '<div class="evt-coming-banner"><span class="ecb-icon">✦</span><span class="ecb-text">Infos, tarifs et modalités à venir — inscris-toi à la newsletter pour être prévenu.e en avant-première !</span><a href="index.html#newsletter" class="evt-notify-btn">Me tenir informé.e</a></div>';
+    h.push(`<div class="evt-coming-banner"><span class="ecb-icon">✦</span><span class="ecb-text">Infos, tarifs et modalités à venir — inscris-toi à la newsletter pour être prévenu.e en avant-première !</span><a href="index.html#newsletter" class="evt-notify-btn">Me tenir informé.e</a></div>`);
   } else if (extra.entree_libre) {
-    html += '<div style="margin-top:10px;font-family:Nunito,sans-serif;font-weight:800;color:#16a34a;font-size:13px;">Entrée libre ✦</div>';
+    h.push(`<div style="margin-top:10px;font-family:Nunito,sans-serif;font-weight:800;color:#16a34a;font-size:13px;">Entrée libre ✦</div>`);
   }
-  return '<div class="evt-body">'+html+'</div>';
+  return `<div class="evt-body">${h.join('')}</div>`;
 }
 
 function applyFiltersAndHide() {
