@@ -116,7 +116,7 @@ export default {
     // ── CORS preflight ──
     if (request.method === 'OPTIONS') {
       const isAdmin = path.startsWith('/api/admin') || path === '/api/auth';
-      const isPublicApi = path === '/api/events' || path === '/api/reservations' || path === '/' || path === '/contact';
+      const isPublicApi = path === '/api/events' || path === '/api/reservations' || path === '/api/messages' || path === '/' || path === '/contact';
       return new Response(null, { headers: corsHeaders(origin, isAdmin || isPublicApi) });
     }
 
@@ -295,6 +295,84 @@ export default {
       if (idMatch && request.method === 'DELETE') {
         const id = parseInt(idMatch[1]);
         await env.DB.prepare(`DELETE FROM reservations WHERE id=?`).bind(id).run();
+        return jsonRes({ ok: true }, 200, hdrs);
+      }
+
+      return jsonRes({ error: 'Route introuvable' }, 404, hdrs);
+    }
+
+    // ══════════════════════════════════════════
+    //  PUBLIC — POST /api/messages
+    // ══════════════════════════════════════════
+    if (path === '/api/messages' && request.method === 'POST') {
+      const hdrs = corsHeaders(origin, true);
+      const b = await request.json().catch(() => ({}));
+      if (!b.email || !b.prenom) {
+        return jsonRes({ error: 'Champs obligatoires manquants' }, 400, hdrs);
+      }
+      const extra = {};
+      // Champs spécifiques sur-mesure
+      if (b.type_event) extra.type_event = b.type_event;
+      if (b.date_souhaitee) extra.date_souhaitee = b.date_souhaitee;
+      if (b.personnes) extra.personnes = b.personnes;
+      if (b.budget) extra.budget = b.budget;
+      if (b.lieu) extra.lieu = b.lieu;
+      // Champs collaborateur
+      if (b.discipline) extra.discipline = b.discipline;
+      if (b.experience) extra.experience = b.experience;
+
+      const result = await env.DB.prepare(
+        `INSERT INTO contact_messages (form_type, prenom, nom, email, telephone, sujet, message, extra)
+         VALUES (?,?,?,?,?,?,?,?)`
+      ).bind(
+        b.form_type || 'general',
+        b.prenom || '',
+        b.nom || '',
+        b.email,
+        b.telephone || '',
+        b.sujet || '',
+        b.message || '',
+        JSON.stringify(extra)
+      ).run();
+      return jsonRes({ ok: true, id: result.meta.last_row_id }, 201, hdrs);
+    }
+
+    // ══════════════════════════════════════════
+    //  ADMIN — /api/admin/messages
+    // ══════════════════════════════════════════
+    if (path.startsWith('/api/admin/messages')) {
+      const hdrs = corsHeaders(origin, true);
+      const authed = await verifyToken(request, env);
+      if (!authed) return jsonRes({ error: 'Non autorisé' }, 401, hdrs);
+
+      const idMatch = path.match(/\/api\/admin\/messages\/(\d+)$/);
+
+      if (!idMatch && request.method === 'GET') {
+        const formType = url.searchParams.get('form_type');
+        const status = url.searchParams.get('status');
+        let query = `SELECT * FROM contact_messages`;
+        const conditions = [];
+        const binds = [];
+        if (formType) { conditions.push(`form_type=?`); binds.push(formType); }
+        if (status) { conditions.push(`status=?`); binds.push(status); }
+        if (conditions.length) query += ` WHERE ` + conditions.join(' AND ');
+        query += ` ORDER BY created_at DESC`;
+        const stmt = binds.length ? env.DB.prepare(query).bind(...binds) : env.DB.prepare(query);
+        const { results } = await stmt.all();
+        return jsonRes(results.map(r => ({ ...r, extra: JSON.parse(r.extra || '{}') })), 200, hdrs);
+      }
+
+      if (idMatch && request.method === 'PUT') {
+        const id = parseInt(idMatch[1]);
+        const b = await request.json().catch(() => ({}));
+        await env.DB.prepare(`UPDATE contact_messages SET status=? WHERE id=?`)
+          .bind(b.status || 'read', id).run();
+        return jsonRes({ ok: true }, 200, hdrs);
+      }
+
+      if (idMatch && request.method === 'DELETE') {
+        const id = parseInt(idMatch[1]);
+        await env.DB.prepare(`DELETE FROM contact_messages WHERE id=?`).bind(id).run();
         return jsonRes({ ok: true }, 200, hdrs);
       }
 

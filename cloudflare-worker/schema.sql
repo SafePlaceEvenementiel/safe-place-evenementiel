@@ -35,6 +35,20 @@ CREATE TABLE IF NOT EXISTS reservations (
   created_at       TEXT    NOT NULL DEFAULT (datetime('now'))
 );
 
+CREATE TABLE IF NOT EXISTS contact_messages (
+  id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  form_type  TEXT    NOT NULL DEFAULT 'general',   -- 'general' | 'sur_mesure' | 'collaborateur'
+  prenom     TEXT    NOT NULL DEFAULT '',
+  nom        TEXT    NOT NULL DEFAULT '',
+  email      TEXT    NOT NULL DEFAULT '',
+  telephone  TEXT    NOT NULL DEFAULT '',
+  sujet      TEXT    NOT NULL DEFAULT '',
+  message    TEXT    NOT NULL DEFAULT '',
+  extra      TEXT    NOT NULL DEFAULT '{}',        -- champs spécifiques au formulaire
+  status     TEXT    NOT NULL DEFAULT 'new',       -- 'new' | 'read' | 'replied'
+  created_at TEXT    NOT NULL DEFAULT (datetime('now'))
+);
+
 -- Événements actuels (agenda avril–juin 2026)
 INSERT INTO events (type, title, subtitle, description, date, weekday, time_start, time_end, location, price_display, stripe_link, status, extra) VALUES
 (

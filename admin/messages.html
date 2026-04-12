@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Messages — Safe Place Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--o:#ff9430;--od:#d97220;--ol:#ffb366;--op:#fff4ea;--p:#fd2c82;--pd:#d91a6a;--pl:#ff6aab;--pp:#fff0f7;--bg:#fffaf6;--t:#1a0800;--ts:#7a3d1a;--w:#ffffff}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--t);min-height:100vh}
+  /* Header */
+  .admin-header{background:linear-gradient(90deg,var(--o),var(--p));padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .admin-logo{font-family:Nunito,sans-serif;font-weight:900;font-size:18px;color:#fff;text-decoration:none}
+  .admin-logo span{opacity:.8}
+  .header-nav{display:flex;gap:8px}
+  .header-nav a{color:#fff;text-decoration:none;font-size:13px;font-weight:700;padding:6px 14px;border-radius:20px;opacity:.75;transition:.2s}
+  .header-nav a:hover,.header-nav a.active{opacity:1;background:rgba(255,255,255,.2)}
+  .header-right{display:flex;align-items:center;gap:12px}
+  .btn-logout{background:rgba(255,255,255,.2);color:#fff;border:none;border-radius:20px;padding:7px 16px;font-family:Nunito,sans-serif;font-weight:700;font-size:13px;cursor:pointer}
+  /* Main */
+  .admin-main{max-width:960px;margin:0 auto;padding:32px 20px}
+  .page-title{font-family:Nunito,sans-serif;font-weight:900;font-size:26px;margin-bottom:4px}
+  .page-title em{font-style:italic;color:var(--p)}
+  .page-sub{color:var(--ts);font-size:14px;margin-bottom:24px}
+  /* Stats */
+  .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:28px}
+  .stat-card{background:#fff;border-radius:14px;padding:16px;box-shadow:0 2px 8px rgba(26,8,0,.06);text-align:center}
+  .stat-num{font-family:Nunito,sans-serif;font-weight:900;font-size:28px;color:var(--o)}
+  .stat-num.pink{color:var(--p)}
+  .stat-num.green{color:#16a34a}
+  .stat-label{font-size:12px;color:var(--ts);margin-top:2px}
+  /* Filtres */
+  .filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;align-items:center}
+  .ftab{background:#fff;border:2px solid #e8d5c4;color:var(--ts);border-radius:20px;padding:7px 16px;font-family:Nunito,sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:.2s}
+  .ftab.active{background:var(--o);border-color:var(--o);color:#fff}
+  .count-badge{background:var(--op);color:var(--od);font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px;font-family:Nunito,sans-serif}
+  /* Liste messages */
+  .msg-list{display:flex;flex-direction:column;gap:10px}
+  .msg-item{background:#fff;border-radius:14px;padding:18px 20px;box-shadow:0 2px 8px rgba(26,8,0,.06);cursor:pointer;transition:.15s;border-left:4px solid transparent}
+  .msg-item:hover{box-shadow:0 4px 16px rgba(26,8,0,.1)}
+  .msg-item.status-new{border-left-color:var(--p)}
+  .msg-item.status-read{border-left-color:#e8d5c4}
+  .msg-item.status-replied{border-left-color:#16a34a}
+  .msg-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px}
+  .msg-from{font-family:Nunito,sans-serif;font-weight:800;font-size:16px}
+  .msg-meta{display:flex;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--ts);margin-bottom:8px}
+  .msg-meta span{display:flex;align-items:center;gap:3px}
+  .msg-preview{font-size:13px;color:var(--ts);line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+  .msg-date{font-size:11px;color:#aaa;white-space:nowrap}
+  .msg-badges{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;font-family:Nunito,sans-serif}
+  .badge-new{background:#fff0f7;color:var(--pd)}
+  .badge-read{background:#f3f4f6;color:#6b7280}
+  .badge-replied{background:#d1fae5;color:#065f46}
+  .badge-type-general{background:#fff4ea;color:var(--od)}
+  .badge-type-sur_mesure{background:#fff0f7;color:var(--pd)}
+  .badge-type-collaborateur{background:#f0fdf4;color:#166534}
+  /* Détail message */
+  .msg-detail{display:none;margin-top:16px;padding-top:16px;border-top:1px solid #f0e6da}
+  .msg-detail.open{display:block}
+  .msg-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;font-size:13px}
+  .msg-detail-row{display:contents}
+  .msg-detail-label{color:var(--ts);font-weight:700;padding:4px 0}
+  .msg-detail-val{padding:4px 0;color:var(--t)}
+  .msg-body{background:#fff8f4;border-radius:10px;padding:14px 16px;font-size:14px;line-height:1.7;color:var(--t);margin-bottom:14px;white-space:pre-wrap}
+  .msg-extra{background:var(--op);border-radius:10px;padding:12px 14px;font-size:13px;margin-bottom:14px}
+  .msg-extra h4{font-family:Nunito,sans-serif;font-weight:800;font-size:13px;color:var(--od);margin-bottom:8px}
+  .msg-extra table{width:100%;border-collapse:collapse}
+  .msg-extra td{padding:3px 6px;color:var(--ts)}
+  .msg-extra td:first-child{font-weight:700;color:var(--t);width:40%}
+  .msg-actions{display:flex;gap:8px;flex-wrap:wrap}
+  .btn-sm{border:none;border-radius:20px;padding:7px 16px;font-family:Nunito,sans-serif;font-weight:700;font-size:12px;cursor:pointer;transition:.15s}
+  .btn-read{background:#f3f4f6;color:#374151}
+  .btn-read:hover{background:#e5e7eb}
+  .btn-replied{background:#d1fae5;color:#065f46}
+  .btn-replied:hover{background:#a7f3d0}
+  .btn-reply{background:var(--op);color:var(--od)}
+  .btn-reply:hover{background:var(--ol);color:#fff}
+  .btn-del{background:#fee2e2;color:#991b1b}
+  .btn-del:hover{background:#fca5a5}
+  /* Empty / Loading */
+  .empty{text-align:center;padding:60px 20px;color:var(--ts)}
+  .empty-icon{font-size:48px;margin-bottom:12px}
+  .loading{text-align:center;padding:60px;color:var(--ts);font-size:15px}
+  /* Toast */
+  .toast{position:fixed;bottom:24px;right:24px;padding:12px 20px;border-radius:12px;font-family:Nunito,sans-serif;font-weight:700;font-size:14px;z-index:9999;transform:translateY(60px);opacity:0;transition:.3s}
+  .toast.show{transform:translateY(0);opacity:1}
+  .toast.success{background:#d1fae5;color:#065f46}
+  .toast.error{background:#fee2e2;color:#991b1b}
+  @media(max-width:600px){.msg-detail-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="admin-header">
+  <a class="admin-logo" href="events.html">Safe Place <span>✦ Admin</span></a>
+  <nav class="header-nav">
+    <a href="events.html">Événements</a>
+    <a href="reservations.html">Réservations</a>
+    <a href="messages.html" class="active">Messages</a>
+  </nav>
+  <div class="header-right">
+    <a href="../index.html" style="color:#fff;font-size:13px;font-weight:700;text-decoration:none;opacity:.8">↗ Voir le site</a>
+    <button class="btn-logout" id="btnLogout">Se déconnecter</button>
+  </div>
+</header>
+
+<main class="admin-main">
+  <h1 class="page-title">Mes <em>messages</em></h1>
+  <p class="page-sub">Consulte les demandes et questions reçues via le formulaire de contact.</p>
+
+  <div class="stats-row" id="statsRow">
+    <div class="stat-card"><div class="stat-num pink" id="statNew">—</div><div class="stat-label">Nouveaux</div></div>
+    <div class="stat-card"><div class="stat-num" id="statTotal">—</div><div class="stat-label">Total</div></div>
+    <div class="stat-card"><div class="stat-num green" id="statReplied">—</div><div class="stat-label">Répondus</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--od)" id="statSurMesure">—</div><div class="stat-label">Sur mesure</div></div>
+  </div>
+
+  <div class="filter-bar">
+    <button class="ftab active" data-status="all">Tous</button>
+    <button class="ftab" data-status="new">🔔 Nouveaux</button>
+    <button class="ftab" data-status="read">👁 Lus</button>
+    <button class="ftab" data-status="replied">✅ Répondus</button>
+    <button class="ftab" data-type="sur_mesure">🎉 Sur mesure</button>
+    <button class="ftab" data-type="general">💬 Général</button>
+    <span class="count-badge" id="countBadge">0 message</span>
+  </div>
+
+  <div class="msg-list" id="msgList"><div class="loading">✦ Chargement…</div></div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const WORKER = 'https://safe-place-evenementiel.projets-b86.workers.dev';
+const token = sessionStorage.getItem('sp_token');
+if (!token) { window.location.href = 'index.html'; }
+
+document.getElementById('btnLogout').addEventListener('click', () => {
+  sessionStorage.removeItem('sp_token'); window.location.href = 'index.html';
+});
+
+let allMsgs = [];
+let currentStatus = 'all';
+let currentType = '';
+
+const STATUS_LABELS = { new: '🔔 Nouveau', read: '👁 Lu', replied: '✅ Répondu' };
+const STATUS_CLASS = { new: 'badge-new', read: 'badge-read', replied: 'badge-replied' };
+const TYPE_LABELS = { general: '💬 Question générale', sur_mesure: '🎉 Événement sur mesure', collaborateur: '🤝 Collaborateur' };
+const TYPE_CLASS = { general: 'badge-type-general', sur_mesure: 'badge-type-sur_mesure', collaborateur: 'badge-type-collaborateur' };
+
+async function loadMessages() {
+  try {
+    const res = await fetch(WORKER + '/api/admin/messages', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+    if (res.status === 401) { sessionStorage.removeItem('sp_token'); window.location.href = 'index.html'; return; }
+    allMsgs = await res.json();
+    updateStats();
+    renderList();
+  } catch {
+    document.getElementById('msgList').innerHTML = '<div class="loading" style="color:#dc2626">Erreur de chargement.</div>';
+  }
+}
+
+function updateStats() {
+  document.getElementById('statTotal').textContent = allMsgs.length;
+  document.getElementById('statNew').textContent = allMsgs.filter(m => m.status === 'new').length;
+  document.getElementById('statReplied').textContent = allMsgs.filter(m => m.status === 'replied').length;
+  document.getElementById('statSurMesure').textContent = allMsgs.filter(m => m.form_type === 'sur_mesure').length;
+}
+
+function renderList() {
+  updateStats();
+  let list = allMsgs;
+  if (currentStatus !== 'all') list = list.filter(m => m.status === currentStatus);
+  if (currentType) list = list.filter(m => m.form_type === currentType);
+
+  const container = document.getElementById('msgList');
+  document.getElementById('countBadge').textContent = list.length + ' message' + (list.length > 1 ? 's' : '');
+
+  if (!list.length) {
+    container.innerHTML = `<div class="empty"><div class="empty-icon">💬</div><p>Aucun message${currentStatus !== 'all' ? ' dans cette catégorie' : ''}.</p></div>`;
+    return;
+  }
+
+  container.innerHTML = list.map(m => {
+    const d = new Date(m.created_at);
+    const dateStr = d.toLocaleDateString('fr-FR', {day:'numeric',month:'long',year:'numeric'}) + ' à ' + d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+    const typeLabel = TYPE_LABELS[m.form_type] || m.form_type;
+    const typeClass = TYPE_CLASS[m.form_type] || '';
+    const statusLabel = STATUS_LABELS[m.status] || m.status;
+    const statusClass = STATUS_CLASS[m.status] || '';
+
+    // Champs extra (sur mesure)
+    let extraHtml = '';
+    if (m.extra && Object.keys(m.extra).length > 0) {
+      const extraLabels = { type_event: 'Type', date_souhaitee: 'Date souhaitée', personnes: 'Participants', budget: 'Budget', lieu: 'Lieu', discipline: 'Discipline', experience: 'Expérience' };
+      const rows = Object.entries(m.extra).filter(([k,v]) => v).map(([k,v]) =>
+        `<tr><td>${extraLabels[k]||k}</td><td>${v}</td></tr>`
+      ).join('');
+      if (rows) extraHtml = `<div class="msg-extra"><h4>Détails de la demande</h4><table>${rows}</table></div>`;
+    }
+
+    // Détails contact
+    const detailGrid = [
+      m.email ? `<div class="msg-detail-label">E-mail</div><div class="msg-detail-val"><a href="mailto:${m.email}" style="color:var(--p)">${m.email}</a></div>` : '',
+      m.telephone ? `<div class="msg-detail-label">Téléphone</div><div class="msg-detail-val">${m.telephone}</div>` : '',
+      m.sujet ? `<div class="msg-detail-label">Sujet</div><div class="msg-detail-val">${m.sujet}</div>` : '',
+    ].filter(Boolean).join('');
+
+    // Boutons actions
+    const actionBtns = [
+      m.status !== 'replied' ? `<button class="btn-sm btn-replied" data-action="replied" data-id="${m.id}">Marquer répondu</button>` : '',
+      m.status === 'new' ? `<button class="btn-sm btn-read" data-action="read" data-id="${m.id}">Marquer lu</button>` : '',
+      `<a href="mailto:${m.email}?subject=Re: ${encodeURIComponent(m.sujet||'votre message Safe Place')}" class="btn-sm btn-reply">Répondre par email ↗</a>`,
+      `<button class="btn-sm btn-del" data-action="delete" data-id="${m.id}">Supprimer</button>`,
+    ].filter(Boolean).join('');
+
+    return `<div class="msg-item status-${m.status}" data-id="${m.id}">
+      <div class="msg-header">
+        <div>
+          <div class="msg-from">${m.prenom}${m.nom ? ' ' + m.nom : ''}</div>
+          <div class="msg-meta">
+            <span>📧 ${m.email}</span>
+            ${m.telephone ? `<span>📞 ${m.telephone}</span>` : ''}
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+          <div class="msg-badges">
+            <span class="badge ${typeClass}">${typeLabel}</span>
+            <span class="badge ${statusClass}">${statusLabel}</span>
+          </div>
+          <div class="msg-date">${dateStr}</div>
+        </div>
+      </div>
+      <div class="msg-preview">${(m.message||'').replace(/</g,'&lt;')}</div>
+      <div class="msg-detail" id="detail-${m.id}">
+        ${detailGrid ? `<div class="msg-detail-grid">${detailGrid}</div>` : ''}
+        ${extraHtml}
+        <div class="msg-body">${(m.message||'').replace(/</g,'&lt;')}</div>
+        <div class="msg-actions">${actionBtns}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Expand/collapse au clic + marquer lu auto
+  container.querySelectorAll('.msg-item').forEach(item => {
+    item.addEventListener('click', function(e) {
+      if (e.target.closest('[data-action]') || e.target.tagName === 'A') return;
+      const id = parseInt(this.dataset.id);
+      const detail = document.getElementById('detail-' + id);
+      const isOpen = detail.classList.contains('open');
+      // Ferme tous les autres
+      container.querySelectorAll('.msg-detail').forEach(d => d.classList.remove('open'));
+      if (!isOpen) {
+        detail.classList.add('open');
+        // Auto-marquer lu si nouveau
+        const msg = allMsgs.find(m => m.id === id);
+        if (msg && msg.status === 'new') {
+          updateStatus(id, 'read', false);
+        }
+      }
+    });
+  });
+
+  // Boutons action
+  container.querySelectorAll('[data-action]').forEach(btn => {
+    btn.addEventListener('click', async function(e) {
+      e.stopPropagation();
+      const id = parseInt(this.dataset.id);
+      const action = this.dataset.action;
+      if (action === 'delete') {
+        if (!confirm('Supprimer ce message ?')) return;
+        await fetch(WORKER + '/api/admin/messages/' + id, {
+          method: 'DELETE', headers: { 'Authorization': 'Bearer ' + token }
+        });
+        allMsgs = allMsgs.filter(m => m.id !== id);
+        renderList();
+        showToast('Message supprimé', 'success');
+      } else {
+        await updateStatus(id, action, true);
+      }
+    });
+  });
+}
+
+async function updateStatus(id, status, showFeedback) {
+  await fetch(WORKER + '/api/admin/messages/' + id, {
+    method: 'PUT',
+    headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ status })
+  });
+  const msg = allMsgs.find(m => m.id === id);
+  if (msg) msg.status = status;
+  renderList();
+  if (showFeedback) showToast(status === 'replied' ? 'Marqué comme répondu ✦' : 'Statut mis à jour', 'success');
+}
+
+document.querySelectorAll('.ftab').forEach(btn => {
+  btn.addEventListener('click', function() {
+    if (this.dataset.status !== undefined) {
+      document.querySelectorAll('.ftab[data-status]').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      currentStatus = this.dataset.status;
+      currentType = '';
+      document.querySelectorAll('.ftab[data-type]').forEach(t => t.classList.remove('active'));
+    } else if (this.dataset.type !== undefined) {
+      document.querySelectorAll('.ftab[data-type]').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      currentType = this.dataset.type;
+      currentStatus = 'all';
+      document.querySelectorAll('.ftab[data-status]').forEach(t => t.classList.remove('active'));
+    }
+    renderList();
+  });
+});
+
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast ' + type + ' show';
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+loadMessages();
+</script>
+</body>
+</html>

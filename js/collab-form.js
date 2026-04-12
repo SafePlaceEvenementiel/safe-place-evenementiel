@@ -150,6 +150,17 @@
       '<tr style="background:#fff4ea"><td style="padding:8px;color:#7a3d1a;font-weight:700">Instagram</td><td style="padding:8px">' + instagram + '</td></tr>' +
       '</table><h3 style="color:#ff9430">Message</h3><p style="font-size:14px;line-height:1.6">' + message.replace(/\n/g, '<br>') + '</p>';
 
+    // Sauvegarde D1 (silencieuse, en parallèle)
+    fetch('https://safe-place-evenementiel.projets-b86.workers.dev/api/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        form_type: 'collaborateur', prenom: prenom, nom: nom, email: email,
+        telephone: tel, sujet: 'Candidature collaborateur', message: message,
+        discipline: domaine, experience: entreprise
+      })
+    }).catch(function(e) { console.warn('D1 save:', e); });
+
     // Email à Angela + Thiffany
     fetch('https://safe-place-evenementiel.projets-b86.workers.dev', {
       method: 'POST',

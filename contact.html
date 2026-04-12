@@ -639,8 +639,18 @@ document.querySelectorAll('.footer-col h4').forEach(function(h4) {
    BREVO — Formulaires de contact
 ══════════════════════════════════════ */
 
+const WORKER = 'https://safe-place-evenementiel.projets-b86.workers.dev';
+
+function saveMessageD1(payload) {
+  return fetch(WORKER + '/api/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).catch(function(e) { console.warn('D1 save:', e); });
+}
+
 function sendBrevoEmail(subject, htmlContent, replyToEmail, replyToName) {
-  return fetch('https://safe-place-evenementiel.projets-b86.workers.dev', {
+  return fetch(WORKER, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -687,6 +697,13 @@ function sendBrevoEmail(subject, htmlContent, replyToEmail, replyToName) {
       '</table>' +
       '<h3 style="color:#ff9430">Message</h3><p style="font-size:14px;line-height:1.6">' + message.replace(/\n/g,'<br>') + '</p>';
 
+    // Sauvegarde D1 (silencieuse, en parallèle)
+    saveMessageD1({
+      form_type: 'sur_mesure', prenom: prenom, nom: nom, email: email,
+      telephone: tel, sujet: 'Événement sur mesure', message: message,
+      type_event: type, date_souhaitee: date, personnes: personnes, budget: budget, lieu: lieu
+    });
+
     sendBrevoEmail('✨ Demande sur mesure — ' + prenom + ' ' + nom, html, email, prenom + ' ' + nom)
     .then(function(res) {
       if (res.ok) {
@@ -694,7 +711,7 @@ function sendBrevoEmail(subject, htmlContent, replyToEmail, replyToName) {
         var s = document.getElementById('success-sur-mesure');
         if(s) s.classList.add('visible');
     // Accusé de réception
-    fetch('https://safe-place-evenementiel.projets-b86.workers.dev', {
+    fetch(WORKER, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -736,6 +753,12 @@ function sendBrevoEmail(subject, htmlContent, replyToEmail, replyToName) {
       '</table>' +
       '<h3 style="color:#ff9430">Message</h3><p style="font-size:14px;line-height:1.6">' + message.replace(/\n/g,'<br>') + '</p>';
 
+    // Sauvegarde D1 (silencieuse, en parallèle)
+    saveMessageD1({
+      form_type: 'general', prenom: prenom, nom: nom, email: email,
+      telephone: tel, sujet: sujet, message: message
+    });
+
     sendBrevoEmail('💬 Question — ' + prenom + ' ' + nom, html, email, prenom + ' ' + nom)
     .then(function(res) {
       if (res.ok) {
@@ -743,7 +766,7 @@ function sendBrevoEmail(subject, htmlContent, replyToEmail, replyToName) {
         var s = document.getElementById('success-general');
         if(s) s.classList.add('visible');
     // Accusé de réception
-    fetch('https://safe-place-evenementiel.projets-b86.workers.dev', {
+    fetch(WORKER, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
