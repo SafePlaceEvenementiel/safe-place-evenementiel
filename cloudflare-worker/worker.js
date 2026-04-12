@@ -58,6 +58,51 @@ async function verifyToken(request, env) {
   return token === expected;
 }
 
+// ── Newsletter ──────────────────────────────────────────
+async function sendNewsletter(env, evt) {
+  if (!env.BREVO_API_KEY || !env.BREVO_NEWSLETTER_LIST_ID) return;
+  const listId = parseInt(env.BREVO_NEWSLETTER_LIST_ID);
+
+  // Récupère les abonnés de la liste (max 500)
+  const contactsRes = await fetch(
+    `https://api.brevo.com/v3/contacts?listIds=${listId}&limit=500&offset=0`,
+    { headers: { 'api-key': env.BREVO_API_KEY, 'Accept': 'application/json' } }
+  );
+  if (!contactsRes.ok) return;
+  const { contacts } = await contactsRes.json();
+  if (!contacts?.length) return;
+
+  const dateStr = evt.date
+    ? new Date(evt.date + 'T00:00:00').toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long', year:'numeric' })
+    : 'Date à confirmer';
+
+  const TYPE_LABELS = { apero:'Apéro Créatif', famille:'Atelier Famille', weekend:'Week-end & Retraite', evenement:'Événement' };
+
+  // Envoi par lots de 50 (limite Brevo)
+  const BATCH = 50;
+  for (let i = 0; i < contacts.length; i += BATCH) {
+    const batch = contacts.slice(i, i + BATCH);
+    await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: { 'api-key': env.BREVO_API_KEY, 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        sender: { name: 'Safe Place Événementiel', email: 'projets@safeplaceevenementiel.fr' },
+        to: batch.map(c => ({ email: c.email, name: c.attributes?.PRENOM || c.email.split('@')[0] })),
+        templateId: parseInt(env.BREVO_NEWSLETTER_TEMPLATE_ID || '6'),
+        params: {
+          NOM_EVENEMENT: evt.title + (evt.subtitle ? ' — ' + evt.subtitle : ''),
+          TYPE_EVENT: TYPE_LABELS[evt.type] || evt.type,
+          DATE_EVENT: dateStr,
+          LIEU: evt.location || 'À confirmer',
+          PRIX: evt.price_display || '',
+          DESCRIPTION: evt.description || '',
+        }
+      })
+    });
+  }
+}
+
+
 function parseEventRow(row) {
   return { ...row, extra: JSON.parse(row.extra || '{}') };
 }
@@ -129,27 +174,23 @@ export default {
       // POST — créer
       if (request.method === 'POST') {
         const b = await request.json().catch(() => ({}));
+        const status = b.status || 'open';
         const result = await env.DB.prepare(
           `INSERT INTO events
            (type, title, subtitle, description, date, date_end, weekday,
             time_start, time_end, location, price_display, stripe_link, status, extra)
            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
         ).bind(
-          b.type || 'evenement',
-          b.title || '',
-          b.subtitle || '',
-          b.description || '',
-          b.date || null,
-          b.date_end || null,
-          b.weekday || '',
-          b.time_start || '',
-          b.time_end || '',
-          b.location || '',
-          b.price_display || '',
-          b.stripe_link || '',
-          b.status || 'open',
+          b.type || 'evenement', b.title || '', b.subtitle || '', b.description || '',
+          b.date || null, b.date_end || null, b.weekday || '',
+          b.time_start || '', b.time_end || '', b.location || '',
+          b.price_display || '', b.stripe_link || '', status,
           JSON.stringify(b.extra || {})
         ).run();
+        // Newsletter si publié directement (pas brouillon)
+        if (status === 'open') {
+          await sendNewsletter(env, b);
+        }
         return jsonRes({ ok: true, id: result.meta.last_row_id }, 201, hdrs);
       }
 
@@ -159,6 +200,12 @@ export default {
       if (idMatch && request.method === 'PUT') {
         const id = parseInt(idMatch[1]);
         const b = await request.json().catch(() => ({}));
+        // Vérifie le statut actuel avant update (pour détecter brouillon → publié)
+        const current = await env.DB.prepare(`SELECT status, extra FROM events WHERE id=?`).bind(id).first();
+        const wasDraft = current?.status === 'draft';
+        const isNowOpen = (b.status || 'open') === 'open';
+        const currentExtra = JSON.parse(current?.extra || '{}');
+        const newExtra = b.extra || currentExtra;
         await env.DB.prepare(
           `UPDATE events SET
             type=?, title=?, subtitle=?, description=?,
@@ -167,22 +214,16 @@ export default {
             updated_at=datetime('now')
            WHERE id=?`
         ).bind(
-          b.type || 'evenement',
-          b.title || '',
-          b.subtitle || '',
-          b.description || '',
-          b.date || null,
-          b.date_end || null,
-          b.weekday || '',
-          b.time_start || '',
-          b.time_end || '',
-          b.location || '',
-          b.price_display || '',
-          b.stripe_link || '',
-          b.status || 'open',
-          JSON.stringify(b.extra || {}),
-          id
+          b.type || 'evenement', b.title || '', b.subtitle || '', b.description || '',
+          b.date || null, b.date_end || null, b.weekday || '',
+          b.time_start || '', b.time_end || '', b.location || '',
+          b.price_display || '', b.stripe_link || '', b.status || 'open',
+          JSON.stringify(newExtra), id
         ).run();
+        // Newsletter si passage brouillon → publié
+        if (wasDraft && isNowOpen) {
+          await sendNewsletter(env, b);
+        }
         return jsonRes({ ok: true }, 200, hdrs);
       }
 
