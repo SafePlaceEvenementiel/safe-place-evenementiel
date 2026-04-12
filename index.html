@@ -379,7 +379,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
 .section-header .section-desc { margin-left: auto; margin-right: auto; }
 
 .formats-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
 }
 
 .format-card {
@@ -590,6 +590,17 @@ button { font-family: inherit; cursor: pointer; border: none; }
 }
 .evt-aud-cta:hover { filter:brightness(.88); color:white; }
 .evt-aud-free { font-family:'Nunito',sans-serif; font-weight:800; font-size:13px; color:#16a34a; margin-top:auto; }
+
+/* Carte multi-dates (apéros, ateliers) */
+.evt-card-multi { grid-template-columns: 90px 1fr; }
+.evt-dates-list { display:flex; flex-direction:column; gap:6px; margin-top:4px; }
+.evt-date-item { display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:12px; background:var(--bg); }
+.edi-date { font-family:'Nunito',sans-serif; font-weight:800; font-style:italic; font-size:13px; color:var(--o); min-width:90px; flex-shrink:0; }
+.edi-theme { font-size:13px; font-weight:600; color:var(--t); flex:1; }
+.edi-cta { background:var(--p); color:white; border:none; border-radius:10px; padding:5px 13px; font-size:11px; font-weight:700; cursor:pointer; white-space:nowrap; transition:background .2s; }
+.edi-cta:hover { background:var(--pd); }
+.edi-tba { font-size:12px; color:var(--ts); font-style:italic; }
+@media(max-width:768px){ .evt-card-multi { grid-template-columns:70px 1fr; } .edi-date { min-width:72px; } }
 
 /* Bannière "infos à venir" */
 .evt-coming-banner {
@@ -1182,8 +1193,30 @@ button { font-family: inherit; cursor: pointer; border: none; }
         </div>
       </div>
 
-      <!-- Événements & Soirées -->
+      <!-- Week-Ends & Retraites -->
       <div class="format-card reveal" style="transition-delay:.2s">
+        <div class="format-banner fb-weekend">
+          <span>🌿</span>
+          <div class="sparkles">✦ ✦</div>
+        </div>
+        <div class="format-body">
+          <div class="format-cat">Bien-être & Développement personnel</div>
+          <div class="format-name">Week-Ends & Retraites</div>
+          <div class="format-desc">Une pause pour ralentir, te reconnecter à toi-même et te faire du bien. Hébergement, repas faits maison, ateliers bienveillants et accompagnement chaleureux — tout est inclus.</div>
+          <div class="format-meta">
+            <span class="meta-pill">📅 Dates uniques</span>
+            <span class="meta-pill">🏠 Pension complète</span>
+            <span class="meta-pill pink">Jusqu'à 5× sans frais</span>
+          </div>
+          <div class="format-footer">
+            <div class="format-price" style="font-size:18px;font-style:italic;color:var(--ts)">À partir de 400€</div>
+            <a href="#newsletter" class="btn-resa">Être informée ✦</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Événements & Soirées -->
+      <div class="format-card reveal" style="transition-delay:.3s">
         <div class="format-banner fb-weekend">
           <span>🎉</span>
           <div class="sparkles">✦ ✦</div>
@@ -1245,6 +1278,56 @@ button { font-family: inherit; cursor: pointer; border: none; }
               <div class="evt-aud-label">👗 Tu veux chiner ?</div>
               <div class="evt-aud-info">Entrée libre et gratuite — viens faire de bonnes affaires et passer un moment convivial !</div>
               <div class="evt-aud-free">Entrée libre ✦</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Apéros Créatifs -->
+      <div class="evt-card evt-card-multi reveal" style="transition-delay:.1s">
+        <div class="evt-date-block" style="background:linear-gradient(160deg,var(--p),var(--pl))">
+          <div style="font-size:30px">🎨</div>
+          <div class="evt-month" style="margin-top:6px">Apéros</div>
+          <div class="evt-weekday">Créatifs</div>
+        </div>
+        <div class="evt-body">
+          <div class="evt-title">Apéros Créatifs ✦</div>
+          <div class="evt-desc">Un verre, une création, de belles rencontres — 24€ / personne · La Kabane de la Plage, Boulogne-sur-Mer · Adultes uniquement · 19h–21h</div>
+          <div class="evt-dates-list">
+            <div class="evt-date-item">
+              <span class="edi-date">Mer. 22 avr.</span>
+              <span class="edi-theme">Fabrication magnets pour frigo</span>
+              <button class="edi-cta" onclick="openModal('apero','Mer. 22 avr.','Fabrication magnets pour frigo')">Réserver</button>
+            </div>
+            <div class="evt-date-item">
+              <span class="edi-date">Mer. 6 mai</span>
+              <span class="edi-theme">Personnalisation miroir</span>
+              <button class="edi-cta" onclick="openModal('apero','Mer. 6 mai','Personnalisation miroir')">Réserver</button>
+            </div>
+            <div class="evt-date-item">
+              <span class="edi-date">Mer. 20 mai</span>
+              <span class="edi-theme">Personnalisation planche apéro</span>
+              <button class="edi-cta" onclick="openModal('apero','Mer. 20 mai','Personnalisation planche apéro')">Réserver</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ateliers Famille -->
+      <div class="evt-card evt-card-multi reveal" style="transition-delay:.15s">
+        <div class="evt-date-block" style="background:linear-gradient(160deg,var(--o),var(--ol))">
+          <div style="font-size:30px">👨‍👩‍👧</div>
+          <div class="evt-month" style="margin-top:6px">Ateliers</div>
+          <div class="evt-weekday">Famille</div>
+        </div>
+        <div class="evt-body">
+          <div class="evt-title">Ateliers Famille ✦</div>
+          <div class="evt-desc">Un moment créatif en famille — 19€ / enfant, accompagnants gratuits · La Kabane de la Plage, Boulogne-sur-Mer · 15h–16h30</div>
+          <div class="evt-dates-list">
+            <div class="evt-date-item">
+              <span class="edi-date">Prochaines dates</span>
+              <span class="edi-tba">Bientôt annoncées — inscris-toi à la newsletter pour ne rien manquer ✦</span>
+              <a href="#newsletter" class="edi-cta">Newsletter</a>
             </div>
           </div>
         </div>
