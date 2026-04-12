@@ -494,12 +494,12 @@ const TYPE_OPTIONS = {
     { key: 'adultes_only', label: '🔞 Adultes uniquement' },
   ],
   famille: [
-    { key: 'sirop',             label: '🧃 Sirop pour l'enfant' },
-    { key: 'cafe_accompagnant', label: '☕ Café pour l'accompagnant' },
+    { key: 'sirop',             label: `🧃 Sirop pour l'enfant` },
+    { key: 'cafe_accompagnant', label: `☕ Café pour l'accompagnant` },
   ],
   weekend: [
     { key: 'pension_complete',    label: '🏠 Pension complète incluse' },
-    { key: 'paiement_echelonne',  label: '💳 Paiement jusqu'à 5× sans frais' },
+    { key: 'paiement_echelonne',  label: `💳 Paiement jusqu'à 5× sans frais` },
   ],
   evenement: [
     { key: 'entree_libre', label: '🎟️ Entrée libre' },
@@ -541,7 +541,7 @@ function openModal(id = null, showDelete = false) {
   const evt = id ? allEvents.find(e => e.id === id) : null;
   const isNew = !evt;
 
-  document.getElementById('modalTitle').textContent = isNew ? 'Créer un événement' : 'Modifier l'événement';
+  document.getElementById('modalTitle').textContent = isNew ? `Créer un événement` : `Modifier l'événement`;
   document.getElementById('modalSub').textContent = isNew
     ? 'Remplis les infos ci-dessous. Tu pourras modifier à tout moment.'
     : 'Modifie les champs et clique sur Enregistrer.';
@@ -572,7 +572,7 @@ function openModal(id = null, showDelete = false) {
   }
 
   // Save button label
-  document.getElementById('btnSave').textContent = isNew ? 'Publier l'événement ✦' : 'Enregistrer ✦';
+  document.getElementById('btnSave').textContent = isNew ? `Publier l'événement ✦` : 'Enregistrer ✦';
   document.getElementById('btnSave').disabled = false;
 
   document.getElementById('modalOverlay').classList.add('open');
@@ -669,7 +669,7 @@ async function saveEvent(status) {
     await loadEvents();
     showToast(editingId ? 'Événement mis à jour ✦' : 'Événement créé ✦', 'success');
   } catch {
-    showToast('Erreur lors de l'enregistrement', 'error');
+    showToast(`Erreur lors de l'enregistrement`, 'error');
     btn.disabled = false;
     btn.textContent = 'Enregistrer ✦';
   }
