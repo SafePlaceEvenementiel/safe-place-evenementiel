@@ -21,6 +21,20 @@ CREATE TABLE IF NOT EXISTS events (
   updated_at   TEXT    NOT NULL DEFAULT (datetime('now'))
 );
 
+CREATE TABLE IF NOT EXISTS reservations (
+  id               INTEGER PRIMARY KEY AUTOINCREMENT,
+  event_id         INTEGER NOT NULL,
+  event_title      TEXT    NOT NULL DEFAULT '',
+  prenom           TEXT    NOT NULL DEFAULT '',
+  email            TEXT    NOT NULL DEFAULT '',
+  telephone        TEXT    NOT NULL DEFAULT '',
+  nb_places        INTEGER NOT NULL DEFAULT 1,
+  nb_accompagnants INTEGER NOT NULL DEFAULT 0,
+  type             TEXT    NOT NULL DEFAULT '',
+  status           TEXT    NOT NULL DEFAULT 'pending',
+  created_at       TEXT    NOT NULL DEFAULT (datetime('now'))
+);
+
 -- Événements actuels (agenda avril–juin 2026)
 INSERT INTO events (type, title, subtitle, description, date, weekday, time_start, time_end, location, price_display, stripe_link, status, extra) VALUES
 (

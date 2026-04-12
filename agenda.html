@@ -498,7 +498,7 @@ if(burger && mobileMenu) {
 /* Modal réservation — dynamique */
 var WORKER_URL = 'https://safe-place-evenementiel.projets-b86.workers.dev';
 var EVENTS_DATA = [];
-var _modalStripeLink = '#', _modalEventLabel = '', _modalType = '', _modalParts = 1, _modalAccomp = 1;
+var _modalStripeLink = '#', _modalEventLabel = '', _modalType = '', _modalParts = 1, _modalAccomp = 1, _modalEventId = null, _modalEventTitle = '';
 
 var MODAL_INFO = {
   apero: {
@@ -540,6 +540,8 @@ function openModalById(id) {
   document.getElementById('modalNote').textContent = info.note;
   document.getElementById('modalPrice').innerHTML = evt.price_display || '';
   _modalStripeLink = evt.stripe_link || '#';
+  _modalEventId = evt.id;
+  _modalEventTitle = evt.title + (evt.subtitle ? ' — ' + evt.subtitle : '');
   _modalEventLabel = (evt.subtitle || evt.title) + (dateStr ? ' — ' + dateStr : '');
   document.getElementById('modalPartsLabel').textContent = evt.type==='famille' ? "Nombre d'enfants" : 'Nombre de participants';
   document.getElementById('modalPartsCount').textContent = 1;
@@ -562,8 +564,11 @@ function submitModalResa() {
   if(!email||!email.includes('@')){ document.getElementById('modalEmail').classList.add('error'); errEl.textContent = 'Merci d\'indiquer une adresse email valide.'; errEl.classList.add('show'); return; }
   if(!tel){ document.getElementById('modalTel').classList.add('error'); errEl.textContent = 'Merci d\'indiquer ton téléphone.'; errEl.classList.add('show'); return; }
   var btn = document.getElementById('modalStripeBtn'); btn.textContent = '⏳ Préparation…'; btn.disabled = true;
-  fetch('https://safe-place-evenementiel.projets-b86.workers.dev', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ sender:{name:'Angela — Safe Place Événementiel',email:'projets@safeplaceevenementiel.fr'}, to:[{email:email,name:prenom}], templateId:4, params:{PRENOM:prenom,NOM_EVENEMENT:_modalEventLabel,TYPE_PARTS:_modalType==='famille'?"Enfant(s)":'Participant(s)',NB_PARTS:_modalParts,ACCOMP_LIGNE:_modalType==='famille'?'<tr><td style="padding:5px 0;color:#7a3d1a;font-weight:700">Accompagnant(s)</td><td style="padding:5px 0">'+_modalAccomp+'</td></tr>':''} }) }).catch(function(){});
-  fetch('https://safe-place-evenementiel.projets-b86.workers.dev', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ sender:{name:'Safe Place Événementiel',email:'projets@safeplaceevenementiel.fr'}, to:[{email:'hello@safeplaceevenementiel.fr',name:'Angela'},{email:'projets@safeplaceevenementiel.fr',name:'Thiffany'}], replyTo:{email:email,name:prenom}, templateId:5, params:{PRENOM:prenom,EMAIL:email,TEL:tel,NOM_EVENEMENT:_modalEventLabel,TYPE_PARTS:_modalType==='famille'?"Enfant(s)":'Participant(s)',NB_PARTS:_modalParts,ACCOMP_LIGNE:_modalType==='famille'?'<tr><td style="padding:8px;color:#7a3d1a;font-weight:700">Accompagnant(s)</td><td style="padding:8px">'+_modalAccomp+'</td></tr>':''} }) }).catch(function(){});
+  // Sauvegarde la réservation en base
+  fetch(WORKER_URL + '/api/reservations', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ event_id:_modalEventId, event_title:_modalEventTitle, prenom:prenom, email:email, telephone:tel, nb_places:_modalParts, nb_accompagnants:_modalAccomp, type:_modalType }) }).catch(function(){});
+  // Emails via Brevo
+  fetch(WORKER_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ sender:{name:'Angela — Safe Place Événementiel',email:'projets@safeplaceevenementiel.fr'}, to:[{email:email,name:prenom}], templateId:4, params:{PRENOM:prenom,NOM_EVENEMENT:_modalEventLabel,TYPE_PARTS:_modalType==='famille'?"Enfant(s)":'Participant(s)',NB_PARTS:_modalParts,ACCOMP_LIGNE:_modalType==='famille'?'<tr><td style="padding:5px 0;color:#7a3d1a;font-weight:700">Accompagnant(s)</td><td style="padding:5px 0">'+_modalAccomp+'</td></tr>':''} }) }).catch(function(){});
+  fetch(WORKER_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ sender:{name:'Safe Place Événementiel',email:'projets@safeplaceevenementiel.fr'}, to:[{email:'hello@safeplaceevenementiel.fr',name:'Angela'},{email:'projets@safeplaceevenementiel.fr',name:'Thiffany'}], replyTo:{email:email,name:prenom}, templateId:5, params:{PRENOM:prenom,EMAIL:email,TEL:tel,NOM_EVENEMENT:_modalEventLabel,TYPE_PARTS:_modalType==='famille'?"Enfant(s)":'Participant(s)',NB_PARTS:_modalParts,ACCOMP_LIGNE:_modalType==='famille'?'<tr><td style="padding:8px;color:#7a3d1a;font-weight:700">Accompagnant(s)</td><td style="padding:8px">'+_modalAccomp+'</td></tr>':''} }) }).catch(function(){});
   setTimeout(function(){ if(_modalStripeLink!=='#'){ window.open(_modalStripeLink+'?prefilled_email='+encodeURIComponent(email)+'&quantity='+_modalParts,'_blank'); } btn.textContent='✦ Réserver & payer ma place'; btn.disabled=false; },800);
 }
 function closeModal(){ document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow=''; }

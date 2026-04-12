@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Réservations — Safe Place Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--o:#ff9430;--od:#d97220;--ol:#ffb366;--op:#fff4ea;--p:#fd2c82;--pd:#d91a6a;--pl:#ff6aab;--pp:#fff0f7;--bg:#fffaf6;--t:#1a0800;--ts:#7a3d1a;--w:#ffffff}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--t);min-height:100vh}
+  /* Header */
+  .admin-header{background:linear-gradient(90deg,var(--o),var(--p));padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .admin-logo{font-family:Nunito,sans-serif;font-weight:900;font-size:18px;color:#fff;text-decoration:none}
+  .admin-logo span{opacity:.8}
+  .header-nav{display:flex;gap:8px}
+  .header-nav a{color:#fff;text-decoration:none;font-size:13px;font-weight:700;padding:6px 14px;border-radius:20px;opacity:.75;transition:.2s}
+  .header-nav a:hover,.header-nav a.active{opacity:1;background:rgba(255,255,255,.2)}
+  .header-right{display:flex;align-items:center;gap:12px}
+  .btn-logout{background:rgba(255,255,255,.2);color:#fff;border:none;border-radius:20px;padding:7px 16px;font-family:Nunito,sans-serif;font-weight:700;font-size:13px;cursor:pointer}
+  /* Main */
+  .admin-main{max-width:900px;margin:0 auto;padding:32px 20px}
+  .page-title{font-family:Nunito,sans-serif;font-weight:900;font-size:26px;margin-bottom:4px}
+  .page-title em{font-style:italic;color:var(--p)}
+  .page-sub{color:var(--ts);font-size:14px;margin-bottom:24px}
+  /* Filtres */
+  .filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;align-items:center}
+  .ftab{background:#fff;border:2px solid #e8d5c4;color:var(--ts);border-radius:20px;padding:7px 16px;font-family:Nunito,sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:.2s}
+  .ftab.active{background:var(--o);border-color:var(--o);color:#fff}
+  select.event-filter{border:2px solid #e8d5c4;border-radius:20px;padding:7px 16px;font-family:Nunito,sans-serif;font-weight:600;font-size:13px;background:#fff;color:var(--t);cursor:pointer;outline:none}
+  .count-badge{background:var(--op);color:var(--od);font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px;font-family:Nunito,sans-serif}
+  /* Stats */
+  .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:28px}
+  .stat-card{background:#fff;border-radius:14px;padding:16px;box-shadow:0 2px 8px rgba(26,8,0,.06);text-align:center}
+  .stat-num{font-family:Nunito,sans-serif;font-weight:900;font-size:28px;color:var(--o)}
+  .stat-num.pink{color:var(--p)}
+  .stat-num.green{color:#16a34a}
+  .stat-label{font-size:12px;color:var(--ts);margin-top:2px}
+  /* Liste */
+  .resa-list{display:flex;flex-direction:column;gap:10px}
+  .resa-item{background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 8px rgba(26,8,0,.06);display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+  .resa-main{}
+  .resa-name{font-family:Nunito,sans-serif;font-weight:800;font-size:16px}
+  .resa-event{font-size:13px;color:var(--ts);margin:2px 0}
+  .resa-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;font-size:12px;color:var(--ts)}
+  .resa-meta span{display:flex;align-items:center;gap:3px}
+  .resa-date{font-size:11px;color:#aaa;margin-top:4px}
+  .resa-actions{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+  .badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;font-family:Nunito,sans-serif}
+  .badge-pending{background:#fef3c7;color:#92400e}
+  .badge-paid{background:#d1fae5;color:#065f46}
+  .badge-cancelled{background:#fee2e2;color:#991b1b}
+  .btn-sm{border:none;border-radius:20px;padding:6px 14px;font-family:Nunito,sans-serif;font-weight:700;font-size:12px;cursor:pointer;transition:.15s}
+  .btn-pay{background:#d1fae5;color:#065f46}
+  .btn-pay:hover{background:#a7f3d0}
+  .btn-unpay{background:#fef3c7;color:#92400e}
+  .btn-unpay:hover{background:#fde68a}
+  .btn-del{background:#fee2e2;color:#991b1b}
+  .btn-del:hover{background:#fca5a5}
+  /* Empty */
+  .empty{text-align:center;padding:60px 20px;color:var(--ts)}
+  .empty-icon{font-size:48px;margin-bottom:12px}
+  /* Loading */
+  .loading{text-align:center;padding:60px;color:var(--ts);font-size:15px}
+  /* Toast */
+  .toast{position:fixed;bottom:24px;right:24px;padding:12px 20px;border-radius:12px;font-family:Nunito,sans-serif;font-weight:700;font-size:14px;z-index:9999;transform:translateY(60px);opacity:0;transition:.3s}
+  .toast.show{transform:translateY(0);opacity:1}
+  .toast.success{background:#d1fae5;color:#065f46}
+  .toast.error{background:#fee2e2;color:#991b1b}
+</style>
+</head>
+<body>
+
+<header class="admin-header">
+  <a class="admin-logo" href="events.html">Safe Place <span>✦ Admin</span></a>
+  <nav class="header-nav">
+    <a href="events.html">Événements</a>
+    <a href="reservations.html" class="active">Réservations</a>
+  </nav>
+  <div class="header-right">
+    <a href="../index.html" style="color:#fff;font-size:13px;font-weight:700;text-decoration:none;opacity:.8">↗ Voir le site</a>
+    <button class="btn-logout" id="btnLogout">Se déconnecter</button>
+  </div>
+</header>
+
+<main class="admin-main">
+  <h1 class="page-title">Mes <em>réservations</em></h1>
+  <p class="page-sub">Consulte et gère les inscriptions à tes événements.</p>
+
+  <div class="stats-row" id="statsRow">
+    <div class="stat-card"><div class="stat-num" id="statTotal">—</div><div class="stat-label">Total inscrits</div></div>
+    <div class="stat-card"><div class="stat-num pink" id="statPending">—</div><div class="stat-label">En attente</div></div>
+    <div class="stat-card"><div class="stat-num green" id="statPaid">—</div><div class="stat-label">Payés</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--od)" id="statPlaces">—</div><div class="stat-label">Places totales</div></div>
+  </div>
+
+  <div class="filter-bar">
+    <button class="ftab active" data-status="all">Tous</button>
+    <button class="ftab" data-status="pending">⏳ En attente</button>
+    <button class="ftab" data-status="paid">✅ Payés</button>
+    <button class="ftab" data-status="cancelled">❌ Annulés</button>
+    <select class="event-filter" id="eventFilter"><option value="">Tous les événements</option></select>
+    <span class="count-badge" id="countBadge">0 réservation</span>
+  </div>
+
+  <div class="resa-list" id="resaList"><div class="loading">✦ Chargement…</div></div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const WORKER = 'https://safe-place-evenementiel.projets-b86.workers.dev';
+const token = sessionStorage.getItem('sp_token');
+if (!token) { window.location.href = 'index.html'; }
+
+document.getElementById('btnLogout').addEventListener('click', () => {
+  sessionStorage.removeItem('sp_token'); window.location.href = 'index.html';
+});
+
+// Also add nav link to events.html
+document.addEventListener('DOMContentLoaded', () => {
+  const eventsNav = document.querySelector('a[href="events.html"]');
+  if (eventsNav) eventsNav.addEventListener('click', () => window.location.href = 'events.html');
+});
+
+let allResas = [];
+let currentStatus = 'all';
+let currentEvent = '';
+
+const STATUS_LABELS = { pending: '⏳ En attente', paid: '✅ Payé', cancelled: '❌ Annulé' };
+const STATUS_CLASS = { pending: 'badge-pending', paid: 'badge-paid', cancelled: 'badge-cancelled' };
+const TYPE_LABELS = { apero: '🎨 Apéro Créatif', famille: '👨‍👩‍👧 Atelier Famille', weekend: '🌿 Week-end', evenement: '✦ Événement' };
+
+async function loadResas() {
+  try {
+    const res = await fetch(WORKER + '/api/admin/reservations', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+    if (res.status === 401) { sessionStorage.removeItem('sp_token'); window.location.href = 'index.html'; return; }
+    allResas = await res.json();
+    buildEventFilter();
+    updateStats();
+    renderList();
+  } catch {
+    document.getElementById('resaList').innerHTML = '<div class="loading" style="color:#dc2626">Erreur de chargement.</div>';
+  }
+}
+
+function buildEventFilter() {
+  const sel = document.getElementById('eventFilter');
+  const titles = [...new Set(allResas.map(r => r.event_title).filter(Boolean))];
+  titles.forEach(t => {
+    const opt = document.createElement('option');
+    opt.value = t; opt.textContent = t;
+    sel.appendChild(opt);
+  });
+  sel.addEventListener('change', function() { currentEvent = this.value; renderList(); });
+}
+
+function updateStats() {
+  const filtered = currentEvent ? allResas.filter(r => r.event_title === currentEvent) : allResas;
+  document.getElementById('statTotal').textContent = filtered.length;
+  document.getElementById('statPending').textContent = filtered.filter(r => r.status === 'pending').length;
+  document.getElementById('statPaid').textContent = filtered.filter(r => r.status === 'paid').length;
+  document.getElementById('statPlaces').textContent = filtered.reduce((s, r) => s + (r.nb_places || 1), 0);
+}
+
+function renderList() {
+  updateStats();
+  let list = allResas;
+  if (currentEvent) list = list.filter(r => r.event_title === currentEvent);
+  if (currentStatus !== 'all') list = list.filter(r => r.status === currentStatus);
+  const container = document.getElementById('resaList');
+  document.getElementById('countBadge').textContent = list.length + ' réservation' + (list.length > 1 ? 's' : '');
+  if (!list.length) {
+    container.innerHTML = `<div class="empty"><div class="empty-icon">📋</div><p>Aucune réservation${currentStatus !== 'all' ? ' dans cette catégorie' : ''}.</p></div>`;
+    return;
+  }
+  container.innerHTML = list.map(r => {
+    const d = new Date(r.created_at);
+    const dateStr = d.toLocaleDateString('fr-FR', {day:'numeric',month:'long',year:'numeric'}) + ' à ' + d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+    const accompLigne = r.nb_accompagnants > 0 ? `<span>👥 ${r.nb_accompagnants} accompagnant${r.nb_accompagnants > 1 ? 's' : ''}</span>` : '';
+    const typeLabel = TYPE_LABELS[r.type] || r.type;
+    const actionBtn = r.status === 'pending'
+      ? `<button class="btn-sm btn-pay" data-action="paid" data-id="${r.id}">Marquer payé</button>`
+      : r.status === 'paid'
+      ? `<button class="btn-sm btn-unpay" data-action="pending" data-id="${r.id}">Annuler paiement</button>`
+      : '';
+    return `<div class="resa-item" data-id="${r.id}">
+      <div class="resa-main">
+        <div class="resa-name">${r.prenom}</div>
+        <div class="resa-event">✦ ${r.event_title}</div>
+        <div class="resa-meta">
+          <span>📧 ${r.email}</span>
+          ${r.telephone ? `<span>📞 ${r.telephone}</span>` : ''}
+          <span>🎟️ ${r.nb_places} place${r.nb_places > 1 ? 's' : ''}</span>
+          ${accompLigne}
+          ${typeLabel ? `<span>${typeLabel}</span>` : ''}
+        </div>
+        <div class="resa-date">Inscrit le ${dateStr}</div>
+      </div>
+      <div class="resa-actions">
+        <span class="badge ${STATUS_CLASS[r.status] || 'badge-pending'}">${STATUS_LABELS[r.status] || r.status}</span>
+        ${actionBtn}
+        <button class="btn-sm btn-del" data-action="delete" data-id="${r.id}">Supprimer</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  container.querySelectorAll('[data-action]').forEach(btn => {
+    btn.addEventListener('click', async function(e) {
+      e.stopPropagation();
+      const id = parseInt(this.dataset.id);
+      const action = this.dataset.action;
+      if (action === 'delete') {
+        if (!confirm('Supprimer cette réservation ?')) return;
+        await fetch(WORKER + '/api/admin/reservations/' + id, {
+          method: 'DELETE', headers: { 'Authorization': 'Bearer ' + token }
+        });
+        allResas = allResas.filter(r => r.id !== id);
+        renderList();
+        showToast('Réservation supprimée', 'success');
+      } else {
+        await fetch(WORKER + '/api/admin/reservations/' + id, {
+          method: 'PUT',
+          headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: action })
+        });
+        const resa = allResas.find(r => r.id === id);
+        if (resa) resa.status = action;
+        renderList();
+        showToast(action === 'paid' ? 'Marqué comme payé ✦' : 'Statut mis à jour', 'success');
+      }
+    });
+  });
+}
+
+document.getElementById('filterTabs') && document.getElementById('filterTabs').addEventListener('click', function(e) {
+  if (!e.target.dataset.status) return;
+  document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+  e.target.classList.add('active');
+  currentStatus = e.target.dataset.status;
+  renderList();
+});
+
+document.querySelectorAll('.ftab').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+    currentStatus = this.dataset.status;
+    renderList();
+  });
+});
+
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast ' + type + ' show';
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+loadResas();
+</script>
+</body>
+</html>
