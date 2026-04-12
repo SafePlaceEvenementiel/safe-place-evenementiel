@@ -595,8 +595,19 @@ var MONTHS_FR = ['Jan.','Fév.','Mars','Avr.','Mai','Juin','Juil.','Août','Sept
 
 function renderDateBlock(evt) {
   var bg = GRADIENTS[evt.type] || GRADIENTS.evenement;
-  if (!evt.date) return '<div class="evt-date-block" style="background:'+bg+'"><div class="evt-day" style="font-size:22px;line-height:1.2">À<br>venir</div></div>';
-  var d = new Date(evt.date + 'T00:00:00');
+  if (!evt.date && !evt.date_end) return '<div class="evt-date-block" style="background:'+bg+'"><div class="evt-day" style="font-size:22px;line-height:1.2">À<br>venir</div></div>';
+  // Weekend avec plage de dates
+  if (evt.date && evt.date_end) {
+    var d1 = new Date(evt.date + 'T00:00:00');
+    var d2 = new Date(evt.date_end + 'T00:00:00');
+    var sameMonth = d1.getMonth() === d2.getMonth();
+    var label = sameMonth
+      ? d1.getDate() + ' – ' + d2.getDate() + ' ' + MONTHS_FR[d2.getMonth()]
+      : d1.getDate() + ' ' + MONTHS_FR[d1.getMonth()] + ' – ' + d2.getDate() + ' ' + MONTHS_FR[d2.getMonth()];
+    return '<div class="evt-date-block" style="background:'+bg+'"><div class="evt-day" style="font-size:16px;line-height:1.3">'+label+'</div></div>';
+  }
+  // Date simple (ou seulement date_end en fallback)
+  var d = new Date((evt.date || evt.date_end) + 'T00:00:00');
   var wd = d.toLocaleDateString('fr-FR',{weekday:'long'}); wd = wd.charAt(0).toUpperCase()+wd.slice(1);
   return '<div class="evt-date-block" style="background:'+bg+'"><div class="evt-day">'+d.getDate()+'</div><div class="evt-month">'+MONTHS_FR[d.getMonth()]+'</div><div class="evt-weekday">'+wd+'</div></div>';
 }

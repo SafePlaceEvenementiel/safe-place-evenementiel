@@ -257,11 +257,11 @@
         <div class="form-section-title">Date & Lieu</div>
         <div class="form-row" id="rowDate">
           <div class="form-group">
-            <label>Date</label>
+            <label id="labelDate">Date</label>
             <input type="date" id="fDate">
           </div>
           <div class="form-group" id="rowDateEnd" style="display:none">
-            <label>Date de fin <span class="hint">— pour les week-ends</span></label>
+            <label>Date de fin</label>
             <input type="date" id="fDateEnd">
           </div>
         </div>
@@ -593,22 +593,26 @@ function applyTypeUI(type) {
 
   if (type === 'apero') {
     titleLabel.textContent = 'Titre';
+    document.getElementById('labelDate').textContent = 'Date';
     document.getElementById('fTitle').value = document.getElementById('fTitle').value || 'Apéro Créatif';
     document.getElementById('labelSubtitle').innerHTML = 'Thème de la soirée <span class="hint">— ex : Fabrication de magnets pour frigo</span>';
     subtitleRow.style.display = '';
     dateEndRow.style.display = 'none';
   } else if (type === 'famille') {
+    document.getElementById('labelDate').textContent = 'Date';
     document.getElementById('fTitle').value = document.getElementById('fTitle').value || 'Atelier Famille';
     document.getElementById('labelSubtitle').innerHTML = 'Thème de l\'atelier <span class="hint">— ex : Fabrication de savon naturel</span>';
     subtitleRow.style.display = '';
     dateEndRow.style.display = 'none';
   } else if (type === 'weekend') {
     titleLabel.textContent = 'Titre du week-end';
+    document.getElementById('labelDate').textContent = 'Date de début';
     document.getElementById('labelSubtitle').innerHTML = 'Sous-titre <span class="hint">— ex : Bien-être & Reconnexion</span>';
     subtitleRow.style.display = '';
     dateEndRow.style.display = '';
   } else {
     titleLabel.textContent = 'Titre de l\'événement';
+    document.getElementById('labelDate').textContent = 'Date';
     document.getElementById('labelSubtitle').innerHTML = 'Sous-titre <span class="hint">— optionnel</span>';
     subtitleRow.style.display = '';
     dateEndRow.style.display = 'none';
