@@ -601,10 +601,16 @@ function renderDateBlock(evt) {
     var d1 = new Date(evt.date + 'T00:00:00');
     var d2 = new Date(evt.date_end + 'T00:00:00');
     var sameMonth = d1.getMonth() === d2.getMonth();
-    var label = sameMonth
-      ? d1.getDate() + ' – ' + d2.getDate() + ' ' + MONTHS_FR[d2.getMonth()]
-      : d1.getDate() + ' ' + MONTHS_FR[d1.getMonth()] + ' – ' + d2.getDate() + ' ' + MONTHS_FR[d2.getMonth()];
-    return '<div class="evt-date-block" style="background:'+bg+'"><div class="evt-day" style="font-size:16px;line-height:1.3">'+label+'</div></div>';
+    var wd1 = d1.toLocaleDateString('fr-FR',{weekday:'long'}); wd1 = wd1.charAt(0).toUpperCase()+wd1.slice(1);
+    var wd2 = d2.toLocaleDateString('fr-FR',{weekday:'long'}); wd2 = wd2.charAt(0).toUpperCase()+wd2.slice(1);
+    var days = sameMonth ? d1.getDate()+' – '+d2.getDate() : d1.getDate()+' '+MONTHS_FR[d1.getMonth()]+' – '+d2.getDate();
+    var month = MONTHS_FR[d2.getMonth()];
+    var wds = wd1+' à '+wd2;
+    return '<div class="evt-date-block" style="background:'+bg+'">'
+      +'<div class="evt-day" style="font-size:18px;line-height:1.2">'+days+'</div>'
+      +'<div class="evt-month">'+month+'</div>'
+      +'<div class="evt-weekday" style="font-size:9px;letter-spacing:.5px">'+wds+'</div>'
+      +'</div>';
   }
   // Date simple (ou seulement date_end en fallback)
   var d = new Date((evt.date || evt.date_end) + 'T00:00:00');
