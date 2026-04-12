@@ -441,12 +441,15 @@ function renderEventItem(e) {
   } else if (e.date) {
     const d = new Date(e.date + 'T00:00:00');
     dateHtml = `<div class="edc-day">${d.getDate()}</div><div class="edc-month">${d.toLocaleDateString('fr-FR',{month:'short'}).replace('.','')}</div>`;
+  } else if (e.date_end) {
+    const d = new Date(e.date_end + 'T00:00:00');
+    dateHtml = `<div class="edc-day">${d.getDate()}</div><div class="edc-month">${d.toLocaleDateString('fr-FR',{month:'short'}).replace('.','')}</div>`;
   } else {
     dateHtml = `<div class="edc-tba">À<br>venir</div>`;
   }
 
   const today = new Date().toISOString().split('T')[0];
-  const isPast = e.date && e.date < today;
+  const isPast = (e.date || e.date_end) && (e.date || e.date_end) < today;
 
   let metaItems = [];
   if (e.location) metaItems.push(`📍 ${e.location}`);
