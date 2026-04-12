@@ -1168,7 +1168,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
           </div>
           <div class="format-footer">
             <div class="format-price">24€ <small>/ personne</small></div>
-            <a href="agenda.html" class="btn-resa">Réserver ✦</a>
+            <a href="agenda.html" class="btn-resa">Voir les prochaines dates ✦</a>
           </div>
         </div>
       </div>
@@ -1189,7 +1189,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
           </div>
           <div class="format-footer">
             <div class="format-price">19€ <small>/ enfant</small></div>
-            <a href="agenda.html" class="btn-resa">Réserver ✦</a>
+            <a href="agenda.html" class="btn-resa">Voir les prochaines dates ✦</a>
           </div>
         </div>
       </div>
@@ -1211,7 +1211,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
           </div>
           <div class="format-footer">
             <div class="format-price" style="font-size:18px;font-style:italic;color:var(--ts)">À partir de 400€</div>
-            <a href="#newsletter" class="btn-resa">Être informée ✦</a>
+            <a href="agenda.html" class="btn-resa">Voir les prochaines dates ✦</a>
           </div>
         </div>
       </div>
@@ -1233,7 +1233,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
           </div>
           <div class="format-footer">
             <div class="format-price" style="font-size:18px;font-style:italic;color:var(--ts)">Selon l'événement</div>
-            <a href="agenda.html" class="btn-resa">Voir les dates ✦</a>
+            <a href="agenda.html" class="btn-resa">Voir les prochaines dates ✦</a>
           </div>
         </div>
       </div>
@@ -1241,153 +1241,6 @@ button { font-family: inherit; cursor: pointer; border: none; }
   </div>
 </section>
 
-
-<!-- ════════════════════════════════════════
-     PLANNING
-════════════════════════════════════════ -->
-<section class="section planning" id="planning">
-  <div class="container">
-    <div style="text-align:center;margin-bottom:48px">
-      <div class="eyebrow reveal">Agenda</div>
-      <h2 class="section-title reveal"><span class="pink">Les</span> <span class="orange">prochains rendez-vous</span> <span class="pink">✦</span></h2>
-      <p class="section-desc reveal" style="margin:0 auto">Un aperçu de ce qui t'attend — retrouve tous les événements sur la page agenda.</p>
-    </div>
-
-    <div class="events-timeline">
-
-      <!-- Vide Dressing -->
-      <div class="evt-card reveal">
-        <div class="evt-date-block" style="background:linear-gradient(160deg,#c9a87c,#e8c8a0)">
-          <div class="evt-day">19</div>
-          <div class="evt-month">Avr.</div>
-          <div class="evt-weekday">Dimanche</div>
-        </div>
-        <div class="evt-body">
-          <div class="evt-title">Vide Dressing ✦</div>
-          <div class="evt-desc">Un grand vide dressing convivial pour chiner de belles pièces et faire de bonnes affaires. Stands de vente et dépôts-ventes — pour repartir avec des trésors ou vider ses placards avec le sourire.</div>
-          <div class="evt-meta">
-            <span>📍 Lieu à confirmer</span>
-            <span>🕒 Horaires à venir</span>
-          </div>
-          <div class="evt-audiences">
-            <div class="evt-audience evt-aud-orange">
-              <div class="evt-aud-label">🛍️ Tu veux vendre ?</div>
-              <div class="evt-aud-info">Location d'un espace stand ou dépôt-vente disponible. Places limitées — réserve le tien avant qu'ils partent !</div>
-              <button class="evt-aud-cta" style="background:var(--o)" onclick="document.getElementById('vendeurModal').style.display='flex'">Je réserve mon espace →</button>
-            </div>
-            <div class="evt-audience evt-aud-rose">
-              <div class="evt-aud-label">👗 Tu veux chiner ?</div>
-              <div class="evt-aud-info">Entrée libre et gratuite — viens faire de bonnes affaires et passer un moment convivial !</div>
-              <div class="evt-aud-free">Entrée libre ✦</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Apéro Créatif — 22 avr. -->
-      <div class="evt-card reveal" style="transition-delay:.1s">
-        <div class="evt-date-block" style="background:linear-gradient(160deg,var(--p),var(--pl))">
-          <div class="evt-day">22</div>
-          <div class="evt-month">Avr.</div>
-          <div class="evt-weekday">Mercredi</div>
-        </div>
-        <div class="evt-body">
-          <div class="evt-title">Apéro Créatif ✦</div>
-          <div class="evt-desc">Fabrication de magnets pour frigo — viens créer, lâcher prise et partager un verre dans une ambiance douce et conviviale. Chaque participant.e repart avec sa création personnalisée !</div>
-          <div class="evt-meta">
-            <span>📍 La Kabane de la Plage, Boulogne-sur-Mer</span>
-            <span>🕒 19h – 21h</span>
-            <span>💰 24€ / personne · Adultes uniquement</span>
-            <span style="background:var(--pp);color:var(--p);font-weight:700;border-radius:20px;padding:3px 10px;font-size:12px;">🍹 1 boisson offerte</span>
-          </div>
-          <div style="margin-top:14px">
-            <button class="edi-cta" onclick="openModal('apero','Mer. 22 avr.','Fabrication magnets pour frigo')">Réserver ma place →</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Apéro Créatif — 6 mai -->
-      <div class="evt-card reveal" style="transition-delay:.15s">
-        <div class="evt-date-block" style="background:linear-gradient(160deg,var(--p),var(--pl))">
-          <div class="evt-day">6</div>
-          <div class="evt-month">Mai</div>
-          <div class="evt-weekday">Mercredi</div>
-        </div>
-        <div class="evt-body">
-          <div class="evt-title">Apéro Créatif ✦</div>
-          <div class="evt-desc">Personnalisation de miroir — ce soir on transforme un miroir en objet unique à ton image. Motifs, couleurs, textures... laisse parler ta créativité autour d'un verre !</div>
-          <div class="evt-meta">
-            <span>📍 La Kabane de la Plage, Boulogne-sur-Mer</span>
-            <span>🕒 19h – 21h</span>
-            <span>💰 24€ / personne · Adultes uniquement</span>
-            <span style="background:var(--pp);color:var(--p);font-weight:700;border-radius:20px;padding:3px 10px;font-size:12px;">🍹 1 boisson offerte</span>
-          </div>
-          <div style="margin-top:14px">
-            <button class="edi-cta" onclick="openModal('apero','Mer. 6 mai','Personnalisation miroir')">Réserver ma place →</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Apéro Créatif — 20 mai -->
-      <div class="evt-card reveal" style="transition-delay:.2s">
-        <div class="evt-date-block" style="background:linear-gradient(160deg,var(--p),var(--pl))">
-          <div class="evt-day">20</div>
-          <div class="evt-month">Mai</div>
-          <div class="evt-weekday">Mercredi</div>
-        </div>
-        <div class="evt-body">
-          <div class="evt-title">Apéro Créatif ✦</div>
-          <div class="evt-desc">Personnalisation de planche apéro — grave, peins et décore ta planche pour en faire une pièce unique. Parfait à offrir ou à garder précieusement. Un verre à la main, bien sûr !</div>
-          <div class="evt-meta">
-            <span>📍 La Kabane de la Plage, Boulogne-sur-Mer</span>
-            <span>🕒 19h – 21h</span>
-            <span>💰 24€ / personne · Adultes uniquement</span>
-            <span style="background:var(--pp);color:var(--p);font-weight:700;border-radius:20px;padding:3px 10px;font-size:12px;">🍹 1 boisson offerte</span>
-          </div>
-          <div style="margin-top:14px">
-            <button class="edi-cta" onclick="openModal('apero','Mer. 20 mai','Personnalisation planche apéro')">Réserver ma place →</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Marché des Créateurs -->
-      <div class="evt-card reveal" style="transition-delay:.1s">
-        <div class="evt-date-block" style="background:linear-gradient(160deg,#c9a87c,#e8c8a0)">
-          <div class="evt-day">17</div>
-          <div class="evt-month">Mai</div>
-          <div class="evt-weekday">Dimanche</div>
-        </div>
-        <div class="evt-body">
-          <div class="evt-title">Marché des Créateurs ✦</div>
-          <div class="evt-desc">Un marché convivial qui met à l'honneur les artisans et créateurs locaux. Créations uniques, art de vivre, savoir-faire — viens les découvrir et les soutenir.</div>
-          <div class="evt-meta">
-            <span>📍 La Kabane de la Plage — Promenade San Martin, Boulogne-sur-Mer</span>
-          </div>
-          <div class="evt-audiences">
-            <div class="evt-audience evt-aud-rose">
-              <div class="evt-aud-label">🎨 Tu crées, tu veux exposer ?</div>
-              <div class="evt-aud-info">Dépose ta candidature — Angela sélectionne les exposants avec soin pour garantir une belle diversité et une ambiance Safe Place.</div>
-              <a href="contact.html#candidature" class="evt-aud-cta" style="background:var(--p)">Candidater comme exposant →</a>
-            </div>
-            <div class="evt-audience evt-aud-orange">
-              <div class="evt-aud-label">🛒 Tu veux venir découvrir ?</div>
-              <div class="evt-aud-info">Entrée libre et gratuite — viens soutenir les créateurs locaux et repartir avec des pièces uniques !</div>
-              <div class="evt-aud-free">Entrée libre ✦</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div style="text-align:center;margin-top:40px" class="reveal">
-      <a href="agenda.html" class="btn-primary" style="display:inline-flex;align-items:center;gap:8px;">
-        Voir tous les événements ✦
-      </a>
-    </div>
-
-  </div>
-</section>
 
 <!-- ════════════════════════════════════════
      CARROUSEL PHOTOS
