@@ -669,8 +669,6 @@ function sendBrevoEmail(subject, htmlContent, replyToEmail, replyToName) {
   if (!form) return;
   form.addEventListener('submit', function(e) {
     e.preventDefault();
-    var btn = form.querySelector('.btn-submit');
-    btn.textContent = '⏳ Envoi…'; btn.disabled = true;
 
     var prenom = form.querySelector('[name=prenom]').value;
     var nom = form.querySelector('[name=nom]').value;
@@ -682,6 +680,11 @@ function sendBrevoEmail(subject, htmlContent, replyToEmail, replyToName) {
     var budget = form.querySelector('[name=budget]').value || 'Non renseigné';
     var lieu = form.querySelector('[name=lieu]').value || 'Non renseigné';
     var message = form.querySelector('[name=message]').value;
+
+    // Succès immédiat côté UX
+    form.style.display = 'none';
+    var s = document.getElementById('success-sur-mesure');
+    if (s) s.classList.add('visible');
 
     var html = '<h2>🎉 Nouvelle demande — Événement sur mesure</h2>' +
       '<table style="font-family:sans-serif;font-size:14px;border-collapse:collapse;width:100%">' +
@@ -697,34 +700,10 @@ function sendBrevoEmail(subject, htmlContent, replyToEmail, replyToName) {
       '</table>' +
       '<h3 style="color:#ff9430">Message</h3><p style="font-size:14px;line-height:1.6">' + message.replace(/\n/g,'<br>') + '</p>';
 
-    // Sauvegarde D1 (silencieuse, en parallèle)
-    saveMessageD1({
-      form_type: 'sur_mesure', prenom: prenom, nom: nom, email: email,
-      telephone: tel, sujet: 'Événement sur mesure', message: message,
-      type_event: type, date_souhaitee: date, personnes: personnes, budget: budget, lieu: lieu
-    });
-
-    sendBrevoEmail('✨ Demande sur mesure — ' + prenom + ' ' + nom, html, email, prenom + ' ' + nom)
-    .then(function(res) {
-      if (res.ok) {
-        form.style.display = 'none';
-        var s = document.getElementById('success-sur-mesure');
-        if(s) s.classList.add('visible');
-    // Accusé de réception
-    fetch(WORKER, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        sender: { name: 'Angela — Safe Place Événementiel', email: 'projets@safeplaceevenementiel.fr' },
-        to: [{ email: email, name: prenom + ' ' + nom }],
-        templateId: 7
-      })
-    }).catch(function(e) { console.warn('Ack email:', e); });
-      } else throw new Error();
-    }).catch(function() {
-      btn.textContent = 'Envoyer ma demande ✦'; btn.disabled = false;
-      alert('Une erreur est survenue. Contacte-nous directement à projets@safeplaceevenementiel.fr');
-    });
+    // Envois en arrière-plan (silencieux)
+    saveMessageD1({ form_type: 'sur_mesure', prenom: prenom, nom: nom, email: email, telephone: tel, sujet: 'Événement sur mesure', message: message, type_event: type, date_souhaitee: date, personnes: personnes, budget: budget, lieu: lieu });
+    sendBrevoEmail('✨ Demande sur mesure — ' + prenom + ' ' + nom, html, email, prenom + ' ' + nom).catch(function(e) { console.warn('Brevo:', e); });
+    fetch(WORKER, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ sender:{name:'Angela — Safe Place Événementiel',email:'projets@safeplaceevenementiel.fr'}, to:[{email:email,name:prenom+' '+nom}], templateId:7 }) }).catch(function(e) { console.warn('Ack:', e); });
   });
 })();
 
@@ -734,8 +713,6 @@ function sendBrevoEmail(subject, htmlContent, replyToEmail, replyToName) {
   if (!form) return;
   form.addEventListener('submit', function(e) {
     e.preventDefault();
-    var btn = form.querySelector('.btn-submit');
-    btn.textContent = '⏳ Envoi…'; btn.disabled = true;
 
     var prenom = form.querySelector('[name=prenom]').value;
     var nom = form.querySelector('[name=nom]').value || '';
@@ -743,6 +720,11 @@ function sendBrevoEmail(subject, htmlContent, replyToEmail, replyToName) {
     var tel = form.querySelector('[name=tel]') ? form.querySelector('[name=tel]').value || 'Non renseigné' : 'Non renseigné';
     var sujet = form.querySelector('[name=sujet]') ? form.querySelector('[name=sujet]').value : 'Non renseigné';
     var message = form.querySelector('[name=message]').value;
+
+    // Succès immédiat côté UX
+    form.style.display = 'none';
+    var s = document.getElementById('success-general');
+    if (s) s.classList.add('visible');
 
     var html = '<h2>💬 Nouvelle question générale</h2>' +
       '<table style="font-family:sans-serif;font-size:14px;border-collapse:collapse;width:100%">' +
@@ -753,33 +735,10 @@ function sendBrevoEmail(subject, htmlContent, replyToEmail, replyToName) {
       '</table>' +
       '<h3 style="color:#ff9430">Message</h3><p style="font-size:14px;line-height:1.6">' + message.replace(/\n/g,'<br>') + '</p>';
 
-    // Sauvegarde D1 (silencieuse, en parallèle)
-    saveMessageD1({
-      form_type: 'general', prenom: prenom, nom: nom, email: email,
-      telephone: tel, sujet: sujet, message: message
-    });
-
-    sendBrevoEmail('💬 Question — ' + prenom + ' ' + nom, html, email, prenom + ' ' + nom)
-    .then(function(res) {
-      if (res.ok) {
-        form.style.display = 'none';
-        var s = document.getElementById('success-general');
-        if(s) s.classList.add('visible');
-    // Accusé de réception
-    fetch(WORKER, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        sender: { name: 'Angela — Safe Place Événementiel', email: 'projets@safeplaceevenementiel.fr' },
-        to: [{ email: email, name: prenom + ' ' + nom }],
-        templateId: 8
-      })
-    }).catch(function(e) { console.warn('Ack email:', e); });
-      } else throw new Error();
-    }).catch(function() {
-      btn.textContent = 'Envoyer mon message ✦'; btn.disabled = false;
-      alert('Une erreur est survenue. Contacte-nous directement à projets@safeplaceevenementiel.fr');
-    });
+    // Envois en arrière-plan (silencieux)
+    saveMessageD1({ form_type: 'general', prenom: prenom, nom: nom, email: email, telephone: tel, sujet: sujet, message: message });
+    sendBrevoEmail('💬 Question — ' + prenom + ' ' + nom, html, email, prenom + ' ' + nom).catch(function(e) { console.warn('Brevo:', e); });
+    fetch(WORKER, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ sender:{name:'Angela — Safe Place Événementiel',email:'projets@safeplaceevenementiel.fr'}, to:[{email:email,name:prenom+' '+nom}], templateId:8 }) }).catch(function(e) { console.warn('Ack:', e); });
   });
 })();
 
