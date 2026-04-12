@@ -1,0 +1,13 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /cloudflare-worker/
+Disallow: /Brand Board/
+Disallow: /Évènements/
+Disallow: /Lieux/
+Disallow: /Avis/
+Disallow: /Collaborateurs/
+Disallow: /js/
+
+Allow: /
+
+Sitemap: https://safeplaceevenementiel.fr/sitemap.xml
