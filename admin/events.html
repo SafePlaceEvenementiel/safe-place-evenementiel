@@ -430,7 +430,15 @@ function renderList() {
 function renderEventItem(e) {
   const grad = TYPE_GRADIENTS[e.type] || TYPE_GRADIENTS.evenement;
   let dateHtml;
-  if (e.date) {
+  if (e.date && e.date_end) {
+    const d1 = new Date(e.date + 'T00:00:00');
+    const d2 = new Date(e.date_end + 'T00:00:00');
+    const sameMonth = d1.getMonth() === d2.getMonth();
+    const mo = d2.toLocaleDateString('fr-FR',{month:'short'}).replace('.','');
+    const mo1 = d1.toLocaleDateString('fr-FR',{month:'short'}).replace('.','');
+    const days = sameMonth ? `${d1.getDate()} – ${d2.getDate()}` : `${d1.getDate()} ${mo1} – ${d2.getDate()}`;
+    dateHtml = `<div class="edc-day" style="font-size:13px">${days}</div><div class="edc-month">${mo}</div>`;
+  } else if (e.date) {
     const d = new Date(e.date + 'T00:00:00');
     dateHtml = `<div class="edc-day">${d.getDate()}</div><div class="edc-month">${d.toLocaleDateString('fr-FR',{month:'short'}).replace('.','')}</div>`;
   } else {
@@ -591,26 +599,32 @@ function applyTypeUI(type) {
   const dateEndRow = document.getElementById('rowDateEnd');
   const titleLabel = document.getElementById('labelTitle');
 
+  const titleRow = document.getElementById('rowTitle');
+  const FIXED_TITLES = { apero: 'Apéro Créatif', famille: 'Atelier Famille', weekend: 'Week-end & Retraite' };
+
   if (type === 'apero') {
-    titleLabel.textContent = 'Titre';
+    document.getElementById('fTitle').value = FIXED_TITLES.apero;
+    titleRow.style.display = 'none';
     document.getElementById('labelDate').textContent = 'Date';
-    document.getElementById('fTitle').value = document.getElementById('fTitle').value || 'Apéro Créatif';
     document.getElementById('labelSubtitle').innerHTML = 'Thème de la soirée <span class="hint">— ex : Fabrication de magnets pour frigo</span>';
     subtitleRow.style.display = '';
     dateEndRow.style.display = 'none';
   } else if (type === 'famille') {
+    document.getElementById('fTitle').value = FIXED_TITLES.famille;
+    titleRow.style.display = 'none';
     document.getElementById('labelDate').textContent = 'Date';
-    document.getElementById('fTitle').value = document.getElementById('fTitle').value || 'Atelier Famille';
     document.getElementById('labelSubtitle').innerHTML = 'Thème de l\'atelier <span class="hint">— ex : Fabrication de savon naturel</span>';
     subtitleRow.style.display = '';
     dateEndRow.style.display = 'none';
   } else if (type === 'weekend') {
-    titleLabel.textContent = 'Titre du week-end';
+    document.getElementById('fTitle').value = FIXED_TITLES.weekend;
+    titleRow.style.display = 'none';
     document.getElementById('labelDate').textContent = 'Date de début';
-    document.getElementById('labelSubtitle').innerHTML = 'Sous-titre <span class="hint">— ex : Bien-être & Reconnexion</span>';
+    document.getElementById('labelSubtitle').innerHTML = 'Sous-titre <span class="hint">— ex : Lumière Intérieure</span>';
     subtitleRow.style.display = '';
     dateEndRow.style.display = '';
   } else {
+    titleRow.style.display = '';
     titleLabel.textContent = 'Titre de l\'événement';
     document.getElementById('labelDate').textContent = 'Date';
     document.getElementById('labelSubtitle').innerHTML = 'Sous-titre <span class="hint">— optionnel</span>';
