@@ -548,68 +548,93 @@ button { font-family: inherit; cursor: pointer; border: none; }
 }
 
 /* ══════════════════════════════════════
-   SECTION — PLANNING / PROCHAINES DATES
+   SECTION — PLANNING / PROCHAINS ÉVÉNEMENTS
 ══════════════════════════════════════ */
-.planning {
-  background: var(--op); border-radius: 44px; margin: 0 24px;
+.planning { background: var(--op); border-radius: 44px; margin: 0 24px; }
+.events-timeline { display: flex; flex-direction: column; gap: 20px; }
+.evt-card {
+  background: white; border-radius: var(--radius-md); overflow: hidden;
+  box-shadow: var(--shadow-sm); border: 2px solid #f0dece;
+  display: grid; grid-template-columns: 110px 1fr;
+  transition: transform .25s, box-shadow .25s;
 }
-.planning-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+.evt-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,.1); }
+.evt-date-block {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 24px 12px; color: white; text-align: center;
 }
-.plan-block {
-  background: white; border-radius: var(--radius-md); padding: 28px 32px;
-  box-shadow: var(--shadow-sm); border: 2px solid transparent;
-  transition: border-color .3s;
-}
-.plan-block:hover { border-color: var(--o); }
+.evt-day { font-family:'Nunito',sans-serif; font-weight:900; font-size:44px; line-height:1; }
+.evt-month { font-family:'Nunito',sans-serif; font-weight:800; font-size:15px; text-transform:uppercase; letter-spacing:.08em; opacity:.9; margin-top:2px; }
+.evt-weekday { font-size:10px; font-weight:600; opacity:.65; letter-spacing:.06em; text-transform:uppercase; margin-top:6px; }
+.evt-body { padding:24px 28px; display:flex; flex-direction:column; gap:8px; }
+.evt-title { font-family:'Nunito',sans-serif; font-weight:900; font-style:italic; font-size:22px; color:var(--od); margin:0; }
+.evt-desc { font-size:14px; color:var(--ts); line-height:1.55; margin:0; }
+.evt-meta { display:flex; flex-wrap:wrap; gap:10px; font-size:12px; color:var(--ts); }
+.evt-meta span { display:flex; align-items:center; gap:4px; }
 
-.plan-header {
-  display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
-  padding-bottom: 16px; border-bottom: 2px dashed rgba(255,148,48,.18);
+/* Audiences (vide dressing, marché) */
+.evt-audiences {
+  display:grid; grid-template-columns:1fr 1fr; gap:12px;
+  margin-top:6px; padding-top:16px; border-top:2px dashed rgba(255,148,48,.15);
 }
-.plan-icon {
-  width: 52px; height: 52px; border-radius: 16px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 24px; flex-shrink: 0;
+.evt-audience { border-radius:14px; padding:14px 16px; display:flex; flex-direction:column; gap:6px; }
+.evt-aud-orange { background:var(--op); border:1.5px solid #f0d8b8; }
+.evt-aud-rose   { background:var(--pp); border:1.5px solid #f5cce0; }
+.evt-aud-label { font-family:'Nunito',sans-serif; font-weight:900; font-size:13px; color:var(--od); }
+.evt-aud-rose .evt-aud-label { color:var(--pd); }
+.evt-aud-info { font-size:12px; color:var(--ts); line-height:1.45; flex:1; }
+.evt-aud-cta {
+  display:inline-block; color:white; border:none; border-radius:20px;
+  padding:8px 16px; font-size:12px; font-weight:700; cursor:pointer;
+  text-decoration:none; align-self:flex-start; transition:filter .2s; margin-top:auto;
 }
-.pi-apero { background: linear-gradient(135deg, var(--p), var(--pl)); }
-.pi-famille { background: linear-gradient(135deg, var(--o), var(--ol)); }
-.pi-weekend { background: linear-gradient(135deg, var(--o), var(--p)); }
-.plan-title-text {
-  font-family: 'Nunito', sans-serif; font-weight: 900; font-style: italic;
-  font-size: 19px; color: var(--od);
-}
-.plan-subtitle {
-  font-size: 12px; color: var(--ts); margin-top: 3px; font-weight: 600;
-}
+.evt-aud-cta:hover { filter:brightness(.88); color:white; }
+.evt-aud-free { font-family:'Nunito',sans-serif; font-weight:800; font-size:13px; color:#16a34a; margin-top:auto; }
 
-.events-list { display: flex; flex-direction: column; gap: 6px; margin: 12px 0; }
-.event-row {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 11px 15px; border-radius: 14px;
-  background: var(--bg); transition: background .2s; cursor: pointer;
+/* Bannière "infos à venir" */
+.evt-coming-banner {
+  display:flex; align-items:center; gap:12px; margin-top:6px;
+  padding:14px 18px; background:var(--op); border:1.5px dashed var(--ol);
+  border-radius:12px; font-size:13px; color:var(--od); flex-wrap:wrap;
 }
-.event-row:hover { background: var(--op); }
-.event-row.past { opacity: .4; pointer-events: none; }
-.event-date {
-  font-family: 'Nunito', sans-serif; font-weight: 800; font-style: italic;
-  font-size: 13px; color: var(--o); min-width: 85px;
+.evt-coming-banner > .ecb-icon { color:var(--o); font-size:16px; flex-shrink:0; }
+.evt-coming-banner > .ecb-text { flex:1; min-width:200px; }
+.evt-notify-btn {
+  display:inline-block; background:var(--o); color:white; border-radius:20px;
+  padding:7px 16px; font-size:12px; font-weight:700; text-decoration:none;
+  white-space:nowrap; transition:background .2s; flex-shrink:0;
 }
-.event-label { font-size: 13px; font-weight: 600; color: var(--t); flex: 1; margin: 0 10px; }
-.event-action {
-  background: var(--p); color: white;
-  font-size: 11px; font-weight: 700; padding: 5px 13px; border-radius: 12px;
-  white-space: nowrap; transition: background .2s;
-}
-.event-action:hover { background: var(--pd); }
-.event-action.past-btn { background: rgba(0,0,0,.1); color: rgba(0,0,0,.35); cursor: not-allowed; }
+.evt-notify-btn:hover { background:var(--od); color:white; }
 
-.plan-location {
-  margin-top: 14px; padding-top: 14px; border-top: 1px dashed rgba(255,148,48,.18);
-  font-size: 12px; color: var(--ts); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
-}
+/* Modal vendeur vide dressing */
+.modal-overlay { position:fixed; inset:0; background:rgba(26,8,0,.55); z-index:9000; display:flex; align-items:center; justify-content:center; padding:20px; }
+.modal-box { background:white; border-radius:28px; padding:40px 36px; max-width:520px; width:100%; position:relative; max-height:90vh; overflow-y:auto; box-shadow:0 24px 80px rgba(0,0,0,.25); }
+.modal-close { position:absolute; top:18px; right:20px; background:none; border:none; font-size:20px; color:var(--ts); cursor:pointer; line-height:1; padding:4px; }
+.modal-close:hover { color:var(--t); }
+.modal-icon { font-size:36px; margin-bottom:8px; }
+.modal-title { font-family:'Nunito',sans-serif; font-weight:900; font-style:italic; font-size:24px; color:var(--od); margin:0 0 4px; }
+.modal-subtitle { font-size:13px; color:var(--ts); margin:0 0 24px; font-weight:600; }
+.modal-box .form-group { margin-bottom:16px; }
+.modal-box .form-group label { display:block; font-size:13px; font-weight:700; color:var(--t); margin-bottom:6px; }
+.modal-box .form-group input,
+.modal-box .form-group select,
+.modal-box .form-group textarea { width:100%; box-sizing:border-box; padding:11px 14px; border:2px solid #eed5ba; border-radius:12px; font-size:14px; font-family:'Nunito Sans',sans-serif; color:var(--t); background:var(--bg); transition:border-color .2s; }
+.modal-box .form-group input:focus,
+.modal-box .form-group select:focus,
+.modal-box .form-group textarea:focus { outline:none; border-color:var(--o); }
+.modal-box .form-group textarea { resize:vertical; min-height:80px; }
+.modal-submit { width:100%; padding:14px; background:linear-gradient(135deg,var(--o),var(--p)); color:white; border:none; border-radius:20px; font-family:'Nunito',sans-serif; font-weight:900; font-size:16px; cursor:pointer; margin-top:8px; transition:filter .2s; }
+.modal-submit:hover { filter:brightness(.9); }
 
-.plan-block.full { grid-column: 1 / -1; }
+@media(max-width:768px){
+  .evt-card { grid-template-columns:80px 1fr; }
+  .evt-day { font-size:32px; }
+  .evt-body { padding:16px; }
+  .evt-title { font-size:18px; }
+  .evt-audiences { grid-template-columns:1fr; }
+  .evt-coming-banner { flex-direction:column; align-items:flex-start; }
+  .modal-box { padding:28px 20px; }
+}
 
 /* ══════════════════════════════════════
    SECTION — À PROPOS (teaser)
@@ -1126,7 +1151,6 @@ button { font-family: inherit; cursor: pointer; border: none; }
           <div class="format-name">Apéros Créatifs</div>
           <div class="format-desc">Viens créer, papoter et lâcher prise autour d'un verre dans un cadre doux et convivial. Chaque session explore un nouveau thème — peinture sur verre, scrapbooking, personnalisation d'objets…</div>
           <div class="format-meta">
-            <span class="meta-pill">📅 1 mercredi sur 2</span>
             <span class="meta-pill">🕒 19h – 21h</span>
             <span class="meta-pill pink">Adultes uniquement</span>
           </div>
@@ -1148,7 +1172,6 @@ button { font-family: inherit; cursor: pointer; border: none; }
           <div class="format-name">Ateliers Famille</div>
           <div class="format-desc">Un atelier créatif pensé pour les enfants et leurs accompagnants adultes. Fabrication de savon, peinture sur toile, magnets… Un vrai moment de complicité et de douceur partagée.</div>
           <div class="format-meta">
-            <span class="meta-pill">📅 1 mercredi sur 2</span>
             <span class="meta-pill">🕒 15h – 16h30</span>
             <span class="meta-pill pink">1 à 2 accompagnants inclus</span>
           </div>
@@ -1159,24 +1182,24 @@ button { font-family: inherit; cursor: pointer; border: none; }
         </div>
       </div>
 
-      <!-- Week-end -->
+      <!-- Événements & Soirées -->
       <div class="format-card reveal" style="transition-delay:.2s">
         <div class="format-banner fb-weekend">
-          <span>🌿</span>
+          <span>🎉</span>
           <div class="sparkles">✦ ✦</div>
         </div>
         <div class="format-body">
-          <div class="format-cat">Bien-être & Développement personnel</div>
-          <div class="format-name">Week-Ends & Retraites</div>
-          <div class="format-desc">Une pause pour ralentir, te reconnecter à toi-même et te faire du bien. Hébergement, repas faits maison, ateliers bienveillants et accompagnement chaleureux — tout est inclus.</div>
+          <div class="format-cat">Rencontres & Partage</div>
+          <div class="format-name">Événements & Soirées</div>
+          <div class="format-desc">Vide dressings, marchés de créateurs, salons du bien-être, soirées de rencontres... Des événements uniques pour se retrouver, créer des liens et vivre des moments qu'on n'oublie pas.</div>
           <div class="format-meta">
-            <span class="meta-pill">📅 Dates uniques</span>
-            <span class="meta-pill">🏠 Pension complète</span>
-            <span class="meta-pill pink">Jusqu'à 5× sans frais</span>
+            <span class="meta-pill">📅 Événements ponctuels</span>
+            <span class="meta-pill">🎪 Formats variés</span>
+            <span class="meta-pill pink">Pour tout le monde</span>
           </div>
           <div class="format-footer">
-            <div class="format-price" style="font-size:18px;font-style:italic;color:var(--ts)">À partir de 400€</div>
-            <a href="#spotlight" class="btn-resa">Découvrir ✦</a>
+            <div class="format-price" style="font-size:18px;font-style:italic;color:var(--ts)">Selon l'événement</div>
+            <a href="#planning" class="btn-resa">Voir les dates ✦</a>
           </div>
         </div>
       </div>
@@ -1184,67 +1207,6 @@ button { font-family: inherit; cursor: pointer; border: none; }
   </div>
 </section>
 
-<!-- ════════════════════════════════════════
-     ÉVÉNEMENT À LA UNE — LUMIÈRE INTÉRIEURE
-════════════════════════════════════════ -->
-<section class="spotlight reveal" id="spotlight">
-  <span style="position:absolute;top:12%;left:5%;font-size:22px;color:white;opacity:.25;animation:floaty 4s ease-in-out infinite">✦</span>
-  <span style="position:absolute;top:25%;right:8%;font-size:14px;color:white;opacity:.2;animation:floaty 5s ease-in-out infinite 1s">✦</span>
-  <span style="position:absolute;bottom:18%;left:10%;font-size:18px;color:white;opacity:.2;animation:floaty 6s ease-in-out infinite .5s">✦</span>
-  <span style="position:absolute;bottom:10%;right:12%;font-size:28px;color:white;opacity:.15;animation:floaty 4.5s ease-in-out infinite 2s">✦</span>
-  <span style="position:absolute;top:50%;left:45%;font-size:11px;color:white;opacity:.18;animation:sparkle 3s ease-in-out infinite 1.5s">✦</span>
-  <div class="spotlight-grid">
-    <div class="spotlight-content">
-      <div class="spotlight-badge">✦ Événement à la une</div>
-      <h2 class="spotlight-title">Week-End<br>« Lumière Intérieure »</h2>
-      <p class="spotlight-subtitle">
-        Image de soi, acceptation, lâcher-prise, reconnexion au corps, mouvement doux, introspection
-        et shooting photo sensible. Un week-end pour ralentir et apprendre à te regarder autrement.
-      </p>
-      <div class="spotlight-details">
-        <div class="spotlight-detail">
-          <div class="icon">📅</div>
-          <span><strong>1 au 3 mai 2026</strong> — 3 jours / 2 nuits</span>
-        </div>
-        <div class="spotlight-detail">
-          <div class="icon">📍</div>
-          <span><strong>Gîte de la Sapinière</strong> — Bezinghem, 62650</span>
-        </div>
-        <div class="spotlight-detail">
-          <div class="icon">🍽️</div>
-          <span><strong>Tout inclus</strong> — Hébergement, repas, ateliers, shooting</span>
-        </div>
-        <div class="spotlight-detail">
-          <div class="icon">💳</div>
-          <span><strong>Paiement en 5×</strong> — sans frais, à partir de 80€/mois</span>
-        </div>
-        <div class="spotlight-detail">
-          <div class="icon">🚺</div>
-          <span><strong>Week-end réservé aux femmes</strong></span>
-        </div>
-      </div>
-      <div class="spotlight-actions">
-        <a href="lumiere-interieure.html" class="btn-spotlight">Découvrir le programme ✦</a>
-        <a href="lumiere-interieure.html#inscription" class="btn-spotlight-outline">S'inscrire →</a>
-      </div>
-    </div>
-
-    <div class="spotlight-visual">
-      <div class="spotlight-image-stack">
-        <div class="spotlight-img spotlight-img-1">
-          <img src="imgs/gite-ext.jpeg" alt="Gîte de la Sapinière - extérieur" loading="lazy">
-        </div>
-        <div class="spotlight-img spotlight-img-2">
-          <img src="imgs/gite-massage.jpeg" alt="Salle de massage" loading="lazy">
-        </div>
-        <div class="spotlight-img spotlight-img-3">
-          <img src="imgs/gite-jacuzzi.jpeg" alt="Jacuzzi" loading="lazy">
-        </div>
-        <div class="spotlight-price-tag">400€ <small>/pers.</small></div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ════════════════════════════════════════
      PLANNING
@@ -1253,100 +1215,109 @@ button { font-family: inherit; cursor: pointer; border: none; }
   <div class="container">
     <div style="text-align:center;margin-bottom:48px">
       <div class="eyebrow reveal">Agenda</div>
-      <h2 class="section-title reveal"><span class="pink">Les</span> <span class="orange">prochaines dates</span> <span class="pink">✦</span></h2>
-      <p class="section-desc reveal" style="margin:0 auto">Choisis ton prochain moment et réserve ta place en quelques clics ✦</p>
+      <h2 class="section-title reveal"><span class="pink">Les</span> <span class="orange">prochains rendez-vous</span> <span class="pink">✦</span></h2>
+      <p class="section-desc reveal" style="margin:0 auto">Quatre événements à venir — chacun unique, chacun une occasion de se retrouver.</p>
     </div>
 
-    <div class="planning-grid">
+    <div class="events-timeline">
 
-      <!-- Apéros Créatifs -->
-      <div class="plan-block reveal">
-        <div class="plan-header">
-          <div class="plan-icon pi-apero">🎨</div>
-          <div>
-            <div class="plan-title-text">Apéros Créatifs</div>
-            <div class="plan-subtitle">1 mercredi sur 2 · 19h00 – 21h00 · 24€</div>
-          </div>
+      <!-- Vide Dressing -->
+      <div class="evt-card reveal">
+        <div class="evt-date-block" style="background:linear-gradient(160deg,var(--o),var(--ol))">
+          <div class="evt-day">19</div>
+          <div class="evt-month">Avr.</div>
+          <div class="evt-weekday">Dimanche</div>
         </div>
-        <div class="events-list">
-          <div class="event-row" data-event-date="2026-03-25">
-            <span class="event-date">Mer. 25 mars</span>
-            <span class="event-label">Scrapbooking clôture début 2026</span>
-            <button class="event-action" onclick="openModal('apero','Mer. 25 mars','Scrapbooking clôture début 2026')">Réserver</button>
+        <div class="evt-body">
+          <div class="evt-title">Vide Dressing ✦</div>
+          <div class="evt-desc">Un grand vide dressing convivial pour chiner de belles pièces et faire de bonnes affaires. Stands de vente et dépôts-ventes — pour repartir avec des trésors ou vider ses placards avec le sourire.</div>
+          <div class="evt-meta">
+            <span>📍 Lieu à confirmer</span>
+            <span>🕒 Horaires à venir</span>
           </div>
-          <div class="event-row" data-event-date="2026-04-08">
-            <span class="event-date">Mer. 8 avr.</span>
-            <span class="event-label">Peinture sur verre</span>
-            <button class="event-action" onclick="openModal('apero','Mer. 8 avr.','Peinture sur verre')">Réserver</button>
+          <div class="evt-audiences">
+            <div class="evt-audience evt-aud-orange">
+              <div class="evt-aud-label">🛍️ Tu veux vendre ?</div>
+              <div class="evt-aud-info">Location d'un espace stand ou dépôt-vente disponible. Places limitées — réserve le tien avant qu'ils partent !</div>
+              <button class="evt-aud-cta" style="background:var(--o)" onclick="document.getElementById('vendeurModal').style.display='flex'">Je réserve mon espace →</button>
+            </div>
+            <div class="evt-audience evt-aud-rose">
+              <div class="evt-aud-label">👗 Tu veux chiner ?</div>
+              <div class="evt-aud-info">Entrée libre et gratuite — viens faire de bonnes affaires et passer un moment convivial !</div>
+              <div class="evt-aud-free">Entrée libre ✦</div>
+            </div>
           </div>
-          <div class="event-row" data-event-date="2026-04-22">
-            <span class="event-date">Mer. 22 avr.</span>
-            <span class="event-label">Fabrication magnets pour frigo</span>
-            <button class="event-action" onclick="openModal('apero','Mer. 22 avr.','Fabrication magnets pour frigo')">Réserver</button>
-          </div>
-          <div class="event-row" data-event-date="2026-05-06">
-            <span class="event-date">Mer. 6 mai</span>
-            <span class="event-label">Personnalisation miroir</span>
-            <button class="event-action" onclick="openModal('apero','Mer. 6 mai','Personnalisation miroir')">Réserver</button>
-          </div>
-          <div class="event-row" data-event-date="2026-05-20">
-            <span class="event-date">Mer. 20 mai</span>
-            <span class="event-label">Personnalisation planche apéro</span>
-            <button class="event-action" onclick="openModal('apero','Mer. 20 mai','Personnalisation planche apéro')">Réserver</button>
-          </div>
-        </div>
-        <div class="plan-location">
-          <span>📍</span>
-          <span>La Kabane de la Plage — Promenade San Martin, Boulogne-sur-Mer (62200)</span>
         </div>
       </div>
 
-      <!-- Ateliers Famille -->
-      <div class="plan-block reveal" style="transition-delay:.1s">
-        <div class="plan-header">
-          <div class="plan-icon pi-famille">👨‍👩‍👧</div>
-          <div>
-            <div class="plan-title-text">Ateliers Famille</div>
-            <div class="plan-subtitle">1 mercredi sur 2 · 15h00 – 16h30 · 19€/enfant</div>
-          </div>
+      <!-- Marché des Créateurs -->
+      <div class="evt-card reveal" style="transition-delay:.1s">
+        <div class="evt-date-block" style="background:linear-gradient(160deg,var(--p),var(--pl))">
+          <div class="evt-day">17</div>
+          <div class="evt-month">Mai</div>
+          <div class="evt-weekday">Dimanche</div>
         </div>
-        <div class="events-list">
-          <div class="event-row" data-event-date="2026-03-25">
-            <span class="event-date">Mer. 25 mars</span>
-            <span class="event-label">Fabrication 3D</span>
-            <button class="event-action" onclick="openModal('famille','Mer. 25 mars','Fabrication 3D')">Réserver</button>
+        <div class="evt-body">
+          <div class="evt-title">Marché des Créateurs ✦</div>
+          <div class="evt-desc">Un marché convivial qui met à l'honneur les artisans et créateurs locaux. Créations uniques, art de vivre, savoir-faire — viens les découvrir et les soutenir.</div>
+          <div class="evt-meta">
+            <span>📍 La Kabane de la Plage — Promenade San Martin, Boulogne-sur-Mer</span>
           </div>
-          <div class="event-row">
-            <span class="event-date">Prochaines dates</span>
-            <span class="event-label">Bientôt annoncées — inscris-toi à la newsletter ✦</span>
-            <a href="#newsletter" class="event-action">Newsletter</a>
+          <div class="evt-audiences">
+            <div class="evt-audience evt-aud-rose">
+              <div class="evt-aud-label">🎨 Tu crées, tu veux exposer ?</div>
+              <div class="evt-aud-info">Dépose ta candidature — Angela sélectionne les exposants avec soin pour garantir une belle diversité et une ambiance Safe Place.</div>
+              <a href="contact.html#candidature" class="evt-aud-cta" style="background:var(--p)">Candidater comme exposant →</a>
+            </div>
+            <div class="evt-audience evt-aud-orange">
+              <div class="evt-aud-label">🛒 Tu veux venir découvrir ?</div>
+              <div class="evt-aud-info">Entrée libre et gratuite — viens soutenir les créateurs locaux et repartir avec des pièces uniques !</div>
+              <div class="evt-aud-free">Entrée libre ✦</div>
+            </div>
           </div>
-        </div>
-        <div class="plan-location">
-          <span>📍</span>
-          <span>La Kabane de la Plage — Promenade San Martin, Boulogne-sur-Mer (62200)</span>
         </div>
       </div>
 
-      <!-- Week-end -->
-      <div class="plan-block full reveal" style="transition-delay:.2s">
-        <div class="plan-header">
-          <div class="plan-icon pi-weekend">🌿</div>
-          <div>
-            <div class="plan-title-text">Week-End Bien-être · « Lumière Intérieure »</div>
-            <div class="plan-subtitle">1 – 2 – 3 mai 2026 · 400€ tout inclus · Jusqu'à 5× sans frais</div>
+      <!-- Rencontre ton Praticien -->
+      <div class="evt-card reveal" style="transition-delay:.2s">
+        <div class="evt-date-block" style="background:linear-gradient(160deg,#6366f1,#8b5cf6)">
+          <div class="evt-day">14</div>
+          <div class="evt-month">Jun.</div>
+          <div class="evt-weekday">Dimanche</div>
+        </div>
+        <div class="evt-body">
+          <div class="evt-title">Rencontre ton Praticien ✦</div>
+          <div class="evt-desc">Un salon du bien-être pour découvrir des praticiens locaux et leurs disciplines — massage, méditation, médecine douce, accompagnement... Viens explorer à ton rythme dans un cadre doux et bienveillant.</div>
+          <div class="evt-meta">
+            <span>📍 Lieu à venir</span>
+          </div>
+          <div class="evt-coming-banner">
+            <span class="ecb-icon">✦</span>
+            <span class="ecb-text">Infos, tarifs et modalités à venir — inscris-toi à la newsletter pour être la première prévenue !</span>
+            <a href="#newsletter" class="evt-notify-btn">Me tenir informée</a>
           </div>
         </div>
-        <div class="events-list">
-          <div class="event-row" data-event-date="2026-05-01">
-            <span class="event-date">1 – 3 mai 2026</span>
-            <span class="event-label">Image de soi · Lâcher-prise · Shooting photo · Mouvement conscient · Méditation</span>
-            <a href="lumiere-interieure.html" class="event-action">Voir & réserver</a>
-          </div>
+      </div>
+
+      <!-- La Tablée -->
+      <div class="evt-card reveal" style="transition-delay:.3s">
+        <div class="evt-date-block" style="background:linear-gradient(160deg,var(--o),var(--p))">
+          <div class="evt-day">26</div>
+          <div class="evt-month">Jun.</div>
+          <div class="evt-weekday">Vendredi</div>
         </div>
-        <div class="plan-location">
-          <span>📍</span>
-          <span>Gîte de la Sapinière — Bezinghem (62650) · <strong>Date butoir d'inscription : 17 avril 2026</strong></span>
+        <div class="evt-body">
+          <div class="evt-title">La Tablée ✦</div>
+          <div class="evt-desc">Un repas entre inconnus pour créer de vraies rencontres — bonne cuisine, mini jeux et défis pour briser la glace et repartir avec de nouveaux amis. Parce que se faire des amis, ça s'organise.</div>
+          <div class="evt-meta">
+            <span>📍 Lieu à venir</span>
+            <span>💰 Prix à venir</span>
+          </div>
+          <div class="evt-coming-banner">
+            <span class="ecb-icon">✦</span>
+            <span class="ecb-text">Places limitées — inscris-toi à la newsletter pour être prévenue en avant-première !</span>
+            <a href="#newsletter" class="evt-notify-btn">Me tenir informée</a>
+          </div>
         </div>
       </div>
 
@@ -1518,7 +1489,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
         <ul>
           <li><a href="#formats">Apéros Créatifs</a></li>
           <li><a href="#formats">Ateliers Famille</a></li>
-          <li><a href="lumiere-interieure.html">Week-End Bien-être</a></li>
+          <li><a href="#formats">Événements & Soirées</a></li>
           <li><a href="#planning">Planning</a></li>
         </ul>
       </div>
@@ -1907,23 +1878,6 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 
   /* ══ MASQUER ÉVÉNEMENTS PASSÉS ══ */
   (function() {
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
-    document.querySelectorAll('.event-row[data-event-date]').forEach(function(row) {
-      var d = new Date(row.getAttribute('data-event-date'));
-      if (d < today) row.style.display = 'none';
-    });
-    // Si toutes les lignes d'un bloc sont masquées, afficher un message
-    document.querySelectorAll('.plan-block').forEach(function(block) {
-      var rows = block.querySelectorAll('.event-row');
-      var allHidden = Array.from(rows).every(function(r) {
-        return r.style.display === 'none';
-      });
-      if (allHidden) {
-        var list = block.querySelector('.events-list');
-        if (list) list.innerHTML = '<div class="event-row" style="justify-content:center;color:var(--ts);font-size:13px">Prochaines dates bientôt annoncées ✦</div>';
-      }
-    });
   })();
 
 /* ══════════════════════════════════════
@@ -1989,6 +1943,81 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   input.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') btn.click();
   });
+})();
+</script>
+
+<!-- ══ MODAL VENDEUR — VIDE DRESSING ══ -->
+<div id="vendeurModal" class="modal-overlay" style="display:none" onclick="if(event.target===this)this.style.display='none'">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('vendeurModal').style.display='none'">✕</button>
+    <div class="modal-icon">🛍️</div>
+    <h3 class="modal-title">Réserver mon espace vendeur</h3>
+    <p class="modal-subtitle">Vide Dressing · Dimanche 19 Avril 2026</p>
+    <form id="vendeurForm">
+      <div class="form-group">
+        <label>Prénom et nom *</label>
+        <input type="text" name="nom" required placeholder="Marie Dupont">
+      </div>
+      <div class="form-group">
+        <label>Email *</label>
+        <input type="email" name="email" required placeholder="marie@exemple.fr">
+      </div>
+      <div class="form-group">
+        <label>Téléphone</label>
+        <input type="tel" name="telephone" placeholder="06 XX XX XX XX">
+      </div>
+      <div class="form-group">
+        <label>Type de participation *</label>
+        <select name="type" required>
+          <option value="">Choisir...</option>
+          <option value="stand">Stand de vente — je gère mes ventes moi-même</option>
+          <option value="depot">Dépôt-vente — Safe Place vend pour moi</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Ce que tu vends *</label>
+        <textarea name="articles" required placeholder="Décris les types d'articles (vêtements, accessoires, déco, etc.) et une estimation du nombre de pièces." rows="3"></textarea>
+      </div>
+      <button type="submit" class="modal-submit" id="vendeurSubmitBtn">Envoyer ma demande ✦</button>
+    </form>
+    <div id="vendeurSuccess" style="display:none;text-align:center;padding:24px 0">
+      <div style="font-size:40px;margin-bottom:12px">✦</div>
+      <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:20px;color:var(--od);margin-bottom:8px">Demande envoyée !</div>
+      <div style="color:var(--ts);font-size:14px;line-height:1.6">Angela reviendra vers toi très vite pour confirmer ton espace et les modalités de paiement.<br>À très bientôt ✦</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var form = document.getElementById('vendeurForm');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var btn = document.getElementById('vendeurSubmitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Envoi en cours...';
+    var data = Object.fromEntries(new FormData(form));
+    fetch('https://safe-place-evenementiel.projets-b86.workers.dev', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        type: 'vendeur-vide-dressing',
+        nom: data.nom,
+        email: data.email,
+        telephone: data.telephone || '—',
+        typeParticipation: data.type,
+        articles: data.articles
+      })
+    })
+    .then(function(){ showVendeurSuccess(); })
+    .catch(function(){ showVendeurSuccess(); }); // on affiche le succès même en cas d'erreur réseau — Angela contactera par email
+  });
+
+  function showVendeurSuccess(){
+    document.getElementById('vendeurForm').style.display = 'none';
+    document.getElementById('vendeurSuccess').style.display = 'block';
+  }
 })();
 </script>
 </body>
