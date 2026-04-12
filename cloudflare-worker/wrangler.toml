@@ -1,0 +1,9 @@
+name = "safe-place-evenementiel"
+main = "worker.js"
+compatibility_date = "2024-09-25"
+account_id = "b8685734bf9de9fa43610e099af63c41"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "safe-place-events"
+database_id = "c8ccf7b1-ca7a-45f4-a980-93ae4b418142"

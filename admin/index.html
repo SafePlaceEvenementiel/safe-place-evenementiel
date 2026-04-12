@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Safe Place — Admin</title>
+  <link rel="icon" type="image/png" href="../Brand Board/Flavicon Safe Place Événementiel/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,700;0,800;0,900;1,800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --o:#ff9430; --p:#fd2c82; --pd:#d91a6a; --op:#fff4ea; --pp:#fff0f7;
+      --bg:#fffaf6; --t:#1a0800; --ts:#7a3d1a; --w:#ffffff;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Nunito Sans',sans-serif;background:linear-gradient(160deg,var(--op) 0%,var(--pp) 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+    .card{background:white;border-radius:28px;padding:48px 40px;max-width:420px;width:100%;box-shadow:0 20px 56px rgba(0,0,0,.12);}
+    .logo{text-align:center;margin-bottom:32px;}
+    .logo-title{font-family:'Nunito',sans-serif;font-weight:900;font-style:italic;font-size:26px;color:var(--o);line-height:1.1;}
+    .logo-sub{font-size:13px;color:var(--ts);margin-top:4px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;}
+    .eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--p);display:flex;align-items:center;gap:6px;margin-bottom:10px;}
+    h1{font-family:'Nunito',sans-serif;font-weight:900;font-size:24px;color:var(--t);margin-bottom:28px;line-height:1.2;}
+    label{display:block;font-size:13px;font-weight:700;color:var(--t);margin-bottom:6px;}
+    input{width:100%;padding:13px 16px;border:2px solid #eed5ba;border-radius:14px;font-family:'Nunito Sans',sans-serif;font-size:15px;color:var(--t);background:var(--bg);transition:border-color .2s;outline:none;}
+    input:focus{border-color:var(--p);}
+    input.error{border-color:#dc2626;}
+    .form-group{margin-bottom:20px;}
+    .btn{width:100%;padding:15px;background:linear-gradient(135deg,var(--o),var(--p));color:white;border:none;border-radius:30px;font-family:'Nunito',sans-serif;font-weight:900;font-size:16px;cursor:pointer;box-shadow:0 6px 20px rgba(253,44,130,.3);transition:all .25s;margin-top:8px;}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(253,44,130,.4);}
+    .btn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+    .error-msg{color:#dc2626;font-size:13px;margin-top:10px;text-align:center;display:none;}
+    .error-msg.show{display:block;}
+    .secure-note{text-align:center;font-size:12px;color:var(--ts);opacity:.6;margin-top:20px;}
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="logo">
+    <div class="logo-title">Safe Place ✦ Événementiel</div>
+    <div class="logo-sub">Espace administration</div>
+  </div>
+
+  <div class="eyebrow">✦ Connexion</div>
+  <h1>Bonjour Angela 👋</h1>
+
+  <form id="loginForm">
+    <div class="form-group">
+      <label for="password">Mot de passe</label>
+      <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" required>
+    </div>
+    <button type="submit" class="btn" id="loginBtn">Accéder à l'espace admin ✦</button>
+    <p class="error-msg" id="errorMsg">Mot de passe incorrect. Réessaie !</p>
+  </form>
+
+  <p class="secure-note">🔒 Accès réservé à l'équipe Safe Place</p>
+</div>
+
+<script>
+  const WORKER = 'https://safe-place-evenementiel.projets-b86.workers.dev';
+
+  // Déjà connecté ?
+  if (sessionStorage.getItem('sp_token')) {
+    window.location.href = 'events.html';
+  }
+
+  document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const pw = document.getElementById('password').value;
+    const btn = document.getElementById('loginBtn');
+    const err = document.getElementById('errorMsg');
+
+    btn.disabled = true;
+    btn.textContent = 'Connexion…';
+    err.classList.remove('show');
+
+    try {
+      const res = await fetch(WORKER + '/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: pw }),
+      });
+      const data = await res.json();
+      if (data.ok && data.token) {
+        sessionStorage.setItem('sp_token', data.token);
+        window.location.href = 'events.html';
+      } else {
+        document.getElementById('password').classList.add('error');
+        err.classList.add('show');
+        btn.disabled = false;
+        btn.textContent = 'Accéder à l\'espace admin ✦';
+      }
+    } catch {
+      err.textContent = 'Erreur de connexion. Vérifie ta connexion internet.';
+      err.classList.add('show');
+      btn.disabled = false;
+      btn.textContent = 'Accéder à l\'espace admin ✦';
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Événements — Safe Place Admin</title>
+  <link rel="icon" type="image/png" href="../Brand Board/Flavicon Safe Place Événementiel/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,700;0,800;0,900;1,800&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --o:#ff9430; --od:#d97220; --ol:#ffb366; --op:#fff4ea;
+      --p:#fd2c82; --pd:#d91a6a; --pl:#ff6aab; --pp:#fff0f7;
+      --bg:#fffaf6; --t:#1a0800; --ts:#7a3d1a; --w:#ffffff;
+      --border:#f0dece; --radius:16px;
+      --shadow:0 4px 20px rgba(0,0,0,.08);
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Nunito Sans',sans-serif;background:#f5ede4;color:var(--t);min-height:100vh;font-size:14px;}
+    a{text-decoration:none;color:inherit;}
+    button{font-family:inherit;cursor:pointer;}
+
+    /* ── NAV ── */
+    .nav{background:var(--o);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(255,148,48,.3);position:sticky;top:0;z-index:100;}
+    .nav-brand{font-family:'Nunito',sans-serif;font-weight:900;font-style:italic;font-size:18px;color:var(--p);}
+    .nav-brand span{color:white;}
+    .nav-right{display:flex;align-items:center;gap:16px;}
+    .nav-site{font-size:12px;font-weight:700;color:white;opacity:.8;text-decoration:none;transition:opacity .2s;}
+    .nav-site:hover{opacity:1;}
+    .btn-logout{background:rgba(255,255,255,.2);border:none;color:white;padding:7px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;transition:background .2s;}
+    .btn-logout:hover{background:rgba(255,255,255,.35);}
+
+    /* ── LAYOUT ── */
+    .page{max-width:960px;margin:0 auto;padding:32px 20px 80px;}
+
+    /* ── PAGE HEADER ── */
+    .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:14px;}
+    .page-title{font-family:'Nunito',sans-serif;font-weight:900;font-size:26px;color:var(--t);}
+    .page-title span{color:var(--o);}
+    .btn-create{background:linear-gradient(135deg,var(--o),var(--p));color:white;border:none;border-radius:30px;padding:12px 24px;font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(253,44,130,.3);transition:all .2s;}
+    .btn-create:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(253,44,130,.4);}
+
+    /* ── FILTRES ── */
+    .filter-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+    .ftab{background:white;border:2px solid var(--border);color:var(--ts);padding:7px 16px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;}
+    .ftab.active{background:var(--t);border-color:var(--t);color:white;}
+    .ftab:hover:not(.active){border-color:var(--o);color:var(--o);}
+
+    /* ── EVENTS LIST ── */
+    .events-list{display:flex;flex-direction:column;gap:12px;}
+    .empty-state{text-align:center;padding:60px 20px;background:white;border-radius:var(--radius);border:2px dashed var(--border);}
+    .empty-icon{font-size:40px;margin-bottom:12px;}
+    .empty-title{font-family:'Nunito',sans-serif;font-weight:800;font-size:18px;color:var(--od);margin-bottom:6px;}
+    .empty-desc{font-size:13px;color:var(--ts);}
+
+    /* ── EVENT CARD ── */
+    .evt-item{background:white;border-radius:var(--radius);box-shadow:var(--shadow);border:2px solid var(--border);display:grid;grid-template-columns:72px 1fr auto;overflow:hidden;transition:box-shadow .2s;}
+    .evt-item:hover{box-shadow:0 8px 28px rgba(0,0,0,.11);}
+
+    .evt-date-col{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 8px;color:white;text-align:center;font-family:'Nunito',sans-serif;}
+    .edc-day{font-weight:900;font-size:26px;line-height:1;}
+    .edc-month{font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-top:2px;opacity:.9;}
+    .edc-tba{font-weight:800;font-size:11px;text-align:center;line-height:1.3;}
+
+    .evt-info{padding:14px 16px;display:flex;flex-direction:column;gap:5px;min-width:0;}
+    .evt-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+    .evt-title-admin{font-family:'Nunito',sans-serif;font-weight:800;font-size:15px;color:var(--t);}
+    .evt-subtitle-admin{font-size:13px;color:var(--ts);font-style:italic;}
+    .evt-meta-admin{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--ts);}
+    .evt-meta-admin span{display:flex;align-items:center;gap:3px;}
+
+    /* Badges type */
+    .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;}
+    .badge-apero{background:var(--pp);color:var(--pd);}
+    .badge-famille{background:var(--op);color:var(--od);}
+    .badge-weekend{background:linear-gradient(135deg,var(--o),var(--p));color:white;}
+    .badge-evenement{background:#f5e6d3;color:#7a3d1a;}
+    /* Badges statut */
+    .badge-open{background:#dcfce7;color:#16a34a;}
+    .badge-full{background:#fee2e2;color:#dc2626;}
+    .badge-draft{background:#f1f5f9;color:#64748b;}
+    .badge-cancelled{background:#fef3c7;color:#92400e;}
+
+    /* ── ACTIONS ── */
+    .evt-actions{padding:14px 14px 14px 8px;display:flex;flex-direction:column;gap:6px;justify-content:center;}
+    .btn-action{border:none;border-radius:10px;padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap;}
+    .btn-edit{background:var(--op);color:var(--od);}
+    .btn-edit:hover{background:var(--ol);color:white;}
+    .btn-full{background:#fee2e2;color:#dc2626;}
+    .btn-full:hover{background:#dc2626;color:white;}
+    .btn-open{background:#dcfce7;color:#16a34a;}
+    .btn-open:hover{background:#16a34a;color:white;}
+    .btn-draft{background:#f1f5f9;color:#64748b;}
+    .btn-draft:hover{background:#64748b;color:white;}
+    .btn-delete{background:#fff;color:#dc2626;border:1.5px solid #fca5a5;}
+    .btn-delete:hover{background:#fee2e2;}
+
+    /* ── MODAL ── */
+    .modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(26,8,0,.5);backdrop-filter:blur(4px);align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;}
+    .modal-overlay.open{display:flex;}
+    .modal{background:white;border-radius:24px;max-width:600px;width:100%;margin:auto;box-shadow:0 24px 64px rgba(0,0,0,.18);}
+    .modal-head{background:linear-gradient(135deg,var(--o),var(--p));padding:24px 28px;border-radius:24px 24px 0 0;position:relative;color:white;}
+    .modal-head-title{font-family:'Nunito',sans-serif;font-weight:900;font-size:20px;}
+    .modal-head-sub{font-size:13px;opacity:.85;margin-top:4px;}
+    .btn-modal-close{position:absolute;top:14px;right:16px;background:rgba(255,255,255,.2);border:none;color:white;width:30px;height:30px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+    .btn-modal-close:hover{background:rgba(255,255,255,.35);}
+    .modal-body{padding:28px;}
+
+    /* ── FORM ── */
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+    .form-row.full{grid-template-columns:1fr;}
+    .form-group{display:flex;flex-direction:column;gap:6px;}
+    .form-group label{font-size:12px;font-weight:700;color:var(--t);text-transform:uppercase;letter-spacing:.06em;}
+    .form-group label .hint{font-weight:400;text-transform:none;letter-spacing:0;color:var(--ts);font-size:11px;margin-left:4px;}
+    .form-group input,.form-group select,.form-group textarea{padding:10px 13px;border:2px solid #eed5ba;border-radius:12px;font-family:'Nunito Sans',sans-serif;font-size:14px;color:var(--t);background:var(--bg);transition:border-color .2s;outline:none;width:100%;}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--p);}
+    .form-group textarea{resize:vertical;min-height:80px;line-height:1.5;}
+    .form-section{margin-bottom:20px;}
+    .form-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--p);margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--pp);}
+
+    /* Options checkboxes */
+    .options-grid{display:flex;flex-wrap:wrap;gap:8px;}
+    .opt-label{display:flex;align-items:center;gap:8px;background:var(--bg);border:2px solid var(--border);border-radius:12px;padding:8px 14px;cursor:pointer;transition:all .2s;user-select:none;font-size:13px;font-weight:600;}
+    .opt-label:hover{border-color:var(--o);}
+    .opt-label input{accent-color:var(--o);width:16px;height:16px;}
+    .opt-label.checked{background:var(--op);border-color:var(--o);}
+
+    /* Stripe link field */
+    .stripe-hint{font-size:11px;color:var(--ts);margin-top:4px;line-height:1.5;}
+
+    /* Footer modal */
+    .modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:0 28px 24px;flex-wrap:wrap;}
+    .btn-cancel{background:none;border:2px solid var(--border);color:var(--ts);padding:10px 20px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;}
+    .btn-cancel:hover{border-color:var(--ts);color:var(--t);}
+    .btn-draft-save{background:var(--bg);border:2px solid var(--border);color:var(--ts);padding:10px 20px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;}
+    .btn-draft-save:hover{border-color:var(--od);color:var(--od);}
+    .btn-save{background:linear-gradient(135deg,var(--o),var(--p));color:white;border:none;padding:11px 24px;border-radius:20px;font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 4px 14px rgba(253,44,130,.3);transition:all .2s;}
+    .btn-save:hover{transform:translateY(-1px);}
+    .btn-save:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+
+    /* Confirm delete */
+    .confirm-bar{background:#fee2e2;border:2px solid #fca5a5;border-radius:14px;padding:14px 18px;margin:0 28px 16px;display:none;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+    .confirm-bar.show{display:flex;}
+    .confirm-bar p{font-size:13px;color:#991b1b;font-weight:600;}
+    .confirm-bar-btns{display:flex;gap:8px;}
+    .btn-confirm-del{background:#dc2626;color:white;border:none;padding:7px 16px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;}
+    .btn-cancel-del{background:none;border:2px solid #fca5a5;color:#991b1b;padding:7px 16px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;}
+
+    /* Toast */
+    .toast{position:fixed;bottom:24px;right:24px;background:var(--t);color:white;padding:12px 20px;border-radius:14px;font-size:13px;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.2);z-index:1000;transform:translateY(80px);opacity:0;transition:all .35s cubic-bezier(.4,0,.2,1);}
+    .toast.show{transform:translateY(0);opacity:1;}
+    .toast.success{background:#16a34a;}
+    .toast.error{background:#dc2626;}
+
+    /* Loading */
+    .loading{text-align:center;padding:60px;color:var(--ts);}
+    .spinner{display:inline-block;width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--o);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:12px;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* Responsive */
+    @media(max-width:640px){
+      .evt-item{grid-template-columns:56px 1fr;}
+      .evt-actions{display:none;}
+      .evt-info{padding:12px;}
+      .form-row{grid-template-columns:1fr;}
+      .page-header{flex-direction:column;align-items:flex-start;}
+      .btn-create{width:100%;justify-content:center;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">Safe Place <span>✦ Admin</span></div>
+  <div class="nav-right">
+    <a href="../index.html" class="nav-site" target="_blank">↗ Voir le site</a>
+    <button class="btn-logout" id="btnLogout">Se déconnecter</button>
+  </div>
+</nav>
+
+<!-- PAGE -->
+<div class="page">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Mes <span>événements</span></h1>
+      <p style="font-size:13px;color:var(--ts);margin-top:4px;">Crée, modifie et gère tous tes événements depuis ici.</p>
+    </div>
+    <button class="btn-create" id="btnCreate">✦ Créer un événement</button>
+  </div>
+
+  <div class="filter-tabs" id="filterTabs">
+    <button class="ftab active" data-filter="upcoming">À venir</button>
+    <button class="ftab" data-filter="all">Tous</button>
+    <button class="ftab" data-filter="draft">Brouillons</button>
+    <button class="ftab" data-filter="past">Passés</button>
+  </div>
+
+  <div id="eventsList">
+    <div class="loading"><div class="spinner"></div><p>Chargement…</p></div>
+  </div>
+</div>
+
+<!-- MODAL CRÉER / MODIFIER -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <div class="modal-head">
+      <button class="btn-modal-close" id="btnModalClose">✕</button>
+      <div class="modal-head-title" id="modalTitle">Créer un événement</div>
+      <div class="modal-head-sub" id="modalSub">Remplis les infos ci-dessous — tu pourras modifier à tout moment.</div>
+    </div>
+    <div class="modal-body">
+
+      <!-- Type -->
+      <div class="form-section">
+        <div class="form-section-title">Type d'événement</div>
+        <div class="form-row full">
+          <div class="form-group">
+            <label>Format <span class="hint">— détermine les champs qui s'affichent</span></label>
+            <select id="fType">
+              <option value="apero">🎨 Apéro Créatif</option>
+              <option value="famille">👨‍👩‍👧 Atelier Famille</option>
+              <option value="weekend">🌿 Week-end / Retraite</option>
+              <option value="evenement">✦ Autre événement (marché, soirée, vide dressing…)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Titre & Thème -->
+      <div class="form-section">
+        <div class="form-section-title">Contenu</div>
+        <div class="form-row full" id="rowTitle">
+          <div class="form-group">
+            <label id="labelTitle">Titre</label>
+            <input type="text" id="fTitle" placeholder="Ex : Apéro Créatif">
+          </div>
+        </div>
+        <div class="form-row full" id="rowSubtitle">
+          <div class="form-group">
+            <label id="labelSubtitle">Thème de la soirée <span class="hint">— affiché sous le titre</span></label>
+            <input type="text" id="fSubtitle" placeholder="Ex : Fabrication de magnets pour frigo">
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="fDescription" placeholder="Décris l'événement en quelques phrases…" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Date & Lieu -->
+      <div class="form-section">
+        <div class="form-section-title">Date & Lieu</div>
+        <div class="form-row" id="rowDate">
+          <div class="form-group">
+            <label>Date</label>
+            <input type="date" id="fDate">
+          </div>
+          <div class="form-group" id="rowDateEnd" style="display:none">
+            <label>Date de fin <span class="hint">— pour les week-ends</span></label>
+            <input type="date" id="fDateEnd">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Heure de début</label>
+            <input type="text" id="fTimeStart" placeholder="19h">
+          </div>
+          <div class="form-group">
+            <label>Heure de fin</label>
+            <input type="text" id="fTimeEnd" placeholder="21h">
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="form-group">
+            <label>Lieu</label>
+            <input type="text" id="fLocation" placeholder="Ex : La Kabane de la Plage, Boulogne-sur-Mer">
+          </div>
+        </div>
+      </div>
+
+      <!-- Prix & Paiement -->
+      <div class="form-section" id="sectionPrix">
+        <div class="form-section-title">Prix & Paiement</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Prix <span class="hint">— texte affiché</span></label>
+            <input type="text" id="fPriceDisplay" placeholder="Ex : 24€ / personne">
+          </div>
+          <div class="form-group">
+            <label>Statut</label>
+            <select id="fStatus">
+              <option value="open">✅ Ouvert aux inscriptions</option>
+              <option value="full">🔴 Complet</option>
+              <option value="draft">📝 Brouillon (non visible)</option>
+              <option value="cancelled">❌ Annulé</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row full" id="rowStripe">
+          <div class="form-group">
+            <label>Lien Stripe <span class="hint">— pour le paiement en ligne</span></label>
+            <input type="url" id="fStripeLink" placeholder="https://buy.stripe.com/…">
+            <p class="stripe-hint">💡 Crée le lien dans ton dashboard Stripe → Liens de paiement, puis colle-le ici.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Options selon type -->
+      <div class="form-section" id="sectionOptions">
+        <div class="form-section-title" id="optionsTitle">Options</div>
+        <div class="options-grid" id="optionsGrid"></div>
+      </div>
+
+    </div><!-- /modal-body -->
+
+    <div class="confirm-bar" id="confirmBar">
+      <p>⚠️ Supprimer définitivement cet événement ?</p>
+      <div class="confirm-bar-btns">
+        <button class="btn-cancel-del" id="btnCancelDel">Annuler</button>
+        <button class="btn-confirm-del" id="btnConfirmDel">Oui, supprimer</button>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-cancel" id="btnCancel">Annuler</button>
+      <button class="btn-delete-open" style="background:none;border:2px solid #fca5a5;color:#dc2626;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;display:none;" id="btnDeleteOpen">Supprimer</button>
+      <button class="btn-draft-save" id="btnSaveDraft">Enregistrer en brouillon</button>
+      <button class="btn-save" id="btnSave">Publier l'événement ✦</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+const WORKER = 'https://safe-place-evenementiel.projets-b86.workers.dev';
+const token = sessionStorage.getItem('sp_token');
+
+// Auth guard
+if (!token) { window.location.href = 'index.html'; }
+
+// Logout
+document.getElementById('btnLogout').addEventListener('click', function() {
+  sessionStorage.removeItem('sp_token');
+  window.location.href = 'index.html';
+});
+
+// ── DATA ──────────────────────────────────────────────
+let allEvents = [];
+let editingId = null;
+let currentFilter = 'upcoming';
+
+async function loadEvents() {
+  try {
+    const res = await fetch(WORKER + '/api/admin/events', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+    if (res.status === 401) { sessionStorage.removeItem('sp_token'); window.location.href = 'index.html'; return; }
+    allEvents = await res.json();
+    renderList();
+  } catch (e) {
+    document.getElementById('eventsList').innerHTML = '<div class="loading"><p style="color:#dc2626">Erreur de chargement. Vérifie ta connexion.</p></div>';
+  }
+}
+
+// ── RENDER LIST ───────────────────────────────────────
+const TYPE_LABELS = { apero: '🎨 Apéro Créatif', famille: '👨‍👩‍👧 Atelier Famille', weekend: '🌿 Week-end', evenement: '✦ Événement' };
+const TYPE_GRADIENTS = {
+  apero: 'linear-gradient(160deg,#fd2c82,#ff6aab)',
+  famille: 'linear-gradient(160deg,#ff9430,#ffb366)',
+  weekend: 'linear-gradient(160deg,#ff9430,#fd2c82)',
+  evenement: 'linear-gradient(160deg,#c9a87c,#e8c8a0)'
+};
+const STATUS_LABELS = { open: '✅ Ouvert', full: '🔴 Complet', draft: '📝 Brouillon', cancelled: '❌ Annulé' };
+const STATUS_CLASS = { open: 'badge-open', full: 'badge-full', draft: 'badge-draft', cancelled: 'badge-cancelled' };
+
+function renderList() {
+  const today = new Date().toISOString().split('T')[0];
+  let filtered = allEvents;
+
+  if (currentFilter === 'upcoming') {
+    filtered = allEvents.filter(e => e.status !== 'draft' && (!e.date || e.date >= today));
+  } else if (currentFilter === 'past') {
+    filtered = allEvents.filter(e => e.date && e.date < today);
+  } else if (currentFilter === 'draft') {
+    filtered = allEvents.filter(e => e.status === 'draft');
+  }
+
+  const container = document.getElementById('eventsList');
+  if (!filtered.length) {
+    container.innerHTML = `<div class="empty-state">
+      <div class="empty-icon">📅</div>
+      <div class="empty-title">Aucun événement ici</div>
+      <div class="empty-desc">Crée ton premier événement avec le bouton ci-dessus !</div>
+    </div>`;
+    return;
+  }
+
+  container.innerHTML = '<div class="events-list">' +
+    filtered.map(e => renderEventItem(e)).join('') +
+  '</div>';
+
+  // Boutons d'action
+  container.querySelectorAll('[data-action]').forEach(btn => {
+    btn.addEventListener('click', function(ev) {
+      ev.stopPropagation();
+      const id = parseInt(this.dataset.id);
+      const action = this.dataset.action;
+      if (action === 'edit') openModal(id);
+      else if (action === 'delete') openModal(id, true);
+      else if (action === 'status') quickStatus(id, this.dataset.status);
+    });
+  });
+
+  // Clic sur la carte = éditer
+  container.querySelectorAll('.evt-item').forEach(card => {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', function() {
+      openModal(parseInt(this.dataset.id));
+    });
+  });
+}
+
+function renderEventItem(e) {
+  const grad = TYPE_GRADIENTS[e.type] || TYPE_GRADIENTS.evenement;
+  let dateHtml;
+  if (e.date) {
+    const d = new Date(e.date + 'T00:00:00');
+    dateHtml = `<div class="edc-day">${d.getDate()}</div><div class="edc-month">${d.toLocaleDateString('fr-FR',{month:'short'}).replace('.','')}</div>`;
+  } else {
+    dateHtml = `<div class="edc-tba">À<br>venir</div>`;
+  }
+
+  const today = new Date().toISOString().split('T')[0];
+  const isPast = e.date && e.date < today;
+
+  let metaItems = [];
+  if (e.location) metaItems.push(`📍 ${e.location}`);
+  if (e.time_start && e.time_end) metaItems.push(`🕒 ${e.time_start}–${e.time_end}`);
+  if (e.price_display) metaItems.push(`💰 ${e.price_display}`);
+  if (e.stripe_link) metaItems.push(`<span style="color:#16a34a">✓ Stripe</span>`);
+
+  // Quick status buttons
+  const statusBtns = [];
+  if (e.status === 'open') statusBtns.push(`<button class="btn-action btn-full" data-action="status" data-status="full" data-id="${e.id}">Complet</button>`);
+  if (e.status === 'full') statusBtns.push(`<button class="btn-action btn-open" data-action="status" data-status="open" data-id="${e.id}">Ré-ouvrir</button>`);
+  if (e.status === 'draft') statusBtns.push(`<button class="btn-action btn-open" data-action="status" data-status="open" data-id="${e.id}">Publier</button>`);
+  statusBtns.push(`<button class="btn-action btn-edit" data-action="edit" data-id="${e.id}">Modifier</button>`);
+  statusBtns.push(`<button class="btn-action btn-delete" data-action="delete" data-id="${e.id}">Supprimer</button>`);
+
+  return `
+  <div class="evt-item" data-id="${e.id}" style="${isPast ? 'opacity:.55' : ''}">
+    <div class="evt-date-col" style="background:${grad}">${dateHtml}</div>
+    <div class="evt-info">
+      <div class="evt-top">
+        <span class="badge badge-${e.type}">${TYPE_LABELS[e.type] || e.type}</span>
+        <span class="badge ${STATUS_CLASS[e.status]}">${STATUS_LABELS[e.status]}</span>
+        ${isPast ? '<span class="badge" style="background:#f1f5f9;color:#94a3b8">Passé</span>' : ''}
+      </div>
+      <div class="evt-title-admin">${e.title}${e.subtitle ? '' : ''}</div>
+      ${e.subtitle ? `<div class="evt-subtitle-admin">${e.subtitle}</div>` : ''}
+      ${metaItems.length ? `<div class="evt-meta-admin">${metaItems.map(m=>`<span>${m}</span>`).join('')}</div>` : ''}
+    </div>
+    <div class="evt-actions">${statusBtns.join('')}</div>
+  </div>`;
+}
+
+// ── QUICK STATUS ──────────────────────────────────────
+async function quickStatus(id, newStatus) {
+  const evt = allEvents.find(e => e.id === id);
+  if (!evt) return;
+  try {
+    await fetch(WORKER + '/api/admin/events/' + id, {
+      method: 'PUT',
+      headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...evt, extra: evt.extra || {}, status: newStatus }),
+    });
+    evt.status = newStatus;
+    renderList();
+    showToast('Statut mis à jour ✦', 'success');
+  } catch { showToast('Erreur lors de la mise à jour', 'error'); }
+}
+
+// ── OPTIONS PAR TYPE ──────────────────────────────────
+const TYPE_OPTIONS = {
+  apero: [
+    { key: 'boisson',      label: '🍹 1 boisson offerte' },
+    { key: 'adultes_only', label: '🔞 Adultes uniquement' },
+  ],
+  famille: [
+    { key: 'sirop',             label: '🧃 Sirop pour l'enfant' },
+    { key: 'cafe_accompagnant', label: '☕ Café pour l'accompagnant' },
+  ],
+  weekend: [
+    { key: 'pension_complete',    label: '🏠 Pension complète incluse' },
+    { key: 'paiement_echelonne',  label: '💳 Paiement jusqu'à 5× sans frais' },
+  ],
+  evenement: [
+    { key: 'entree_libre', label: '🎟️ Entrée libre' },
+    { key: 'vendeurs',     label: '🛍️ Stands vendeurs (vide dressing)' },
+    { key: 'exposants',    label: '🎨 Exposants créateurs (marché)' },
+    { key: 'coming_soon',  label: '⏳ Infos à venir (bannière "bientôt")' },
+  ],
+};
+
+function buildOptions(type, currentExtra) {
+  const opts = TYPE_OPTIONS[type] || [];
+  const grid = document.getElementById('optionsGrid');
+  const section = document.getElementById('sectionOptions');
+  if (!opts.length) { section.style.display = 'none'; return; }
+  section.style.display = '';
+  grid.innerHTML = opts.map(o => `
+    <label class="opt-label ${currentExtra[o.key] ? 'checked' : ''}" data-key="${o.key}">
+      <input type="checkbox" value="${o.key}" ${currentExtra[o.key] ? 'checked' : ''}> ${o.label}
+    </label>
+  `).join('');
+  grid.querySelectorAll('.opt-label').forEach(lbl => {
+    lbl.querySelector('input').addEventListener('change', function() {
+      lbl.classList.toggle('checked', this.checked);
+    });
+  });
+}
+
+function getOptionsValues() {
+  const extra = {};
+  document.querySelectorAll('#optionsGrid input[type=checkbox]').forEach(cb => {
+    extra[cb.value] = cb.checked;
+  });
+  return extra;
+}
+
+// ── MODAL ────────────────────────────────────────────
+function openModal(id = null, showDelete = false) {
+  editingId = id;
+  const evt = id ? allEvents.find(e => e.id === id) : null;
+  const isNew = !evt;
+
+  document.getElementById('modalTitle').textContent = isNew ? 'Créer un événement' : 'Modifier l'événement';
+  document.getElementById('modalSub').textContent = isNew
+    ? 'Remplis les infos ci-dessous. Tu pourras modifier à tout moment.'
+    : 'Modifie les champs et clique sur Enregistrer.';
+
+  // Fill form
+  const type = evt ? evt.type : 'apero';
+  document.getElementById('fType').value = type;
+  document.getElementById('fTitle').value = evt ? evt.title : '';
+  document.getElementById('fSubtitle').value = evt ? evt.subtitle : '';
+  document.getElementById('fDescription').value = evt ? evt.description : '';
+  document.getElementById('fDate').value = evt?.date || '';
+  document.getElementById('fDateEnd').value = evt?.date_end || '';
+  document.getElementById('fTimeStart').value = evt?.time_start || '';
+  document.getElementById('fTimeEnd').value = evt?.time_end || '';
+  document.getElementById('fLocation').value = evt?.location || '';
+  document.getElementById('fPriceDisplay').value = evt?.price_display || '';
+  document.getElementById('fStripeLink').value = evt?.stripe_link || '';
+  document.getElementById('fStatus').value = evt?.status || 'open';
+
+  buildOptions(type, evt?.extra || {});
+  applyTypeUI(type);
+
+  // Delete button
+  document.getElementById('btnDeleteOpen').style.display = isNew ? 'none' : '';
+  document.getElementById('confirmBar').classList.remove('show');
+  if (showDelete) {
+    document.getElementById('confirmBar').classList.add('show');
+  }
+
+  // Save button label
+  document.getElementById('btnSave').textContent = isNew ? 'Publier l'événement ✦' : 'Enregistrer ✦';
+  document.getElementById('btnSave').disabled = false;
+
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  editingId = null;
+}
+
+// Type → UI changes
+function applyTypeUI(type) {
+  const subtitleRow = document.getElementById('rowSubtitle');
+  const dateEndRow = document.getElementById('rowDateEnd');
+  const titleLabel = document.getElementById('labelTitle');
+
+  if (type === 'apero') {
+    titleLabel.textContent = 'Titre';
+    document.getElementById('fTitle').value = document.getElementById('fTitle').value || 'Apéro Créatif';
+    document.getElementById('labelSubtitle').innerHTML = 'Thème de la soirée <span class="hint">— ex : Fabrication de magnets pour frigo</span>';
+    subtitleRow.style.display = '';
+    dateEndRow.style.display = 'none';
+  } else if (type === 'famille') {
+    document.getElementById('fTitle').value = document.getElementById('fTitle').value || 'Atelier Famille';
+    document.getElementById('labelSubtitle').innerHTML = 'Thème de l\'atelier <span class="hint">— ex : Fabrication de savon naturel</span>';
+    subtitleRow.style.display = '';
+    dateEndRow.style.display = 'none';
+  } else if (type === 'weekend') {
+    titleLabel.textContent = 'Titre du week-end';
+    document.getElementById('labelSubtitle').innerHTML = 'Sous-titre <span class="hint">— ex : Bien-être & Reconnexion</span>';
+    subtitleRow.style.display = '';
+    dateEndRow.style.display = '';
+  } else {
+    titleLabel.textContent = 'Titre de l\'événement';
+    document.getElementById('labelSubtitle').innerHTML = 'Sous-titre <span class="hint">— optionnel</span>';
+    subtitleRow.style.display = '';
+    dateEndRow.style.display = 'none';
+  }
+
+  buildOptions(type, getOptionsValues());
+}
+
+document.getElementById('fType').addEventListener('change', function() {
+  applyTypeUI(this.value);
+});
+
+// Save
+async function saveEvent(status) {
+  const type = document.getElementById('fType').value;
+  const payload = {
+    type,
+    title: document.getElementById('fTitle').value.trim(),
+    subtitle: document.getElementById('fSubtitle').value.trim(),
+    description: document.getElementById('fDescription').value.trim(),
+    date: document.getElementById('fDate').value || null,
+    date_end: document.getElementById('fDateEnd').value || null,
+    weekday: document.getElementById('fDate').value
+      ? new Date(document.getElementById('fDate').value + 'T00:00:00').toLocaleDateString('fr-FR', {weekday: 'long'}).charAt(0).toUpperCase() + new Date(document.getElementById('fDate').value + 'T00:00:00').toLocaleDateString('fr-FR', {weekday: 'long'}).slice(1)
+      : '',
+    time_start: document.getElementById('fTimeStart').value.trim(),
+    time_end: document.getElementById('fTimeEnd').value.trim(),
+    location: document.getElementById('fLocation').value.trim(),
+    price_display: document.getElementById('fPriceDisplay').value.trim(),
+    stripe_link: document.getElementById('fStripeLink').value.trim(),
+    status: status,
+    extra: getOptionsValues(),
+  };
+
+  if (!payload.title) {
+    document.getElementById('fTitle').focus();
+    showToast('Le titre est obligatoire', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('btnSave');
+  btn.disabled = true;
+  btn.textContent = 'Enregistrement…';
+
+  try {
+    const url = editingId
+      ? WORKER + '/api/admin/events/' + editingId
+      : WORKER + '/api/admin/events';
+    const method = editingId ? 'PUT' : 'POST';
+
+    await fetch(url, {
+      method,
+      headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    closeModal();
+    await loadEvents();
+    showToast(editingId ? 'Événement mis à jour ✦' : 'Événement créé ✦', 'success');
+  } catch {
+    showToast('Erreur lors de l'enregistrement', 'error');
+    btn.disabled = false;
+    btn.textContent = 'Enregistrer ✦';
+  }
+}
+
+async function deleteEvent() {
+  if (!editingId) return;
+  try {
+    await fetch(WORKER + '/api/admin/events/' + editingId, {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + token },
+    });
+    closeModal();
+    await loadEvents();
+    showToast('Événement supprimé', 'success');
+  } catch { showToast('Erreur lors de la suppression', 'error'); }
+}
+
+// ── EVENTS LISTENERS ──────────────────────────────────
+document.getElementById('btnCreate').addEventListener('click', () => openModal());
+document.getElementById('btnCancel').addEventListener('click', closeModal);
+document.getElementById('btnModalClose').addEventListener('click', closeModal);
+document.getElementById('btnSave').addEventListener('click', () => saveEvent(document.getElementById('fStatus').value));
+document.getElementById('btnSaveDraft').addEventListener('click', () => saveEvent('draft'));
+document.getElementById('btnDeleteOpen').addEventListener('click', () => document.getElementById('confirmBar').classList.toggle('show'));
+document.getElementById('btnConfirmDel').addEventListener('click', deleteEvent);
+document.getElementById('btnCancelDel').addEventListener('click', () => document.getElementById('confirmBar').classList.remove('show'));
+
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// Filter tabs
+document.getElementById('filterTabs').addEventListener('click', function(e) {
+  const tab = e.target.closest('.ftab');
+  if (!tab) return;
+  document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  currentFilter = tab.dataset.filter;
+  renderList();
+});
+
+// ── TOAST ────────────────────────────────────────────
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type + ' show';
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── INIT ─────────────────────────────────────────────
+loadEvents();
+</script>
+</body>
+</html>
