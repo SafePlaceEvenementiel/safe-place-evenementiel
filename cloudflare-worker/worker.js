@@ -67,7 +67,8 @@ export default {
     // ── CORS preflight ──
     if (request.method === 'OPTIONS') {
       const isAdmin = path.startsWith('/api/admin') || path === '/api/auth';
-      return new Response(null, { headers: corsHeaders(origin, isAdmin) });
+      const isPublicApi = path === '/api/events' || path === '/' || path === '/contact';
+      return new Response(null, { headers: corsHeaders(origin, isAdmin || isPublicApi) });
     }
 
     // ══════════════════════════════════════════
@@ -81,7 +82,7 @@ export default {
            CASE WHEN date IS NULL THEN 1 ELSE 0 END,
            date ASC`
       ).all();
-      return jsonRes(results.map(parseEventRow), 200, corsHeaders(origin));
+      return jsonRes(results.map(parseEventRow), 200, corsHeaders(origin, true));
     }
 
     // ══════════════════════════════════════════
