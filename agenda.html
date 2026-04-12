@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Agenda — Safe Place Événementiel</title>
+  <meta name="description" content="Tous les prochains événements Safe Place Événementiel : vide dressings, marchés de créateurs, ateliers, soirées et week-ends sur la Côte d'Opale. Réserve ta place en ligne.">
+  <meta property="og:title" content="Agenda — Safe Place Événementiel ✦">
+  <meta property="og:description" content="Vide dressings, marchés, ateliers créatifs, soirées de rencontres... Tous les prochains rendez-vous Safe Place.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://safeplaceevenementiel.fr/agenda.html">
+  <meta property="og:image" content="https://safeplaceevenementiel.fr/imgs/angela.jpg">
+  <meta property="og:locale" content="fr_FR">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://safeplaceevenementiel.fr/agenda.html">
+  <link rel="icon" type="image/png" href="Brand Board/Flavicon Safe Place Événementiel/favicon-32x32.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EventSeries",
+    "name": "Événements Safe Place Événementiel",
+    "url": "https://safeplaceevenementiel.fr/agenda.html",
+    "organizer": {
+      "@type": "Organization",
+      "name": "Safe Place Événementiel",
+      "email": "hello@safeplaceevenementiel.fr",
+      "url": "https://safeplaceevenementiel.fr"
+    }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;0,800;0,900;1,700;1,800;1,900&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --o:#ff9430; --od:#d97220; --ol:#ffb366; --op:#fff4ea;
+      --p:#fd2c82; --pd:#d91a6a; --pl:#ff6aab; --pp:#fff0f7;
+      --w:#ffffff; --bg:#fffaf6; --t:#1a0800; --ts:#7a3d1a;
+      --border:rgba(253,44,130,.14);
+      --shadow-sm:0 2px 12px rgba(0,0,0,.06);
+      --shadow-md:0 8px 32px rgba(0,0,0,.10);
+      --shadow-lg:0 20px 56px rgba(0,0,0,.14);
+      --radius-sm:14px; --radius-md:24px; --radius-lg:36px;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--t);overflow-x:hidden;font-size:15px;line-height:1.7;}
+    a{text-decoration:none;color:inherit;}
+    img{max-width:100%;display:block;}
+    button{font-family:inherit;cursor:pointer;border:none;}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+    @keyframes sparkle{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
+    .reveal{opacity:0;transform:translateY(28px);transition:all .65s cubic-bezier(.4,0,.2,1);}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+
+    /* ── NAV ── */
+    .nav{position:fixed;top:0;left:0;width:100%;z-index:500;height:72px;background:rgba(255,148,48,.97);backdrop-filter:blur(16px);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;padding:0 32px;box-shadow:0 4px 24px rgba(255,148,48,.35);transition:all .3s;}
+    .nav-logo{grid-column:2;display:flex;align-items:center;justify-content:center;}
+    .nav-badge{height:52px;width:auto;}
+    .nav-badge img{height:100%;width:auto;object-fit:contain;display:block;}
+    .nav-links-left,.nav-links-right{display:flex;align-items:center;gap:28px;list-style:none;white-space:nowrap;}
+    .nav-links-left{grid-column:1;justify-self:start;}
+    .nav-links-right{grid-column:3;justify-self:end;}
+    .nav-links-left a,.nav-links-right a{font-size:13px;font-weight:700;color:var(--p);letter-spacing:.06em;text-transform:uppercase;transition:color .2s;}
+    .nav-links-left a:hover,.nav-links-right a:hover{color:white;}
+    .nav-links-left a.active,.nav-links-right a.active{color:white;}
+    .nav-cta{background:var(--p);color:white!important;padding:10px 24px;border-radius:30px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 4px 16px rgba(253,44,130,.4);transition:all .25s;}
+    .nav-cta:hover{transform:translateY(-2px);}
+    .nav-burger{display:none;background:none;border:none;grid-column:3;justify-self:end;width:36px;height:36px;flex-direction:column;justify-content:center;align-items:center;gap:5px;}
+    .nav-burger span{display:block;width:22px;height:2px;background:var(--p);border-radius:2px;transition:all .3s;}
+    .nav-burger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+    .nav-burger.open span:nth-child(2){opacity:0;}
+    .nav-burger.open span:nth-child(3){transform:rotate(-45deg) translate(6px,-6px);}
+
+    /* ── UTILS ── */
+    .container{max-width:1120px;margin:0 auto;padding:0 24px;}
+    .section{padding:60px 0;}
+    .eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--p);display:inline-flex;align-items:center;gap:8px;margin-bottom:14px;}
+    .eyebrow::before{content:'✦';font-size:12px;}
+    .section-title{font-family:'Nunito',sans-serif;font-weight:900;font-style:italic;font-size:clamp(32px,4.5vw,52px);line-height:1.08;color:var(--t);margin-bottom:14px;}
+    .section-title .orange{color:var(--o);}
+    .section-title .pink{color:var(--p);}
+    .section-desc{font-size:16px;color:var(--ts);line-height:1.8;max-width:600px;margin-bottom:40px;}
+    .pink{color:var(--p);}
+    .orange{color:var(--o);}
+
+    /* ── HERO ── */
+    .page-hero{padding:110px 24px 64px;background:linear-gradient(160deg, var(--op) 0%, var(--pp) 100%);text-align:center;position:relative;overflow:hidden;}
+    .page-hero::before{content:'✦';position:absolute;top:18%;left:7%;font-size:36px;color:var(--ol);opacity:.5;animation:floaty 4s ease-in-out infinite;}
+    .page-hero::after{content:'✦';position:absolute;top:30%;right:9%;font-size:24px;color:var(--pl);opacity:.4;animation:floaty 5.5s ease-in-out infinite reverse;}
+    .hero-star-3{position:absolute;bottom:20%;left:20%;font-size:16px;color:var(--o);opacity:.3;animation:floaty 3.5s ease-in-out infinite 1s;}
+    .hero-star-4{position:absolute;bottom:30%;right:22%;font-size:20px;color:var(--p);opacity:.3;animation:floaty 6s ease-in-out infinite .5s;}
+    .page-hero-title{font-family:'Nunito',sans-serif;font-size:clamp(36px,5vw,64px);font-weight:900;line-height:1.1;margin-bottom:16px;animation:fadeUp .8s ease both;}
+    .page-hero-sub{font-size:18px;color:var(--ts);line-height:1.8;max-width:560px;margin:0 auto;animation:fadeUp .8s ease .15s both;}
+
+    /* ── PLANNING EVENT CARDS ── */
+    .events-timeline{display:flex;flex-direction:column;gap:20px;}
+    .evt-card{background:white;border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm);border:2px solid #f0dece;display:grid;grid-template-columns:110px 1fr;transition:transform .25s,box-shadow .25s;}
+    .evt-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.1);}
+    .evt-date-block{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 12px;color:white;text-align:center;}
+    .evt-day{font-family:'Nunito',sans-serif;font-weight:900;font-size:44px;line-height:1;}
+    .evt-month{font-family:'Nunito',sans-serif;font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.08em;opacity:.9;margin-top:2px;}
+    .evt-weekday{font-size:10px;font-weight:600;opacity:.65;letter-spacing:.06em;text-transform:uppercase;margin-top:6px;}
+    .evt-body{padding:24px 28px;display:flex;flex-direction:column;gap:8px;}
+    .evt-title{font-family:'Nunito',sans-serif;font-weight:900;font-style:italic;font-size:22px;color:var(--od);margin:0;}
+    .evt-desc{font-size:14px;color:var(--ts);line-height:1.55;margin:0;}
+    .evt-meta{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--ts);}
+    .evt-meta span{display:flex;align-items:center;gap:4px;}
+    .evt-audiences{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;padding-top:16px;border-top:2px dashed rgba(255,148,48,.15);}
+    .evt-audience{border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;}
+    .evt-aud-orange{background:var(--op);border:1.5px solid #f0d8b8;}
+    .evt-aud-rose{background:var(--pp);border:1.5px solid #f5cce0;}
+    .evt-aud-label{font-family:'Nunito',sans-serif;font-weight:900;font-size:13px;color:var(--od);}
+    .evt-aud-rose .evt-aud-label{color:var(--pd);}
+    .evt-aud-info{font-size:12px;color:var(--ts);line-height:1.45;flex:1;}
+    .evt-aud-cta{display:inline-block;color:white;border:none;border-radius:20px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;align-self:flex-start;transition:filter .2s;margin-top:auto;}
+    .evt-aud-cta:hover{filter:brightness(.88);color:white;}
+    .evt-aud-free{font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;color:#16a34a;margin-top:auto;}
+    .evt-coming-banner{display:flex;align-items:center;gap:12px;margin-top:6px;padding:14px 18px;background:var(--op);border:1.5px dashed var(--ol);border-radius:12px;font-size:13px;color:var(--od);flex-wrap:wrap;}
+    .evt-coming-banner > .ecb-icon{color:var(--o);font-size:16px;flex-shrink:0;}
+    .evt-coming-banner > .ecb-text{flex:1;min-width:200px;}
+    .evt-notify-btn{display:inline-block;background:var(--o);color:white;border-radius:20px;padding:7px 16px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;transition:background .2s;flex-shrink:0;}
+    .evt-notify-btn:hover{background:var(--od);color:white;}
+    .evt-card-multi{grid-template-columns:90px 1fr;}
+    .evt-dates-list{display:flex;flex-direction:column;gap:6px;margin-top:4px;}
+    .evt-date-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:12px;background:var(--bg);}
+    .edi-date{font-family:'Nunito',sans-serif;font-weight:800;font-style:italic;font-size:13px;color:var(--o);min-width:90px;flex-shrink:0;}
+    .edi-theme{font-size:13px;font-weight:600;color:var(--t);flex:1;}
+    .edi-cta{background:var(--p);color:white;border:none;border-radius:10px;padding:5px 13px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .2s;}
+    .edi-cta:hover{background:var(--pd);}
+    .edi-tba{font-size:12px;color:var(--ts);font-style:italic;}
+
+    /* ── MODAL RÉSERVATION ── */
+    .modal-overlay{display:none;position:fixed;inset:0;z-index:900;background:rgba(26,8,0,.55);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:20px;}
+    .modal-overlay.open{display:flex;}
+    .modal-box{background:var(--bg);border-radius:var(--radius-lg);max-width:540px;width:100%;box-shadow:var(--shadow-lg);animation:fadeUp .35s cubic-bezier(.4,0,.2,1);max-height:90vh;overflow-y:auto;}
+    .modal-header{background:linear-gradient(135deg,var(--o),var(--p));padding:28px 32px;position:relative;color:white;}
+    .modal-close{position:absolute;top:16px;right:20px;background:rgba(255,255,255,.2);border:none;color:white;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+    .modal-close:hover{background:rgba(255,255,255,.35);}
+    .modal-type{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.85;margin-bottom:6px;}
+    .modal-title{font-family:'Nunito',sans-serif;font-weight:900;font-style:italic;font-size:1.5rem;line-height:1.2;margin-bottom:4px;}
+    .modal-date{font-size:.9rem;opacity:.9;font-weight:600;}
+    .modal-body{padding:28px 32px;}
+    .modal-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+    .modal-pill{background:var(--op);color:var(--od);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;}
+    .modal-inclus{background:var(--pp);border-radius:var(--radius-sm);padding:16px 20px;margin-bottom:20px;}
+    .modal-inclus-title{font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;color:var(--pd);margin-bottom:10px;}
+    .modal-inclus ul{list-style:none;display:flex;flex-direction:column;gap:6px;}
+    .modal-inclus li{font-size:13px;color:var(--ts);padding-left:16px;position:relative;}
+    .modal-inclus li::before{content:'✦';position:absolute;left:0;color:var(--p);font-size:10px;top:3px;}
+    .modal-note{font-size:13px;color:var(--ts);line-height:1.6;margin-bottom:20px;font-style:italic;}
+    .modal-price{font-family:'Nunito',sans-serif;font-weight:900;font-size:2rem;color:var(--o);margin-bottom:20px;text-align:center;}
+    .modal-resa-form{background:var(--op);border-radius:var(--radius-sm);padding:20px;margin-bottom:16px;}
+    .modal-resa-label{font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;color:var(--od);margin-bottom:14px;}
+    .modal-resa-fields{display:flex;flex-direction:column;gap:10px;}
+    .modal-resa-fields input{width:100%;padding:10px 14px;border:2px solid rgba(122,61,26,.12);border-radius:var(--radius-sm);font-family:'Nunito Sans',sans-serif;font-size:14px;color:var(--t);background:white;outline:none;transition:border-color .2s;}
+    .modal-resa-fields input:focus{border-color:var(--p);}
+    .modal-resa-fields input.error{border-color:#dc2626;}
+    .modal-counter-row{display:flex;align-items:center;justify-content:space-between;background:white;padding:10px 14px;border-radius:var(--radius-sm);}
+    .modal-counter-label{font-size:13px;font-weight:600;color:var(--ts);}
+    .modal-counter-ctrl{display:flex;align-items:center;gap:12px;}
+    .modal-counter-btn{width:28px;height:28px;border-radius:50%;background:var(--op);color:var(--o);font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;transition:background .2s;}
+    .modal-counter-btn:hover{background:var(--ol);color:white;}
+    .modal-counter-val{font-family:'Nunito',sans-serif;font-weight:900;font-size:18px;color:var(--t);min-width:20px;text-align:center;}
+    .modal-resa-error{font-size:12px;color:#dc2626;margin-top:8px;display:none;}
+    .modal-resa-error.show{display:block;}
+    .btn-stripe{width:100%;padding:16px;background:linear-gradient(135deg,var(--o),var(--p));color:white;border:none;border-radius:30px;font-family:'Nunito',sans-serif;font-weight:900;font-size:16px;cursor:pointer;box-shadow:0 6px 24px rgba(253,44,130,.35);transition:all .25s;margin-bottom:10px;}
+    .btn-stripe:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(253,44,130,.45);}
+    .modal-secure{text-align:center;font-size:11px;color:var(--ts);opacity:.7;}
+
+    /* ── MODAL VENDEUR ── */
+    #vendeurModal.modal-overlay{background:rgba(26,8,0,.55);}
+    #vendeurModal .modal-box{padding:40px 36px;border-radius:28px;}
+    #vendeurModal .modal-close{position:absolute;top:18px;right:20px;background:none;border:none;font-size:20px;color:var(--ts);cursor:pointer;}
+    #vendeurModal .modal-icon{font-size:36px;margin-bottom:8px;}
+    #vendeurModal .modal-title{font-family:'Nunito',sans-serif;font-weight:900;font-style:italic;font-size:24px;color:var(--od);display:block;margin-bottom:4px;}
+    #vendeurModal .modal-subtitle{font-size:13px;color:var(--ts);display:block;margin-bottom:24px;font-weight:600;}
+    #vendeurModal .form-group{margin-bottom:16px;}
+    #vendeurModal .form-group label{display:block;font-size:13px;font-weight:700;color:var(--t);margin-bottom:6px;}
+    #vendeurModal .form-group input,
+    #vendeurModal .form-group select,
+    #vendeurModal .form-group textarea{width:100%;box-sizing:border-box;padding:11px 14px;border:2px solid #eed5ba;border-radius:12px;font-size:14px;font-family:'Nunito Sans',sans-serif;color:var(--t);background:var(--bg);transition:border-color .2s;}
+    #vendeurModal .form-group input:focus,
+    #vendeurModal .form-group select:focus,
+    #vendeurModal .form-group textarea:focus{outline:none;border-color:var(--o);}
+    #vendeurModal .form-group textarea{resize:vertical;min-height:80px;}
+    #vendeurModal .modal-submit{width:100%;padding:14px;background:linear-gradient(135deg,var(--o),var(--p));color:white;border:none;border-radius:20px;font-family:'Nunito',sans-serif;font-weight:900;font-size:16px;cursor:pointer;margin-top:8px;transition:filter .2s;}
+    #vendeurModal .modal-submit:hover{filter:brightness(.9);}
+
+    /* ── FOOTER ── */
+    .footer{background:var(--p);color:white;padding:64px 0 32px;}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+    .footer-brand{font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;margin-bottom:16px;}
+    .footer-desc{font-size:13px;opacity:.8;line-height:1.7;}
+    .footer-col h4{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;opacity:.6;margin-bottom:16px;}
+    .footer-col ul{list-style:none;}
+    .footer-col ul li{margin-bottom:8px;}
+    .footer-col ul li a{font-size:13px;opacity:.85;transition:opacity .2s;}
+    .footer-col ul li a:hover{opacity:1;}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.2);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12px;opacity:.7;}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:900px){
+      .footer-grid{grid-template-columns:1fr 1fr;}
+    }
+    @media(max-width:640px){
+      .nav-links-left,.nav-links-right{display:none;}
+      .nav-burger{display:flex;}
+      .nav{grid-template-columns:auto 1fr auto;}
+      .nav-logo{grid-column:2;justify-self:center;}
+      .evt-card{grid-template-columns:80px 1fr;}
+      .evt-day{font-size:32px;}
+      .evt-body{padding:16px;}
+      .evt-title{font-size:18px;}
+      .evt-audiences{grid-template-columns:1fr;}
+      .evt-coming-banner{flex-direction:column;align-items:flex-start;}
+      .evt-card-multi{grid-template-columns:70px 1fr;}
+      .edi-date{min-width:72px;}
+      .footer{padding:16px 0 12px;}
+      .footer-grid{grid-template-columns:1fr;gap:0;margin-bottom:8px;}
+      .footer-brand-wrap{display:none;}
+      .footer-col{border-bottom:1px solid rgba(255,255,255,.12);}
+      .footer-col h4{display:flex;justify-content:space-between;align-items:center;cursor:pointer;padding:10px 0;margin-bottom:0;user-select:none;font-size:10px;}
+      .footer-col h4::after{content:'+';font-size:18px;font-weight:300;transition:transform .3s;}
+      .footer-col.open h4::after{content:'−';}
+      .footer-col ul{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s;padding:0;}
+      .footer-col.open ul{max-height:200px;padding-bottom:10px;}
+      .footer-bottom{flex-direction:column;text-align:center;gap:4px;font-size:10px;padding-top:12px;}
+    }
+
+    /* ── MENU MOBILE ── */
+    .mobile-menu{display:none;position:fixed;top:72px;left:0;width:100%;bottom:0;background:var(--o);padding:32px 24px;flex-direction:column;gap:0;z-index:1000;visibility:hidden;opacity:0;pointer-events:none;transform:translateY(-8px);transition:visibility 0s .35s,opacity .35s cubic-bezier(.4,0,.2,1),transform .35s cubic-bezier(.4,0,.2,1);}
+    .mobile-menu.open{visibility:visible;opacity:1;pointer-events:auto;transform:translateY(0);transition-delay:0s;}
+    @media(max-width:900px){.mobile-menu{display:flex;}}
+    .mobile-menu a{display:block;padding:18px 0;font-family:'Nunito',sans-serif;font-weight:800;font-style:italic;font-size:22px;color:var(--p);border-bottom:2px solid rgba(253,44,130,.15);transition:color .2s;}
+    .mobile-menu a:last-child{border-bottom:none;}
+    .mobile-menu a:hover{color:white;}
+    .mobile-menu .mobile-cta{margin-top:24px;text-align:center;background:var(--p);color:white;padding:16px;border-radius:20px;font-size:16px;font-weight:800;box-shadow:0 6px 24px rgba(253,44,130,.4);}
+    @media(max-width:768px){.section{padding:48px 20px !important;}}
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <ul class="nav-links-left">
+    <li><a href="index.html#formats">Événements</a></li>
+    <li><a href="agenda.html" class="active">Agenda</a></li>
+    <li><a href="a-propos.html">À propos</a></li>
+  </ul>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-badge"><img src="Brand Board/Logo Long Safe Place Evenementiel/LOGO_Long_SPE_Rose.png" alt="Safe Place Événementiel"></div>
+  </a>
+  <ul class="nav-links-right">
+    <li><a href="collaborateurs.html">Collaborateurs</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="agenda.html" class="nav-cta">✦ Réserver</a></li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#formats">Événements</a>
+  <a href="agenda.html">Agenda</a>
+  <a href="a-propos.html">À propos</a>
+  <a href="collaborateurs.html">Collaborateurs</a>
+  <a href="contact.html">Contact</a>
+  <a href="agenda.html" class="mobile-cta">✦ Réserver ma place</a>
+</div>
+
+<!-- HERO -->
+<section class="page-hero">
+  <span class="hero-star-3">✦</span>
+  <span class="hero-star-4">✦</span>
+  <h1 class="page-hero-title"><span class="orange">Tous les</span> <span class="pink">prochains événements</span> <span class="pink">✦</span></h1>
+  <p class="page-hero-sub">Vide dressings, marchés de créateurs, ateliers, soirées de rencontres… Trouve le rendez-vous qui te ressemble.</p>
+</section>
+
+<!-- PLANNING COMPLET -->
+<section class="section" style="padding-top:48px;">
+  <div class="container">
+    <div class="events-timeline">
+
+      <!-- Vide Dressing -->
+      <div class="evt-card reveal">
+        <div class="evt-date-block" style="background:linear-gradient(160deg,var(--o),var(--ol))">
+          <div class="evt-day">19</div>
+          <div class="evt-month">Avr.</div>
+          <div class="evt-weekday">Dimanche</div>
+        </div>
+        <div class="evt-body">
+          <div class="evt-title">Vide Dressing ✦</div>
+          <div class="evt-desc">Un grand vide dressing convivial pour chiner de belles pièces et faire de bonnes affaires. Stands de vente et dépôts-ventes — pour repartir avec des trésors ou vider ses placards avec le sourire.</div>
+          <div class="evt-meta">
+            <span>📍 Lieu à confirmer</span>
+            <span>🕒 Horaires à venir</span>
+          </div>
+          <div class="evt-audiences">
+            <div class="evt-audience evt-aud-orange">
+              <div class="evt-aud-label">🛍️ Tu veux vendre ?</div>
+              <div class="evt-aud-info">Location d'un espace stand ou dépôt-vente disponible. Places limitées — réserve le tien avant qu'ils partent !</div>
+              <button class="evt-aud-cta" style="background:var(--o)" onclick="document.getElementById('vendeurModal').style.display='flex'">Je réserve mon espace →</button>
+            </div>
+            <div class="evt-audience evt-aud-rose">
+              <div class="evt-aud-label">👗 Tu veux chiner ?</div>
+              <div class="evt-aud-info">Entrée libre et gratuite — viens faire de bonnes affaires et passer un moment convivial !</div>
+              <div class="evt-aud-free">Entrée libre ✦</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Apéros Créatifs -->
+      <div class="evt-card evt-card-multi reveal" style="transition-delay:.1s">
+        <div class="evt-date-block" style="background:linear-gradient(160deg,var(--p),var(--pl))">
+          <div style="font-size:30px">🎨</div>
+          <div class="evt-month" style="margin-top:6px">Apéros</div>
+          <div class="evt-weekday">Créatifs</div>
+        </div>
+        <div class="evt-body">
+          <div class="evt-title">Apéros Créatifs ✦</div>
+          <div class="evt-desc">Un verre, une création, de belles rencontres — 24€ / personne · La Kabane de la Plage, Boulogne-sur-Mer · Adultes uniquement · 19h–21h</div>
+          <div class="evt-dates-list">
+            <div class="evt-date-item">
+              <span class="edi-date">Mer. 22 avr.</span>
+              <span class="edi-theme">Fabrication magnets pour frigo</span>
+              <button class="edi-cta" onclick="openModal('apero','Mer. 22 avr.','Fabrication magnets pour frigo')">Réserver</button>
+            </div>
+            <div class="evt-date-item">
+              <span class="edi-date">Mer. 6 mai</span>
+              <span class="edi-theme">Personnalisation miroir</span>
+              <button class="edi-cta" onclick="openModal('apero','Mer. 6 mai','Personnalisation miroir')">Réserver</button>
+            </div>
+            <div class="evt-date-item">
+              <span class="edi-date">Mer. 20 mai</span>
+              <span class="edi-theme">Personnalisation planche apéro</span>
+              <button class="edi-cta" onclick="openModal('apero','Mer. 20 mai','Personnalisation planche apéro')">Réserver</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ateliers Famille -->
+      <div class="evt-card evt-card-multi reveal" style="transition-delay:.15s">
+        <div class="evt-date-block" style="background:linear-gradient(160deg,var(--o),var(--ol))">
+          <div style="font-size:30px">👨‍👩‍👧</div>
+          <div class="evt-month" style="margin-top:6px">Ateliers</div>
+          <div class="evt-weekday">Famille</div>
+        </div>
+        <div class="evt-body">
+          <div class="evt-title">Ateliers Famille ✦</div>
+          <div class="evt-desc">Un moment créatif en famille — 19€ / enfant, accompagnants gratuits · La Kabane de la Plage, Boulogne-sur-Mer · 15h–16h30</div>
+          <div class="evt-dates-list">
+            <div class="evt-date-item">
+              <span class="edi-date">Prochaines dates</span>
+              <span class="edi-tba">Bientôt annoncées — inscris-toi à la newsletter pour ne rien manquer ✦</span>
+              <a href="index.html#newsletter" class="edi-cta">Newsletter</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Marché des Créateurs -->
+      <div class="evt-card reveal" style="transition-delay:.2s">
+        <div class="evt-date-block" style="background:linear-gradient(160deg,var(--p),var(--pl))">
+          <div class="evt-day">17</div>
+          <div class="evt-month">Mai</div>
+          <div class="evt-weekday">Dimanche</div>
+        </div>
+        <div class="evt-body">
+          <div class="evt-title">Marché des Créateurs ✦</div>
+          <div class="evt-desc">Un marché convivial qui met à l'honneur les artisans et créateurs locaux. Créations uniques, art de vivre, savoir-faire — viens les découvrir et les soutenir.</div>
+          <div class="evt-meta">
+            <span>📍 La Kabane de la Plage — Promenade San Martin, Boulogne-sur-Mer</span>
+          </div>
+          <div class="evt-audiences">
+            <div class="evt-audience evt-aud-rose">
+              <div class="evt-aud-label">🎨 Tu crées, tu veux exposer ?</div>
+              <div class="evt-aud-info">Dépose ta candidature — Angela sélectionne les exposants avec soin pour garantir une belle diversité et une ambiance Safe Place.</div>
+              <a href="contact.html#candidature" class="evt-aud-cta" style="background:var(--p)">Candidater comme exposant →</a>
+            </div>
+            <div class="evt-audience evt-aud-orange">
+              <div class="evt-aud-label">🛒 Tu veux venir découvrir ?</div>
+              <div class="evt-aud-info">Entrée libre et gratuite — viens soutenir les créateurs locaux et repartir avec des pièces uniques !</div>
+              <div class="evt-aud-free">Entrée libre ✦</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rencontre ton Praticien -->
+      <div class="evt-card reveal" style="transition-delay:.25s">
+        <div class="evt-date-block" style="background:linear-gradient(160deg,#6366f1,#8b5cf6)">
+          <div class="evt-day">14</div>
+          <div class="evt-month">Jun.</div>
+          <div class="evt-weekday">Dimanche</div>
+        </div>
+        <div class="evt-body">
+          <div class="evt-title">Rencontre ton Praticien ✦</div>
+          <div class="evt-desc">Un salon du bien-être pour découvrir des praticiens locaux et leurs disciplines — massage, méditation, médecine douce, accompagnement... Viens explorer à ton rythme dans un cadre doux et bienveillant.</div>
+          <div class="evt-meta">
+            <span>📍 Lieu à venir</span>
+          </div>
+          <div class="evt-coming-banner">
+            <span class="ecb-icon">✦</span>
+            <span class="ecb-text">Infos, tarifs et modalités à venir — inscris-toi à la newsletter pour être la première prévenue !</span>
+            <a href="index.html#newsletter" class="evt-notify-btn">Me tenir informée</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- La Tablée -->
+      <div class="evt-card reveal" style="transition-delay:.3s">
+        <div class="evt-date-block" style="background:linear-gradient(160deg,var(--o),var(--p))">
+          <div class="evt-day">26</div>
+          <div class="evt-month">Jun.</div>
+          <div class="evt-weekday">Vendredi</div>
+        </div>
+        <div class="evt-body">
+          <div class="evt-title">La Tablée ✦</div>
+          <div class="evt-desc">Un repas entre inconnus pour créer de vraies rencontres — bonne cuisine, mini jeux et défis pour briser la glace et repartir avec de nouveaux amis. Parce que se faire des amis, ça s'organise.</div>
+          <div class="evt-meta">
+            <span>📍 Lieu à venir</span>
+            <span>💰 Prix à venir</span>
+          </div>
+          <div class="evt-coming-banner">
+            <span class="ecb-icon">✦</span>
+            <span class="ecb-text">Places limitées — inscris-toi à la newsletter pour être prévenue en avant-première !</span>
+            <a href="index.html#newsletter" class="evt-notify-btn">Me tenir informée</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand-wrap">
+        <div class="footer-brand">Safe Place ✦ Événementiel</div>
+        <p class="footer-desc">Des espaces bienveillants pour créer, partager et s'épanouir. Ateliers créatifs, moments en famille & week-ends bien-être sur la Côte d'Opale.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Événements</h4>
+        <ul>
+          <li><a href="index.html#formats">Apéros Créatifs</a></li>
+          <li><a href="index.html#formats">Ateliers Famille</a></li>
+          <li><a href="index.html#formats">Week-Ends & Retraites</a></li>
+          <li><a href="agenda.html">Agenda complet</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Safe Place</h4>
+        <ul>
+          <li><a href="a-propos.html">À propos</a></li>
+          <li><a href="collaborateurs.html">Collaborateurs</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://instagram.com/safeplaceevenementiel" target="_blank" rel="noopener">@safeplaceevenementiel</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <ul>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+          <li><a href="cgv.html">Conditions générales</a></li>
+          <li><a href="remboursement.html">Politique de remboursement</a></li>
+          <li><a href="confidentialite.html">Confidentialité</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Safe Place Événementiel · Tous droits réservés</span>
+      <span>🔒 Paiement sécurisé Stripe</span>
+      <span>Fait avec ✦ à Boulogne-sur-Mer</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ MODAL RÉSERVATION ══ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeModal()" aria-label="Fermer">✕</button>
+      <div class="modal-type" id="modalType"></div>
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-date" id="modalDate"></div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-pills" id="modalPills"></div>
+      <div class="modal-inclus"><div class="modal-inclus-title">✦ Inclus dans le tarif</div><ul id="modalInclus"></ul></div>
+      <p class="modal-note" id="modalNote"></p>
+      <div class="modal-price" id="modalPrice"></div>
+      <div class="modal-resa-form" id="modalResaForm">
+        <p class="modal-resa-label">✦ Pour finaliser ta réservation</p>
+        <div class="modal-resa-fields">
+          <input type="text" id="modalPrenom" placeholder="Ton prénom *" autocomplete="given-name">
+          <input type="email" id="modalEmail" placeholder="Ton adresse email *" autocomplete="email">
+          <input type="tel" id="modalTel" placeholder="Ton téléphone *" autocomplete="tel">
+          <div class="modal-counter-row" id="modalPartsRow">
+            <span class="modal-counter-label" id="modalPartsLabel">Nombre de participants</span>
+            <div class="modal-counter-ctrl">
+              <button type="button" class="modal-counter-btn" onclick="changeModalParts(-1)">−</button>
+              <span class="modal-counter-val" id="modalPartsCount">1</span>
+              <button type="button" class="modal-counter-btn" onclick="changeModalParts(1)">+</button>
+            </div>
+          </div>
+          <div class="modal-counter-row" id="modalAccompRow" style="display:none">
+            <span class="modal-counter-label">Nombre d'accompagnants</span>
+            <div class="modal-counter-ctrl">
+              <button type="button" class="modal-counter-btn" onclick="changeModalAccomp(-1)">−</button>
+              <span class="modal-counter-val" id="modalAccompCount">1</span>
+              <button type="button" class="modal-counter-btn" onclick="changeModalAccomp(1)">+</button>
+            </div>
+          </div>
+        </div>
+        <p class="modal-resa-error" id="modalResaError"></p>
+      </div>
+      <button class="btn-stripe" id="modalStripeBtn" onclick="submitModalResa()">✦ Réserver & payer ma place</button>
+      <p class="modal-secure">🔒 Paiement sécurisé via Stripe · Remboursement sous 48h si annulation</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL VENDEUR VIDE DRESSING ══ -->
+<div id="vendeurModal" class="modal-overlay" style="display:none" onclick="if(event.target===this)this.style.display='none'">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('vendeurModal').style.display='none'">✕</button>
+    <div class="modal-icon">🛍️</div>
+    <span class="modal-title">Réserver mon espace vendeur</span>
+    <span class="modal-subtitle">Vide Dressing · Dimanche 19 Avril 2026</span>
+    <form id="vendeurForm">
+      <div class="form-group">
+        <label>Prénom et nom *</label>
+        <input type="text" name="nom" required placeholder="Marie Dupont">
+      </div>
+      <div class="form-group">
+        <label>Email *</label>
+        <input type="email" name="email" required placeholder="marie@exemple.fr">
+      </div>
+      <div class="form-group">
+        <label>Téléphone</label>
+        <input type="tel" name="telephone" placeholder="06 XX XX XX XX">
+      </div>
+      <div class="form-group">
+        <label>Type de participation *</label>
+        <select name="type" required>
+          <option value="">Choisir...</option>
+          <option value="stand">Stand de vente — je gère mes ventes moi-même</option>
+          <option value="depot">Dépôt-vente — Safe Place vend pour moi</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Ce que tu vends *</label>
+        <textarea name="articles" required placeholder="Décris les types d'articles (vêtements, accessoires, déco, etc.) et une estimation du nombre de pièces." rows="3"></textarea>
+      </div>
+      <button type="submit" class="modal-submit" id="vendeurSubmitBtn">Envoyer ma demande ✦</button>
+    </form>
+    <div id="vendeurSuccess" style="display:none;text-align:center;padding:24px 0">
+      <div style="font-size:40px;margin-bottom:12px">✦</div>
+      <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:20px;color:var(--od);margin-bottom:8px">Demande envoyée !</div>
+      <div style="color:var(--ts);font-size:14px;line-height:1.6">Angela reviendra vers toi très vite pour confirmer ton espace et les modalités de paiement.<br>À très bientôt ✦</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Reveal */
+var obs = new IntersectionObserver(function(e){
+  e.forEach(function(el){ if(el.isIntersecting) el.target.classList.add('visible'); });
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+
+/* Burger */
+var burger = document.getElementById('burger');
+var mobileMenu = document.getElementById('mobileMenu');
+if(burger && mobileMenu) {
+  burger.addEventListener('click', function() {
+    burger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    if(mobileMenu.classList.contains('open')) {
+      var sy = window.scrollY;
+      document.body.dataset.scrollY = sy;
+      document.body.style.position = 'fixed';
+      document.body.style.top = '-' + sy + 'px';
+      document.body.style.width = '100%';
+    } else {
+      var scrollY = document.body.dataset.scrollY || '0';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      window.scrollTo(0, parseInt(scrollY));
+    }
+  });
+}
+
+/* Modal réservation */
+var MODAL_DATA = {
+  apero: {
+    type: "🎨 Apéro Créatif · Adultes",
+    pills: ["🕖 19h00 – 21h00", "📍 La Kabane de la Plage, Boulogne-sur-Mer", "👤 Adultes uniquement"],
+    inclus: ["Matériel créatif fourni", "1 boisson offerte (parmi une sélection)", "Animation & accompagnement"],
+    note: "Chaque apéro est une expérience différente — une thématique, une pratique créative, un temps pour soi et pour les échanges. Aucune expérience requise.",
+    price: "24€ <small>/ personne</small>",
+    stripeLinks: {
+      "Mer. 22 avr.": "https://buy.stripe.com/REMPLACER_LIEN_22AVRIL",
+      "Mer. 6 mai": "https://buy.stripe.com/REMPLACER_LIEN_6MAI",
+      "Mer. 20 mai": "https://buy.stripe.com/REMPLACER_LIEN_20MAI"
+    }
+  },
+  famille: {
+    type: "👨‍👩‍👧 Atelier Famille",
+    pills: ["🕒 15h00 – 16h30", "📍 La Kabane de la Plage, Boulogne-sur-Mer", "👶 Enfants + accompagnants"],
+    inclus: ["Matériel créatif fourni", "1 sirop à l'eau pour l'enfant", "1 café offert pour l'accompagnant", "Accompagnants gratuits (1 à 2 par enfant)"],
+    note: "Un moment créatif et joyeux à partager en famille. Le tarif est par enfant. Chaque enfant peut être accompagné de 1 à 2 adultes, inclus gratuitement.",
+    price: "19€ <small>/ enfant · accompagnants gratuits</small>",
+    stripeLinks: {}
+  }
+};
+var _modalStripeLink = '#', _modalEventLabel = '', _modalType = '', _modalParts = 1, _modalAccomp = 1;
+function changeModalParts(d){ _modalParts = Math.max(1, _modalParts + d); document.getElementById('modalPartsCount').textContent = _modalParts; }
+function changeModalAccomp(d){ _modalAccomp = Math.max(0, Math.min(2, _modalAccomp + d)); document.getElementById('modalAccompCount').textContent = _modalAccomp; }
+function openModal(type, date, theme) {
+  var d = MODAL_DATA[type]; _modalType = type; _modalParts = 1; _modalAccomp = 1;
+  document.getElementById('modalType').textContent = d.type;
+  document.getElementById('modalTitle').textContent = theme;
+  document.getElementById('modalDate').textContent = '📅 ' + date;
+  document.getElementById('modalPills').innerHTML = d.pills.map(function(p){ return '<span class="modal-pill">'+p+'</span>'; }).join('');
+  document.getElementById('modalInclus').innerHTML = d.inclus.map(function(i){ return '<li>'+i+'</li>'; }).join('');
+  document.getElementById('modalNote').textContent = d.note;
+  document.getElementById('modalPrice').innerHTML = d.price;
+  _modalStripeLink = (d.stripeLinks && d.stripeLinks[date]) ? d.stripeLinks[date] : '#';
+  _modalEventLabel = theme + ' — ' + date;
+  document.getElementById('modalPartsLabel').textContent = type === 'famille' ? "Nombre d'enfants" : 'Nombre de participants';
+  document.getElementById('modalPartsCount').textContent = 1;
+  document.getElementById('modalAccompCount').textContent = 1;
+  document.getElementById('modalAccompRow').style.display = type === 'famille' ? 'flex' : 'none';
+  ['modalPrenom','modalEmail','modalTel'].forEach(function(id){ document.getElementById(id).value = ''; document.getElementById(id).classList.remove('error'); });
+  document.getElementById('modalResaError').classList.remove('show');
+  var btn = document.getElementById('modalStripeBtn'); btn.textContent = '✦ Réserver & payer ma place'; btn.disabled = false;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function submitModalResa() {
+  var prenom = document.getElementById('modalPrenom').value.trim();
+  var email = document.getElementById('modalEmail').value.trim();
+  var tel = document.getElementById('modalTel').value.trim();
+  var errEl = document.getElementById('modalResaError');
+  ['modalPrenom','modalEmail','modalTel'].forEach(function(id){ document.getElementById(id).classList.remove('error'); });
+  errEl.classList.remove('show');
+  if(!prenom){ document.getElementById('modalPrenom').classList.add('error'); errEl.textContent = "Merci d'indiquer ton prénom."; errEl.classList.add('show'); return; }
+  if(!email||!email.includes('@')){ document.getElementById('modalEmail').classList.add('error'); errEl.textContent = 'Merci d\'indiquer une adresse email valide.'; errEl.classList.add('show'); return; }
+  if(!tel){ document.getElementById('modalTel').classList.add('error'); errEl.textContent = 'Merci d\'indiquer ton téléphone.'; errEl.classList.add('show'); return; }
+  var btn = document.getElementById('modalStripeBtn'); btn.textContent = '⏳ Préparation…'; btn.disabled = true;
+  fetch('https://safe-place-evenementiel.projets-b86.workers.dev', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ sender:{name:'Angela — Safe Place Événementiel',email:'projets@safeplaceevenementiel.fr'}, to:[{email:email,name:prenom}], templateId:4, params:{PRENOM:prenom,NOM_EVENEMENT:_modalEventLabel,TYPE_PARTS:_modalType==='famille'?"Enfant(s)":'Participant(s)',NB_PARTS:_modalParts,ACCOMP_LIGNE:_modalType==='famille'?'<tr><td style="padding:5px 0;color:#7a3d1a;font-weight:700">Accompagnant(s)</td><td style="padding:5px 0">'+_modalAccomp+'</td></tr>':''} }) }).catch(function(){});
+  fetch('https://safe-place-evenementiel.projets-b86.workers.dev', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ sender:{name:'Safe Place Événementiel',email:'projets@safeplaceevenementiel.fr'}, to:[{email:'hello@safeplaceevenementiel.fr',name:'Angela'},{email:'projets@safeplaceevenementiel.fr',name:'Thiffany'}], replyTo:{email:email,name:prenom}, templateId:5, params:{PRENOM:prenom,EMAIL:email,TEL:tel,NOM_EVENEMENT:_modalEventLabel,TYPE_PARTS:_modalType==='famille'?"Enfant(s)":'Participant(s)',NB_PARTS:_modalParts,ACCOMP_LIGNE:_modalType==='famille'?'<tr><td style="padding:8px;color:#7a3d1a;font-weight:700">Accompagnant(s)</td><td style="padding:8px">'+_modalAccomp+'</td></tr>':''} }) }).catch(function(){});
+  setTimeout(function(){ if(_modalStripeLink!=='#'){ window.open(_modalStripeLink+'?prefilled_email='+encodeURIComponent(email)+'&quantity='+_modalParts,'_blank'); } btn.textContent='✦ Réserver & payer ma place'; btn.disabled=false; },800);
+}
+function closeModal(){ document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow=''; }
+function closeModalOutside(e){ if(e.target===document.getElementById('modalOverlay')) closeModal(); }
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
+
+/* Modal vendeur */
+(function(){
+  var form = document.getElementById('vendeurForm');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var btn = document.getElementById('vendeurSubmitBtn'); btn.disabled = true; btn.textContent = 'Envoi en cours...';
+    var data = Object.fromEntries(new FormData(form));
+    fetch('https://safe-place-evenementiel.projets-b86.workers.dev', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ type:'vendeur-vide-dressing', nom:data.nom, email:data.email, telephone:data.telephone||'—', typeParticipation:data.type, articles:data.articles }) })
+    .then(function(){ showVendeurSuccess(); }).catch(function(){ showVendeurSuccess(); });
+  });
+  function showVendeurSuccess(){ document.getElementById('vendeurForm').style.display='none'; document.getElementById('vendeurSuccess').style.display='block'; }
+})();
+
+/* Footer accordion mobile */
+document.querySelectorAll('.footer-col h4').forEach(function(h){
+  h.addEventListener('click', function(){ h.closest('.footer-col').classList.toggle('open'); });
+});
+</script>
+</body>
+</html>

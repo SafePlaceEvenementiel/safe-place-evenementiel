@@ -1047,7 +1047,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
 <nav class="nav" id="nav">
   <ul class="nav-links-left">
     <li><a href="#formats">Événements</a></li>
-    <li><a href="#planning">Planning</a></li>
+    <li><a href="agenda.html">Agenda</a></li>
     <li><a href="a-propos.html">À propos</a></li>
   </ul>
   <a href="index.html" class="nav-logo">
@@ -1056,7 +1056,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
   <ul class="nav-links-right">
     <li><a href="collaborateurs.html">Collaborateurs</a></li>
     <li><a href="contact.html">Contact</a></li>
-    <li><a href="#planning" class="nav-cta">✦ Réserver</a></li>
+    <li><a href="agenda.html" class="nav-cta">✦ Réserver</a></li>
   </ul>
   <button class="nav-burger" id="burger" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -1066,11 +1066,11 @@ button { font-family: inherit; cursor: pointer; border: none; }
 <!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="#formats" onclick="closeMenu()">Événements</a>
-  <a href="#planning" onclick="closeMenu()">Planning</a>
+  <a href="agenda.html" onclick="closeMenu()">Agenda</a>
   <a href="a-propos.html">À propos</a>
   <a href="collaborateurs.html">Collaborateurs</a>
   <a href="contact.html">Contact</a>
-  <a href="#planning" class="mobile-cta" onclick="closeMenu()">✦ Réserver ma place</a>
+  <a href="agenda.html" class="mobile-cta" onclick="closeMenu()">✦ Réserver ma place</a>
 </div>
 
 <!-- ════════════════════════════════════════
@@ -1096,7 +1096,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
       conçus pour te reconnecter à toi-même et aux autres. Bienvenue dans ta Safe Place&nbsp;✦
     </p>
     <div class="hero-actions">
-      <a href="#planning" class="btn-primary">Voir les prochaines dates ✦</a>
+      <a href="agenda.html" class="btn-primary">Voir les prochaines dates ✦</a>
     </div>
     <div class="hero-stats">
       <div>
@@ -1167,7 +1167,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
           </div>
           <div class="format-footer">
             <div class="format-price">24€ <small>/ personne</small></div>
-            <a href="#planning" class="btn-resa">Réserver ✦</a>
+            <a href="agenda.html" class="btn-resa">Réserver ✦</a>
           </div>
         </div>
       </div>
@@ -1188,7 +1188,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
           </div>
           <div class="format-footer">
             <div class="format-price">19€ <small>/ enfant</small></div>
-            <a href="#planning" class="btn-resa">Réserver ✦</a>
+            <a href="agenda.html" class="btn-resa">Réserver ✦</a>
           </div>
         </div>
       </div>
@@ -1232,7 +1232,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
           </div>
           <div class="format-footer">
             <div class="format-price" style="font-size:18px;font-style:italic;color:var(--ts)">Selon l'événement</div>
-            <a href="#planning" class="btn-resa">Voir les dates ✦</a>
+            <a href="agenda.html" class="btn-resa">Voir les dates ✦</a>
           </div>
         </div>
       </div>
@@ -1249,7 +1249,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
     <div style="text-align:center;margin-bottom:48px">
       <div class="eyebrow reveal">Agenda</div>
       <h2 class="section-title reveal"><span class="pink">Les</span> <span class="orange">prochains rendez-vous</span> <span class="pink">✦</span></h2>
-      <p class="section-desc reveal" style="margin:0 auto">Quatre événements à venir — chacun unique, chacun une occasion de se retrouver.</p>
+      <p class="section-desc reveal" style="margin:0 auto">Un aperçu de ce qui t'attend — retrouve tous les événements sur la page agenda.</p>
     </div>
 
     <div class="events-timeline">
@@ -1313,26 +1313,6 @@ button { font-family: inherit; cursor: pointer; border: none; }
         </div>
       </div>
 
-      <!-- Ateliers Famille -->
-      <div class="evt-card evt-card-multi reveal" style="transition-delay:.15s">
-        <div class="evt-date-block" style="background:linear-gradient(160deg,var(--o),var(--ol))">
-          <div style="font-size:30px">👨‍👩‍👧</div>
-          <div class="evt-month" style="margin-top:6px">Ateliers</div>
-          <div class="evt-weekday">Famille</div>
-        </div>
-        <div class="evt-body">
-          <div class="evt-title">Ateliers Famille ✦</div>
-          <div class="evt-desc">Un moment créatif en famille — 19€ / enfant, accompagnants gratuits · La Kabane de la Plage, Boulogne-sur-Mer · 15h–16h30</div>
-          <div class="evt-dates-list">
-            <div class="evt-date-item">
-              <span class="edi-date">Prochaines dates</span>
-              <span class="edi-tba">Bientôt annoncées — inscris-toi à la newsletter pour ne rien manquer ✦</span>
-              <a href="#newsletter" class="edi-cta">Newsletter</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- Marché des Créateurs -->
       <div class="evt-card reveal" style="transition-delay:.1s">
         <div class="evt-date-block" style="background:linear-gradient(160deg,var(--p),var(--pl))">
@@ -1361,50 +1341,14 @@ button { font-family: inherit; cursor: pointer; border: none; }
         </div>
       </div>
 
-      <!-- Rencontre ton Praticien -->
-      <div class="evt-card reveal" style="transition-delay:.2s">
-        <div class="evt-date-block" style="background:linear-gradient(160deg,#6366f1,#8b5cf6)">
-          <div class="evt-day">14</div>
-          <div class="evt-month">Jun.</div>
-          <div class="evt-weekday">Dimanche</div>
-        </div>
-        <div class="evt-body">
-          <div class="evt-title">Rencontre ton Praticien ✦</div>
-          <div class="evt-desc">Un salon du bien-être pour découvrir des praticiens locaux et leurs disciplines — massage, méditation, médecine douce, accompagnement... Viens explorer à ton rythme dans un cadre doux et bienveillant.</div>
-          <div class="evt-meta">
-            <span>📍 Lieu à venir</span>
-          </div>
-          <div class="evt-coming-banner">
-            <span class="ecb-icon">✦</span>
-            <span class="ecb-text">Infos, tarifs et modalités à venir — inscris-toi à la newsletter pour être la première prévenue !</span>
-            <a href="#newsletter" class="evt-notify-btn">Me tenir informée</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- La Tablée -->
-      <div class="evt-card reveal" style="transition-delay:.3s">
-        <div class="evt-date-block" style="background:linear-gradient(160deg,var(--o),var(--p))">
-          <div class="evt-day">26</div>
-          <div class="evt-month">Jun.</div>
-          <div class="evt-weekday">Vendredi</div>
-        </div>
-        <div class="evt-body">
-          <div class="evt-title">La Tablée ✦</div>
-          <div class="evt-desc">Un repas entre inconnus pour créer de vraies rencontres — bonne cuisine, mini jeux et défis pour briser la glace et repartir avec de nouveaux amis. Parce que se faire des amis, ça s'organise.</div>
-          <div class="evt-meta">
-            <span>📍 Lieu à venir</span>
-            <span>💰 Prix à venir</span>
-          </div>
-          <div class="evt-coming-banner">
-            <span class="ecb-icon">✦</span>
-            <span class="ecb-text">Places limitées — inscris-toi à la newsletter pour être prévenue en avant-première !</span>
-            <a href="#newsletter" class="evt-notify-btn">Me tenir informée</a>
-          </div>
-        </div>
-      </div>
-
     </div>
+
+    <div style="text-align:center;margin-top:40px" class="reveal">
+      <a href="agenda.html" class="btn-primary" style="display:inline-flex;align-items:center;gap:8px;">
+        Voir tous les événements ✦
+      </a>
+    </div>
+
   </div>
 </section>
 
@@ -1573,7 +1517,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
           <li><a href="#formats">Apéros Créatifs</a></li>
           <li><a href="#formats">Ateliers Famille</a></li>
           <li><a href="#formats">Événements & Soirées</a></li>
-          <li><a href="#planning">Planning</a></li>
+          <li><a href="agenda.html">Agenda</a></li>
         </ul>
       </div>
       <div class="footer-col">
